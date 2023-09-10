@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hệ thống quản lý điểm danh</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+<div class="w-100 text-center mt-4">
+    <img alt="LogoHUTECH" src="{% static 'assets/images/logo_hutech.png' %}" class="max-h-100px">
+    <h1 class="text-uppercase mt-5">Hệ thống quản lý điểm danh</h1>
+    <h3 class="mt-3">Hãy
+        <span style="font-weight:bold; text-transform:uppercase; color:red;">CHỌN ĐỐI TƯỢNG</span>
+        để
+        <span style="font-weight:bold; text-transform:uppercase; color:red;">ĐĂNG NHẬP</span>
+        vào hệ thống
+    </h3>
+</div>
+<div class="d-flex flex-column flex-lg-row flex-row-fluid text-center">
+    <div class="d-flex w-100 flex-center p-15">
+        <div class="animation-zoom w-100">
+            <a class="text-decoration-none" href="{% url 'lecturer_login' %}">
+                <img alt="LogoHUTECH" src="{% static 'assets/images/Lecturer.png' %}" style="width: 375px"
+                     height="250px">
+                <h3 class=" mb-8 mt-10 font-weight-bold text-dark">Giảng viên - Viên chức</h3>
+                <p class="mb-15 text-muted font-weight-bold">
+                    Nếu là Giảng viên - Viên chức hãy click vào đây để đăng nhập.
+                </p>
+            </a>
+        </div>
+    </div>
+    <div class="d-flex w-100 flex-center p-15">
+        <div class="animation-zoom w-100">
+            <a class="text-decoration-none" href="{% url 'student_login' %}">
+                <img alt="LogoHUTECH" src="{% static 'assets/images/StudentGraduation.png' %}" style="width: 375px"
+                     height="250px">
+                <h3 class="mb-8 mt-10 font-weight-bold text-dark">Sinh viên</h3>
+                <p class="mb-15 text-muted font-weight-bold">
+                    Nếu là sinh viên hãy click vào đây để đăng nhập.
+                </p>
+            </a>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/fonts/icomoon/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <title>Đăng nhập</title>
+</head>
+
+<body>
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 order-md-2">
+                <img src="{% static 'assets/images/undraw_file_sync_ot38.svg' %}" alt="Image" class="img-fluid">
+            </div>
+            <div class="col-md-6 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                    <h3>Cổng thông tin sinh viên</h3>
+                        <div class="mb-4">
+                            <p class="mb-4">Hệ thống quản lý điểm danh</p>
+                        </div>
+                        <form action="#" method="post">
+                            {% csrf_token %}
+                            <div class="form-group first">
+                                <label for="username">Mã số sinh viên</label>
+                                <input type="text" class="form-control" id="id_student" name="id_student">
+                            </div>
+                            <div class="form-group last mb-4">
+                                <label for="password">Mật khẩu</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            {% if error_message %}
+                                <p style="color: red;">{{ error_message }}</p>
+                            {% endif %}
+                            <input type="submit" value="Đăng nhập" class="btn text-white btn-block btn-primary">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
+</body>
+
+</html>
