@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-</head>
-<body>
-<h1>Dashboard giảng viên</h1>
-<a href="{% url 'logout' %}" class="btn btn-danger">Đăng xuất</a>
-</body>
-</html>
+{% extends "lecturer/base_lecturer_dashboard.html" %}
+
+{% block content %}
+    <h1>Home</h1>
+    <p> Welcome to the home page!</p>
+{% endblock %}
+```

@@ -69,6 +69,6 @@ def student_dashboard_view(request):
 def logout_view(request):
     if 'id_lecturer' in request.session:
         del request.session['id_lecturer']
-    if 'student_id' in request.session:
-        del request.session['student_id']
+    if 'id_student' in request.session:
+        del request.session['id_student']
     return redirect('choose_login')
