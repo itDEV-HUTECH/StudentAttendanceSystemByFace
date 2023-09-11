@@ -1,6 +1,10 @@
-from django.shortcuts import render, redirect
+from datetime import date, timedelta
 
-from main.models import LecturerInfo, StudentInfo
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
+
+from main.models import LecturerInfo, StudentInfo, Classroom
 
 
 def home(request):
@@ -66,16 +70,25 @@ def student_dashboard_view(request):
         return redirect('student_login')
 
 
-def logout_view(request):
-    if 'id_lecturer' in request.session:
-        del request.session['id_lecturer']
-    if 'id_student' in request.session:
-        del request.session['id_student']
-    return redirect('choose_login')
-
-
 def student_schedule_view(request):
-    return render(request, 'student/student_schedule.html')
+    id_student = request.session.get('id_student')
+
+    if id_student is not None:
+        today = date.today()
+        start_of_week = today - timedelta(days=today.weekday())
+        end_of_week = start_of_week + timedelta(days=6)
+
+        student_classes = Classroom.objects.filter(
+            students__id_student=id_student,
+            begin_date__lte=end_of_week,
+            end_date__gte=start_of_week
+        )
+
+        context = {'student_classes': student_classes}
+        return render(request, 'student/student_schedule.html', context)
+    else:
+        # Nếu không có id_student trong session, xử lý theo yêu cầu của bạn, ví dụ chuyển hướng đến trang đăng nhập
+        return redirect('student_dashboard')
 
 
 def student_profile_view(request):
@@ -97,3 +110,24 @@ def student_profile_view(request):
             return redirect('student_login')
     else:
         return redirect('student_login')
+
+
+def get_classroom_details(request, classroom_id):
+    classroom = get_object_or_404(Classroom, id_classroom=classroom_id)
+
+    # Tạo một template để hiển thị thông tin lớp học
+    classroom_details_template = 'student/classroom_details.html'
+
+    # Render template thành chuỗi HTML
+    classroom_details_html = render_to_string(classroom_details_template, {'classroom': classroom})
+
+    # Trả về thông tin lớp học trong dạng JSON
+    return JsonResponse({'classroom_details_html': classroom_details_html})
+
+
+def logout_view(request):
+    if 'id_lecturer' in request.session:
+        del request.session['id_lecturer']
+    if 'id_student' in request.session:
+        del request.session['id_student']
+    return redirect('choose_login')

@@ -38,6 +38,7 @@ class Classroom(models.Model):
     name = models.TextField()
     begin_date = models.DateField()
     end_date = models.DateField()
+    day_of_week_begin = models.IntegerField()
     begin_time = models.TimeField()
     end_time = models.TimeField()
     id_lecturer = models.ForeignKey(

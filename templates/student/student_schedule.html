@@ -1,6 +1,32 @@
 {% extends "student/base_student_dashboard.html" %}
 
 {% block content %}
-    <h1>Schedule</h1>
-    <p> Welcome to the schedule page!</p>
+    <div class="card-body">
+        <h5 class="card-title mb-0">Thời Khóa Biểu</h5>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Môn Học</th>
+            <th scope="col">Thời gian bắt đầu</th>
+            <th scope="col">Thời gian kết thúc</th>
+            <th scope="col">Phòng học</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for class in student_classes %}
+            <tr>
+                <td>{{ class.name }}</td>
+                <td>{{ class.begin_time|time:"H:i" }}</td>
+                <td>{{ class.end_time|time:"H:i" }}</td>
+                <td>{{ class.classroom_name }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="5">Không có lịch học nào.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}
