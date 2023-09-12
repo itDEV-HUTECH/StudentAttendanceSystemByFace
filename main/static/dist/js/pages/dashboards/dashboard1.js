@@ -84,7 +84,7 @@ $(function () {
       barSpacing: "11",
       barColor: "#fff",
     });
-    $("#views").sparkline([6, 10, 9, 11, 9, 10, 12], {
+    $("#view").sparkline([6, 10, 9, 11, 9, 10, 12], {
       type: "line",
       height: "72",
       lineColor: "transparent",

@@ -9,7 +9,7 @@ class TrainingDepartmentInfo(models.Model):
     phone = models.TextField()
     address = models.TextField()
     birthday = models.TextField()
-    password = models.CharField(max_length=16)
+    password = models.TextField()
 
 
 class LecturerInfo(models.Model):
@@ -19,7 +19,7 @@ class LecturerInfo(models.Model):
     phone = models.TextField()
     address = models.TextField()
     birthday = models.TextField()
-    password = models.CharField(max_length=16)
+    password = models.TextField()
 
 
 class StudentInfo(models.Model):
@@ -30,7 +30,7 @@ class StudentInfo(models.Model):
     address = models.TextField()
     birthday = models.TextField()
     PathImageFolder = models.TextField()
-    password = models.CharField(max_length=16)
+    password = models.TextField()
 
 
 class Classroom(models.Model):

@@ -1,32 +1,58 @@
 {% extends "student/base_student_dashboard.html" %}
 
 {% block content %}
-    <div class="card-body">
-        <h5 class="card-title mb-0">Thời Khóa Biểu</h5>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Thời Khóa Biểu</h4>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    Tuần từ ngày {{ start_of_week|date:"d/m/Y" }} đến ngày {{ end_of_week|date:"d/m/Y" }}
+                </h5>
+            </div>
+        </div>
+        <table class="table text-center">
+            <thead>
+            <tr>
+                <th scope="col">Thứ</th>
+                <th scope="col">Môn Học</th>
+                <th scope="col">Thời gian bắt đầu</th>
+                <th scope="col">Thời gian kết thúc</th>
+                <th scope="col">Phòng học</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for classroom in student_classes %}
+                <tr>
+                    <td>
+                        {% if classroom.day_of_week_begin == 1 %}
+                            Chủ Nhật
+                        {% elif classroom.day_of_week_begin == 2 %}
+                            Thứ Hai
+                        {% elif classroom.day_of_week_begin == 3 %}
+                            Thứ Ba
+                        {% elif classroom.day_of_week_begin == 4 %}
+                            Thứ Tư
+                        {% elif classroom.day_of_week_begin == 5 %}
+                            Thứ Năm
+                        {% elif classroom.day_of_week_begin == 6 %}
+                            Thứ Sáu
+                        {% elif classroom.day_of_week_begin == 7 %}
+                            Thứ Bảy
+                        {% endif %}
+                    </td>
+                    <td>{{ classroom.name }}</td>
+                    <td>{{ classroom.begin_time|time:"H:i" }}</td>
+                    <td>{{ classroom.end_time|time:"H:i" }}</td>
+                    <td>{{ classroom.classroom_name }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">Không có lịch học nào trong tuần này.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Môn Học</th>
-            <th scope="col">Thời gian bắt đầu</th>
-            <th scope="col">Thời gian kết thúc</th>
-            <th scope="col">Phòng học</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for class in student_classes %}
-            <tr>
-                <td>{{ class.name }}</td>
-                <td>{{ class.begin_time|time:"H:i" }}</td>
-                <td>{{ class.end_time|time:"H:i" }}</td>
-                <td>{{ class.classroom_name }}</td>
-            </tr>
-        {% empty %}
-            <tr>
-                <td colspan="5">Không có lịch học nào.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
 {% endblock %}
