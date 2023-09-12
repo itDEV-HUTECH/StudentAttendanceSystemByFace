@@ -12,10 +12,7 @@ def home(request):
 
 
 def logout_view(request):
-    if 'id_lecturer' in request.session:
-        del request.session['id_lecturer']
-    if 'id_student' in request.session:
-        del request.session['id_student']
+    request.session.clear()
     return redirect('choose_login')
 
 

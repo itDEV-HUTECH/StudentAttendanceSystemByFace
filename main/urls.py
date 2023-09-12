@@ -3,7 +3,6 @@ from django.urls import path
 from main.view import admin_views
 from main.view import lecturer_views
 from main.view import student_views
-
 from . import views
 
 # Create your views here.
@@ -19,7 +18,7 @@ urlpatterns = [
     path('student/dashboard', student_views.student_dashboard_view, name='student_dashboard'),
     path('student/schedule', student_views.student_schedule_view, name='student_schedule'),
     path('student/profile', student_views.student_profile_view, name='student_profile'),
-    path('student/account-setting', student_views.student_account_setting_view, name='student_account_setting'),
+    path('student/change-password', student_views.student_change_password_view, name='student_change_password'),
 
     path('logout', views.logout_view, name='logout'),
     path('hashpassword', views.hash_password, name='hash_password'),
