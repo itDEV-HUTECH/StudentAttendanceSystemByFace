@@ -51,6 +51,8 @@ def student_schedule_view(request):
 
         student_classes = Classroom.objects.filter(
             students__id_student=id_student,
+            begin_date__lte=end_of_week,
+            end_date__gte=start_of_week
         )
 
         context = {
