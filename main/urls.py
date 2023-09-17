@@ -13,7 +13,7 @@ urlpatterns = [
 
     path('lecturer/login', lecturer_views.lecturer_login_view, name='lecturer_login'),
     path('lecturer/dashboard', lecturer_views.lecturer_dashboard_view, name='lecturer_dashboard'),
-
+    path('lecturer/schedule', lecturer_views.lecturer_schedule_view, name='lecturer_schedule'),
     path('lecturer/profile', lecturer_views.lecturer_profile_view, name='lecturer_profile'),
     path('lecturer/change-password', lecturer_views.lecturer_change_password_view, name='lecturer_change_password'),
 
