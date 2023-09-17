@@ -7,25 +7,30 @@
         </div>
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
+                <a href="?week_start={{ previous_week_start }}" class="btn btn-sm btn-primary">Tuần Trước</a>
                 <h5 class="mb-0">
-                    Tuần từ ngày {{ start_of_week|date:"d/m/Y" }} đến ngày {{ end_of_week|date:"d/m/Y" }}
+                    Tuần từ ngày
+                    <strong class="text-danger">{{ start_of_week|date:"d/m/Y" }}</strong>
+                    đến ngày
+                    <strong class="text-danger">{{ end_of_week|date:"d/m/Y" }}</strong>
                 </h5>
+                <a href="?week_start={{ next_week_start }}" class="btn btn-sm btn-primary">Tuần Sau</a>
             </div>
         </div>
-        <table class="table text-center">
+        <table class="table">
             <thead>
             <tr>
-                <th scope="col">Thứ</th>
+                <th class="text-center" scope="col">Thứ</th>
+                <th class="text-center" scope="col">Giảng viên</th>
                 <th scope="col">Môn Học</th>
-                <th scope="col">Thời gian bắt đầu</th>
-                <th scope="col">Thời gian kết thúc</th>
-                <th scope="col">Phòng học</th>
+                <th class="text-center" scope="col">Thời gian bắt đầu</th>
+                <th class="text-center" scope="col">Thời gian kết thúc</th>
             </tr>
             </thead>
             <tbody>
             {% for classroom in student_classes %}
                 <tr>
-                    <td>
+                    <td class="text-center">
                         {% if classroom.day_of_week_begin == 1 %}
                             Chủ Nhật
                         {% elif classroom.day_of_week_begin == 2 %}
@@ -42,14 +47,14 @@
                             Thứ Bảy
                         {% endif %}
                     </td>
+                    <td class="text-center">{{ classroom.id_lecturer.lecturer_name }}</td>
                     <td>{{ classroom.name }}</td>
-                    <td>{{ classroom.begin_time|time:"H:i" }}</td>
-                    <td>{{ classroom.end_time|time:"H:i" }}</td>
-                    <td>{{ classroom.classroom_name }}</td>
+                    <td class="text-center">{{ classroom.begin_time|time:"H:i" }}</td>
+                    <td class="text-center">{{ classroom.end_time|time:"H:i" }}</td>
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="5">Không có lịch học nào trong tuần này.</td>
+                    <td class="text-center" colspan="5">Không có lịch học nào trong tuần này.</td>
                 </tr>
             {% endfor %}
             </tbody>

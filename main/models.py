@@ -8,7 +8,7 @@ class TrainingDepartmentInfo(models.Model):
     email = models.TextField()
     phone = models.TextField()
     address = models.TextField()
-    birthday = models.TextField()
+    birthday = models.DateField()
     password = models.TextField()
 
 
@@ -18,7 +18,7 @@ class LecturerInfo(models.Model):
     email = models.TextField()
     phone = models.TextField()
     address = models.TextField()
-    birthday = models.TextField()
+    birthday = models.DateField()
     password = models.TextField()
 
 
@@ -28,7 +28,7 @@ class StudentInfo(models.Model):
     email = models.TextField()
     phone = models.TextField()
     address = models.TextField()
-    birthday = models.TextField()
+    birthday = models.DateField()
     PathImageFolder = models.TextField()
     password = models.TextField()
 

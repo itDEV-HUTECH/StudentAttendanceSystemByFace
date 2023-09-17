@@ -3,6 +3,7 @@ from datetime import date, timedelta
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import make_password, check_password
+from django.http import Http404
 from django.shortcuts import redirect, render
 
 from main.models import StudentInfo, Classroom
@@ -43,20 +44,39 @@ def student_dashboard_view(request):
 
 def student_schedule_view(request):
     id_student = request.session.get('id_student')
+    week_start_param = request.GET.get('week_start')
 
     if id_student is not None:
-        today = date.today()
-        start_of_week = today - timedelta(days=today.weekday())
-        end_of_week = start_of_week + timedelta(days=6)
+        if week_start_param:
+            try:
+                week_start = date.fromisoformat(week_start_param)
+            except ValueError:
+                raise Http404("Invalid date format for week_start parameter")
+        else:
+            today = date.today()
+            week_start = today - timedelta(days=today.weekday())
 
+        end_of_week = week_start + timedelta(days=6)
+
+        # Lọc lớp học dựa trên id sinh viên và tuần hiện tại
         student_classes = Classroom.objects.filter(
             students__id_student=id_student,
+            begin_date__lte=end_of_week,
+            end_date__gte=week_start
         )
+
+        previous_week_start = week_start - timedelta(days=7)
+        next_week_start = week_start + timedelta(days=7)
+
+        previous_week_start = previous_week_start.strftime("%Y-%m-%d")
+        next_week_start = next_week_start.strftime("%Y-%m-%d")
 
         context = {
             'student_classes': student_classes,
-            'start_of_week': start_of_week,
+            'start_of_week': week_start,
             'end_of_week': end_of_week,
+            'previous_week_start': previous_week_start,
+            'next_week_start': next_week_start,
         }
         return render(request, 'student/student_schedule.html', context)
     else:
