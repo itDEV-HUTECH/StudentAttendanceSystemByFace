@@ -1,9 +1,12 @@
+from datetime import date, timedelta
+
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
+from django.http import Http404
 from django.shortcuts import redirect, render
 
-from main.models import LecturerInfo
+from main.models import LecturerInfo, Classroom
 
 
 def lecturer_login_view(request):
@@ -36,10 +39,44 @@ def lecturer_dashboard_view(request):
 
 
 def lecturer_schedule_view(request):
-    if 'id_lecturer' in request.session:
-        return render(request, 'lecturer/lecturer_schedule.html')
+    id_lecturer = request.session.get('id_lecturer')
+    week_start_param = request.GET.get('week_start')
+
+    if id_lecturer is not None:
+        if week_start_param:
+            try:
+                week_start = date.fromisoformat(week_start_param)
+            except ValueError:
+                raise Http404("Invalid date format for week_start parameter")
+        else:
+            today = date.today()
+            week_start = today - timedelta(days=today.weekday())
+
+        end_of_week = week_start + timedelta(days=6)
+
+        lecturer_classes = Classroom.objects.filter(
+            id_lecturer__id_lecturer=id_lecturer,
+            begin_date__lte=end_of_week,
+            end_date__gte=week_start
+        )
+
+        previous_week_start = week_start - timedelta(days=7)
+        next_week_start = week_start + timedelta(days=7)
+
+        previous_week_start = previous_week_start.strftime("%Y-%m-%d")
+        next_week_start = next_week_start.strftime("%Y-%m-%d")
+
+        context = {
+            'lecturer_classes': lecturer_classes,
+            'start_of_week': week_start,
+            'end_of_week': end_of_week,
+            'previous_week_start': previous_week_start,
+            'next_week_start': next_week_start,
+        }
+        return render(request, 'lecturer/lecturer_schedule.html', context)
     else:
-        return redirect('lecturer_login')
+        request.session['next_url'] = request.path
+        return redirect('student_login')
 
 
 def lecturer_profile_view(request):

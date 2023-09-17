@@ -58,11 +58,10 @@ def student_schedule_view(request):
 
         end_of_week = week_start + timedelta(days=6)
 
-        # Lọc lớp học dựa trên id sinh viên và tuần hiện tại
         student_classes = Classroom.objects.filter(
             students__id_student=id_student,
             begin_date__lte=end_of_week,
-            end_date__gte=week_start
+            end_date__gte=week_start,
         )
 
         previous_week_start = week_start - timedelta(days=7)
