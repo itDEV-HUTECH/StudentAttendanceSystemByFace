@@ -6,43 +6,43 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.http import Http404
 from django.shortcuts import redirect, render
 
-from main.models import LecturerInfo, Classroom
+from main.models import StaffInfo, Classroom
 
 
 def lecturer_login_view(request):
-    if 'id_lecturer' in request.session:
+    if 'id_staff' in request.session:
         return redirect('lecturer_dashboard')
 
     error_message = None
     if request.method == 'POST':
-        id_lecturer = request.POST.get('id_lecturer')
+        id_staff = request.POST.get('id_staff')
         password = request.POST.get('password')
 
         try:
-            lecturer = LecturerInfo.objects.get(id_lecturer=id_lecturer)
+            lecturer = StaffInfo.objects.get(id_staff=id_staff)
             if check_password(password, lecturer.password):
-                request.session['id_lecturer'] = lecturer.id_lecturer
+                request.session['id_staff'] = lecturer.id_staff
                 return redirect('lecturer_dashboard')
             else:
                 error_message = "Tên đăng nhập hoặc mật khẩu không đúng."
-        except LecturerInfo.DoesNotExist:
+        except StaffInfo.DoesNotExist:
             error_message = "Tên đăng nhập hoặc mật khẩu không đúng."
 
     return render(request, 'lecturer/lecturer_login.html', {'error_message': error_message})
 
 
 def lecturer_dashboard_view(request):
-    if 'id_lecturer' in request.session:
+    if 'id_staff' in request.session:
         return render(request, 'lecturer/lecturer_home.html')
     else:
         return redirect('lecturer_login')
 
 
 def lecturer_schedule_view(request):
-    id_lecturer = request.session.get('id_lecturer')
+    id_staff = request.session.get('id_staff')
     week_start_param = request.GET.get('week_start')
 
-    if id_lecturer is not None:
+    if id_staff is not None:
         if week_start_param:
             try:
                 week_start = date.fromisoformat(week_start_param)
@@ -55,7 +55,7 @@ def lecturer_schedule_view(request):
         end_of_week = week_start + timedelta(days=6)
 
         lecturer_classes = Classroom.objects.filter(
-            id_lecturer__id_lecturer=id_lecturer,
+            id_lecturer__id_staff=id_staff,
             begin_date__lte=end_of_week,
             end_date__gte=week_start
         )
@@ -80,10 +80,10 @@ def lecturer_schedule_view(request):
 
 
 def lecturer_profile_view(request):
-    if 'id_lecturer' in request.session:
-        id_lecturer = request.session['id_lecturer']
+    if 'id_staff' in request.session:
+        id_staff = request.session['id_staff']
         try:
-            lecturer = LecturerInfo.objects.get(id_lecturer=id_lecturer)
+            lecturer = StaffInfo.objects.get(id_staff=id_staff)
 
             if request.method == 'POST':
                 lecturer.lecturer_name = request.POST['lecturer_name']
@@ -95,7 +95,7 @@ def lecturer_profile_view(request):
                 messages.success(request, 'Thay đổi thông tin thành công.')
             context = {'lecturer': lecturer}
             return render(request, 'lecturer/lecturer_profile.html', context)
-        except LecturerInfo.DoesNotExist:
+        except StaffInfo.DoesNotExist:
             return redirect('lecturer_login')
     else:
         request.session['next_url'] = request.path
@@ -103,11 +103,11 @@ def lecturer_profile_view(request):
 
 
 def lecturer_change_password_view(request):
-    if 'id_lecturer' in request.session:
-        id_lecturer = request.session['id_lecturer']
+    if 'id_staff' in request.session:
+        id_staff = request.session['id_staff']
 
         try:
-            lecturer = LecturerInfo.objects.get(id_lecturer=id_lecturer)
+            lecturer = StaffInfo.objects.get(id_staff=id_staff)
 
             if request.method == 'POST':
                 old_password = request.POST['old_password']
@@ -127,7 +127,7 @@ def lecturer_change_password_view(request):
 
             return render(request, 'lecturer/lecturer_change_password.html')
 
-        except LecturerInfo.DoesNotExist:
+        except StaffInfo.DoesNotExist:
             return redirect('lecturer_login')
     else:
         request.session['next_url'] = request.path
