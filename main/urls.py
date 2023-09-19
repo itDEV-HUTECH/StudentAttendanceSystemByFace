@@ -9,9 +9,9 @@ from . import views
 urlpatterns = [
     path('', views.home, name='choose_login'),
 
-    path('admin/', admin_views.admin_login_view, name='admin_login'),
+    path('login', views.login_view, name='login'),
+    path('admin/dashboard', admin_views.admin_dashboard_view, name='admin_dashboard'),
 
-    path('lecturer/login', lecturer_views.lecturer_login_view, name='lecturer_login'),
     path('lecturer/dashboard', lecturer_views.lecturer_dashboard_view, name='lecturer_dashboard'),
     path('lecturer/schedule', lecturer_views.lecturer_schedule_view, name='lecturer_schedule'),
     path('lecturer/profile', lecturer_views.lecturer_profile_view, name='lecturer_profile'),
