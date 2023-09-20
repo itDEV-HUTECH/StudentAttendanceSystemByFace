@@ -6,38 +6,16 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.http import Http404
 from django.shortcuts import redirect, render
 
+from main.decorators import lecturer_required
 from main.models import StaffInfo, Classroom
 
 
-def lecturer_login_view(request):
-    if 'id_staff' in request.session:
-        return redirect('lecturer_dashboard')
-
-    error_message = None
-    if request.method == 'POST':
-        id_staff = request.POST.get('id_staff')
-        password = request.POST.get('password')
-
-        try:
-            lecturer = StaffInfo.objects.get(id_staff=id_staff)
-            if check_password(password, lecturer.password):
-                request.session['id_staff'] = lecturer.id_staff
-                return redirect('lecturer_dashboard')
-            else:
-                error_message = "Tên đăng nhập hoặc mật khẩu không đúng."
-        except StaffInfo.DoesNotExist:
-            error_message = "Tên đăng nhập hoặc mật khẩu không đúng."
-
-    return render(request, 'lecturer/lecturer_login.html', {'error_message': error_message})
-
-
+@lecturer_required
 def lecturer_dashboard_view(request):
-    if 'id_staff' in request.session:
-        return render(request, 'lecturer/lecturer_home.html')
-    else:
-        return redirect('lecturer_login')
+    return render(request, 'lecturer/lecturer_home.html')
 
 
+@lecturer_required
 def lecturer_schedule_view(request):
     id_staff = request.session.get('id_staff')
     week_start_param = request.GET.get('week_start')
@@ -79,6 +57,7 @@ def lecturer_schedule_view(request):
         return redirect('student_login')
 
 
+@lecturer_required
 def lecturer_profile_view(request):
     if 'id_staff' in request.session:
         id_staff = request.session['id_staff']
@@ -86,7 +65,7 @@ def lecturer_profile_view(request):
             lecturer = StaffInfo.objects.get(id_staff=id_staff)
 
             if request.method == 'POST':
-                lecturer.lecturer_name = request.POST['lecturer_name']
+                lecturer.staff_name = request.POST['lecturer_name']
                 lecturer.email = request.POST['email']
                 lecturer.phone = request.POST['phone']
                 lecturer.address = request.POST['address']
@@ -96,12 +75,13 @@ def lecturer_profile_view(request):
             context = {'lecturer': lecturer}
             return render(request, 'lecturer/lecturer_profile.html', context)
         except StaffInfo.DoesNotExist:
-            return redirect('lecturer_login')
+            return redirect('login')
     else:
         request.session['next_url'] = request.path
-        return redirect('lecturer_login')
+        return redirect('login')
 
 
+@lecturer_required
 def lecturer_change_password_view(request):
     if 'id_staff' in request.session:
         id_staff = request.session['id_staff']
@@ -128,7 +108,7 @@ def lecturer_change_password_view(request):
             return render(request, 'lecturer/lecturer_change_password.html')
 
         except StaffInfo.DoesNotExist:
-            return redirect('lecturer_login')
+            return redirect('login')
     else:
         request.session['next_url'] = request.path
-        return redirect('lecturer_login')
+        return redirect('login')
