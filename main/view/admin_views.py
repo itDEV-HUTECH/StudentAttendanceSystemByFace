@@ -1,8 +1,8 @@
 from django.shortcuts import render
 
+from main.decorators import admin_required
 
+
+@admin_required
 def admin_dashboard_view(request):
-    if 'id_staff' in request.session:
-        return render(request, 'admin/admin_dashboard.html')
-    else:
-        return render(request, 'login.html')
+    return render(request, 'admin/admin_home.html')

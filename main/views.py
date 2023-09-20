@@ -16,6 +16,13 @@ def home(request):
         return render(request, 'choose_login.html')
 
 
+role_to_dashboard = {
+    'Admin': 'admin_dashboard',
+    'Lecturer': 'lecturer_dashboard',
+    'Staff': 'staff_dashboard'
+}
+
+
 def login_view(request):
     if 'id_staff' in request.session:
         if 'Admin' in request.session['staff_role']:
@@ -34,10 +41,12 @@ def login_view(request):
                 user_roles = lecturer.roles.all()
                 request.session['id_staff'] = id_staff
                 request.session['staff_role'] = [role.name for role in user_roles]
-                if 'Admin' in request.session['staff_role']:
-                    return redirect('admin_dashboard')
-                elif 'Lecturer' in request.session['staff_role']:
-                    return redirect('lecturer_dashboard')
+                for role in user_roles:
+                    if role.name in role_to_dashboard:
+                        return redirect(role_to_dashboard[role.name])
+
+                error_message = "Vai trò không hợp lệ."
+
             else:
                 error_message = "Tên đăng nhập hoặc mật khẩu không đúng."
         except StaffInfo.DoesNotExist:
@@ -49,6 +58,22 @@ def login_view(request):
 def logout_view(request):
     request.session.clear()
     return redirect('choose_login')
+
+
+def error_403_view(request):
+    return render(request, 'error/error-403.html')
+
+
+def error_404_view(request):
+    return render(request, 'error/error-404.html')
+
+
+def error_405_view(request):
+    return render(request, 'error/error-405.html')
+
+
+def error_500_view(request):
+    return render(request, 'error/error-500.html')
 
 
 def hash_password(request):

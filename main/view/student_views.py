@@ -6,9 +6,11 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.http import Http404
 from django.shortcuts import redirect, render
 
+from main.decorators import student_required
 from main.models import StudentInfo, Classroom
 
 
+@student_required
 def student_login_view(request):
     if request.user.is_authenticated:
         return redirect('student_dashboard')
@@ -35,6 +37,7 @@ def student_login_view(request):
     return render(request, 'student/student_login.html', {'error_message': error_message})
 
 
+@student_required
 def student_dashboard_view(request):
     if 'id_student' in request.session:
         return render(request, 'student/student_home.html')
@@ -42,6 +45,7 @@ def student_dashboard_view(request):
         return redirect('student_login')
 
 
+@student_required
 def student_schedule_view(request):
     id_student = request.session.get('id_student')
     week_start_param = request.GET.get('week_start')
@@ -83,6 +87,7 @@ def student_schedule_view(request):
         return redirect('student_login')
 
 
+@student_required
 def student_profile_view(request):
     if 'id_student' in request.session:
         id_student = request.session['id_student']
@@ -106,6 +111,7 @@ def student_profile_view(request):
         return redirect('student_login')
 
 
+@student_required
 def student_change_password_view(request):
     if 'id_student' in request.session:
         id_student = request.session['id_student']

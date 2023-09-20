@@ -6,16 +6,16 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.http import Http404
 from django.shortcuts import redirect, render
 
+from main.decorators import lecturer_required
 from main.models import StaffInfo, Classroom
 
 
+@lecturer_required
 def lecturer_dashboard_view(request):
-    if 'id_staff' in request.session:
-        return render(request, 'lecturer/lecturer_home.html')
-    else:
-        return redirect('login')
+    return render(request, 'lecturer/lecturer_home.html')
 
 
+@lecturer_required
 def lecturer_schedule_view(request):
     id_staff = request.session.get('id_staff')
     week_start_param = request.GET.get('week_start')
@@ -57,6 +57,7 @@ def lecturer_schedule_view(request):
         return redirect('student_login')
 
 
+@lecturer_required
 def lecturer_profile_view(request):
     if 'id_staff' in request.session:
         id_staff = request.session['id_staff']
@@ -80,6 +81,7 @@ def lecturer_profile_view(request):
         return redirect('login')
 
 
+@lecturer_required
 def lecturer_change_password_view(request):
     if 'id_staff' in request.session:
         id_staff = request.session['id_staff']
