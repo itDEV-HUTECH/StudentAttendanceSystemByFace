@@ -1,0 +1,51 @@
+{% extends "admin/base_admin_dashboard.html" %}
+
+{% load static %}
+
+{% block css %}
+    <link href="{% static '' %}assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static '' %}assets/extra-libs/multicheck/multicheck.css"/>
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title mb-0">Static Table With Checkboxes</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="text-center">
+                <tr>
+                    <th>
+                        <label class="customcheckbox mb-3">
+                            <input type="checkbox" id="mainCheckbox"/>
+                            <span class="checkmark"></span>
+                        </label>
+                    </th>
+                    <th scope="col">MSSV</th>
+                    <th scope="col">Họ và tên</th>
+                    <th scope="col">Email(s)</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Ngày sinh</th>
+                    <th scope="col">Đường dẫn ảnh</th>
+                </tr>
+                </thead>
+                <tbody class="customtable">
+                {% for student in list_students %}
+                    <tr class="text-center">
+                        <td></td>
+                        <td>{{ student.id_student }}</td>
+                        <td>{{ student.student_name }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.phone }}</td>
+                        <td>{{ student.address }}</td>
+                        <td>{{ student.birthday|date:"d/m/Y" }}</td>
+                        <td>{{ student.PathImageFolder }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

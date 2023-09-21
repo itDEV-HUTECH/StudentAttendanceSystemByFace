@@ -28,7 +28,7 @@ def lecturer_required(view_func):
 def student_required(view_func):
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
-        if 'Student' in request.session.get('staff_role', []):
+        if 'id_student' in request.session:
             return view_func(request, *args, **kwargs)
         else:
             return redirect('error_403')

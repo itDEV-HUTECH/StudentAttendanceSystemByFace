@@ -10,9 +10,8 @@ from main.decorators import student_required
 from main.models import StudentInfo, Classroom
 
 
-@student_required
 def student_login_view(request):
-    if request.user.is_authenticated:
+    if 'id_student' in request.session:
         return redirect('student_dashboard')
 
     error_message = None
