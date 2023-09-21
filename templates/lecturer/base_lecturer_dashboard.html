@@ -10,9 +10,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{% static '' %}assets/images/favicon.png"/>
     <link href="{% static '' %}assets/libs/flot/css/float-chart.css" rel="stylesheet"/>
     <link href="{% static '' %}dist/css/style.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -90,16 +87,16 @@
             <nav class="sidebar-nav">
                 <ul id="sidebarnav" class="pt-4">
                     <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        <a class="sidebar-link waves-effect waves-dark"
                            href="{% url 'lecturer_dashboard' %}" aria-expanded="false">
-                            <i class="fa-sharp fa-solid fa-house fa-sm"></i>
+                            <i class="mdi mdi-home"></i>
                             <span class="hide-menu">Trang chủ</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        <a class="sidebar-link waves-effect waves-dark"
                            href="{% url 'lecturer_schedule' %}" aria-expanded="false">
-                            <i class="fa-solid fa-calendar-days fa-2xl"></i>
+                            <i class="mdi mdi-calendar"></i>
                             <span class="hide-menu">Thời khóa biểu</span>
                         </a>
                     </li>
