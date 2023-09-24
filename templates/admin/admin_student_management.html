@@ -34,7 +34,12 @@
                 <tbody class="customtable">
                 {% for student in list_students %}
                     <tr class="text-center">
-                        <td></td>
+                        <th>
+                            <label class="customcheckbox">
+                                <input type="checkbox" class="listCheckbox"/>
+                                <span class="checkmark"></span>
+                            </label>
+                        </th>
                         <td>{{ student.id_student }}</td>
                         <td>{{ student.student_name }}</td>
                         <td>{{ student.email }}</td>
