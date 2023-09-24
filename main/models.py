@@ -68,6 +68,6 @@ class StudentClassDetails(models.Model):
 class Attendance(models.Model):
     id_attendance = models.BigAutoField(primary_key=True)
     check_in_time = models.DateTimeField()
-    attendance_status_bit = models.BooleanField()
+    attendance_status = models.IntegerField()
     id_classroom = models.ForeignKey('Classroom', on_delete=models.SET_NULL, null=True)
     id_student = models.ForeignKey('StudentInfo', on_delete=models.CASCADE)
