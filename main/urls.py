@@ -21,6 +21,11 @@ urlpatterns = [
     path('lecturer/schedule', lecturer_views.lecturer_schedule_view, name='lecturer_schedule'),
     path('lecturer/profile', lecturer_views.lecturer_profile_view, name='lecturer_profile'),
     path('lecturer/change-password', lecturer_views.lecturer_change_password_view, name='lecturer_change_password'),
+    path('lecturer/attendance', lecturer_views.lecturer_attendance_class_view, name='lecturer_attendance'),
+    path('lecturer/attendance/<int:classroom_id>', lecturer_views.lecturer_mark_attendance,
+         name='lecturer_mark_attendance'),
+    path('lecturer/attendance-history', lecturer_views.lecturer_attendance_history_view,
+         name='lecturer_attendance_history'),
 
     # Student
     path('student/login', student_views.student_login_view, name='student_login'),

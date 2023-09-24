@@ -1,0 +1,75 @@
+{% extends "lecturer/base_lecturer_dashboard.html" %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Thời Khóa Biểu</h4>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    Tuần từ ngày
+                    <strong class="text-danger">{{ start_of_week|date:"d/m/Y" }}</strong>
+                    đến ngày
+                    <strong class="text-danger">{{ end_of_week|date:"d/m/Y" }}</strong>
+                </h5>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">Thứ</th>
+                <th scope="col">Môn Học</th>
+                <th class="text-center" scope="col">Thời gian bắt đầu</th>
+                <th class="text-center" scope="col">Thời gian kết thúc</th>
+                <th class="text-center" scope="col">Chức năng</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for classroom in lecturer_classes %}
+                <tr>
+                    <td class="text-center">
+                        {% if classroom.day_of_week_begin == 7 %}
+                            Chủ Nhật
+                        {% elif classroom.day_of_week_begin == 1 %}
+                            Thứ Hai
+                        {% elif classroom.day_of_week_begin == 2 %}
+                            Thứ Ba
+                        {% elif classroom.day_of_week_begin == 3 %}
+                            Thứ Tư
+                        {% elif classroom.day_of_week_begin == 4 %}
+                            Thứ Năm
+                        {% elif classroom.day_of_week_begin == 5 %}
+                            Thứ Sáu
+                        {% elif classroom.day_of_week_begin == 6 %}
+                            Thứ Bảy
+                        {% endif %}
+                    </td>
+                    <td>{{ classroom.name }}</td>
+                    <td class="text-center">{{ classroom.begin_time|time:"H:i" }}</td>
+                    <td class="text-center">{{ classroom.end_time|time:"H:i" }}</td>
+                    <td class="text-center">
+                        {% if classroom.day_of_week_begin == day_of_week_today %}
+                            <a href="{% url 'lecturer_mark_attendance' classroom.id_classroom %}"
+                               class="btn btn-primary"
+                               target="_self">
+                                Điểm danh
+                            </a>
+                        {% else %}
+                            <button class="btn btn-secondary" disabled>
+                                Không phải ngày học
+                            </button>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td class="text-center" colspan="5">Không có lịch học nào trong tuần này.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+

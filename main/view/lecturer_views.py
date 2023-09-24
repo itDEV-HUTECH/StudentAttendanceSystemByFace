@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -7,7 +7,7 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 
 from main.decorators import lecturer_required
-from main.models import StaffInfo, Classroom
+from main.models import StaffInfo, Classroom, StudentClassDetails, Attendance
 
 
 @lecturer_required
@@ -54,7 +54,7 @@ def lecturer_schedule_view(request):
         return render(request, 'lecturer/lecturer_schedule.html', context)
     else:
         request.session['next_url'] = request.path
-        return redirect('student_login')
+        return redirect('login')
 
 
 @lecturer_required
@@ -112,3 +112,73 @@ def lecturer_change_password_view(request):
     else:
         request.session['next_url'] = request.path
         return redirect('login')
+
+
+@lecturer_required
+def lecturer_attendance_class_view(request):
+    id_staff = request.session.get('id_staff')
+
+    if id_staff is not None:
+        today = date.today()
+        week_start = today - timedelta(days=today.weekday())
+        end_of_week = week_start + timedelta(days=6)
+
+        lecturer_classes = Classroom.objects.filter(
+            id_lecturer__id_staff=id_staff,
+            begin_date__lte=end_of_week,
+            end_date__gte=week_start
+        )
+
+        day_of_week_today = today.isoweekday()
+
+        context = {
+            'lecturer_classes': lecturer_classes,
+            'start_of_week': week_start,
+            'end_of_week': end_of_week,
+            'day_of_week_today': day_of_week_today,
+        }
+
+        return render(request, 'lecturer/lecturer_attendance_class.html', context)
+    else:
+        request.session['next_url'] = request.path
+        return redirect('login')
+
+
+def lecturer_mark_attendance(request, classroom_id):
+    classroom = Classroom.objects.get(pk=classroom_id)
+    students_in_class = StudentClassDetails.objects.filter(id_classroom=classroom)
+    attendance_list = Attendance.objects.filter(id_classroom=classroom)
+
+    if request.method == 'POST':
+        for student in students_in_class:
+            student_id = student.id_student
+            attendance_status = request.POST.get(f'attendance_status_{student_id.id_student}')
+
+            attendance = Attendance.objects.filter(
+                id_student=student_id,
+                id_classroom=classroom,
+                check_in_time__date=datetime.now().date()
+            ).first()
+
+            if attendance:
+                attendance.attendance_status = attendance_status
+                attendance.check_in_time = datetime.now()
+                attendance.save()
+            else:
+                attendance = Attendance.objects.create(
+                    id_student=student_id,
+                    id_classroom=classroom,
+                    check_in_time=datetime.now(),
+                    attendance_status=attendance_status
+                )
+
+        return redirect('lecturer_mark_attendance', classroom_id=classroom_id)
+
+    context = {'students_in_class': students_in_class,
+               'classroom': classroom,
+               'attendance_list': attendance_list}
+    return render(request, 'lecturer/lecturer_mask_attendance.html', context)
+
+
+def lecturer_attendance_history_view(request):
+    return render(request, 'lecturer/lecturer_attendance_history.html')
