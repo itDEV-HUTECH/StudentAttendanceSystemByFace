@@ -3,6 +3,7 @@ from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
 from main.decorators import admin_required
@@ -74,5 +75,17 @@ def admin_change_password_view(request):
 @admin_required
 def admin_student_management_view(request):
     students = StudentInfo.objects.all()
-    context = {'list_students': students}
+    per_page = 2
+    paginator = Paginator(students, per_page)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    context = {
+        'list_students': page,
+    }
     return render(request, 'admin/admin_student_management.html', context)
+
+
+@admin_required
+def admin_student_delete(request, id_student):
+    StudentInfo.objects.filter(id_student=id_student).delete()
+    return redirect('admin_student_management')

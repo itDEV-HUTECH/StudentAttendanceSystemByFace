@@ -52,7 +52,7 @@
                             {# <a href="{% url 'admin:edit_student' student.id_student %}" class="btn btn-primary btn-sm">Sửa</a> #}
                             <a href="javascript:void(0)" class="btn btn-danger btn-sm mdi mdi-delete"
                                onclick="confirmDelete({{ student.id_student }})">Xóa</a>
-                            <a href="#" class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
+                            <a href="javascript:void(0)" class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
                         </td>
                     </tr>
                 {% empty %}
@@ -103,7 +103,7 @@
 
     <!-- Modal Xác nhận xóa -->
     <div id="confirmDeleteModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Xác nhận xóa</h4>
@@ -123,7 +123,8 @@
     {% block script %}
         <script>
             function confirmDelete(studentId) {
-                $('#confirmDeleteButton').attr('href', "{% url 'admin_student_delete' id_student=0 %}" + studentId);
+                var deleteUrl = "{% url 'admin_student_delete' '1' %}".replace('1', studentId);
+                $('#confirmDeleteButton').attr('href', deleteUrl);
                 $('#confirmDeleteModal').modal('show');
             }
 
