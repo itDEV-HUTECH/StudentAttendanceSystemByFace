@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -98,7 +98,7 @@ def student_profile_view(request):
                 student.email = request.POST['email']
                 student.phone = request.POST['phone']
                 student.address = request.POST['address']
-                student.birthday = request.POST['birthday']
+                student.birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
                 student.save()
                 messages.success(request, 'Thay đổi thông tin thành công.')
             context = {'student': student}

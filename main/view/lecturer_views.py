@@ -69,7 +69,7 @@ def lecturer_profile_view(request):
                 lecturer.email = request.POST['email']
                 lecturer.phone = request.POST['phone']
                 lecturer.address = request.POST['address']
-                lecturer.birthday = request.POST['birthday']
+                lecturer.birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
                 lecturer.save()
                 messages.success(request, 'Thay đổi thông tin thành công.')
             context = {'lecturer': lecturer}

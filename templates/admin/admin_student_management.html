@@ -10,7 +10,7 @@
 {% block content %}
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-0">Static Table With Checkboxes</h5>
+            <h3 class="card-title mb-0">Danh sách sinh viên</h3>
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -29,6 +29,7 @@
                     <th scope="col">Địa chỉ</th>
                     <th scope="col">Ngày sinh</th>
                     <th scope="col">Đường dẫn ảnh</th>
+                    <th scope="col">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
@@ -47,10 +48,89 @@
                         <td>{{ student.address }}</td>
                         <td>{{ student.birthday|date:"d/m/Y" }}</td>
                         <td>{{ student.PathImageFolder }}</td>
+                        <td>
+                            {# <a href="{% url 'admin:edit_student' student.id_student %}" class="btn btn-primary btn-sm">Sửa</a> #}
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm mdi mdi-delete"
+                               onclick="confirmDelete({{ student.id_student }})">Xóa</a>
+                            <a href="#" class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr class="text-center text-danger">
+                        <td colspan="10"><strong>Không tồn tại sinh viên nào trong cơ sở dữ liệu!</strong></td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
+        <div class="pagination justify-content-center">
+            <ul class="pagination">
+                {% if list_students.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">‹‹</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ list_students.previous_page_number }}">‹</a>
+                    </li>
+                {% endif %}
+
+                {% for i in list_students.paginator.page_range %}
+                    {% if list_students.number == i %}
+                        <li class="page-item active">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% elif i > list_students.number|add:'-3' and i < list_students.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if list_students.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ list_students.next_page_number }}">›</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ list_students.paginator.num_pages }}">››</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="text-center">
+            <p>Trang {{ list_students.number }} / {{ list_students.paginator.num_pages }}</p>
+        </div>
     </div>
+
+    <!-- Modal Xác nhận xóa -->
+    <div id="confirmDeleteModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Xác nhận xóa</h4>
+                    <button id="closeModal" type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xóa sinh viên này?</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="close_Modal" type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <a id="confirmDeleteButton" href="#" class="btn btn-danger">Xóa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block script %}
+        <script>
+            function confirmDelete(studentId) {
+                $('#confirmDeleteButton').attr('href', "{% url 'admin_student_delete' id_student=0 %}" + studentId);
+                $('#confirmDeleteModal').modal('show');
+            }
+
+            $('#closeModal, #close_Modal').click(function () {
+                $('#confirmDeleteModal').modal('hide');
+            });
+        </script>
+    {% endblock %}
+
 {% endblock %}

@@ -10,6 +10,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{% static '' %}assets/images/favicon.png"/>
     <link href="{% static '' %}assets/libs/flot/css/float-chart.css" rel="stylesheet"/>
     <link href="{% static '' %}dist/css/style.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css"
+          href="{% static '' %}assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static '' %}assets/libs/quill/dist/quill.snow.css"/>
     {% block css %}
     {% endblock %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -159,19 +162,9 @@
 <script src="{% static '' %}assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
 <script src="{% static '' %}assets/extra-libs/multicheck/jquery.multicheck.js"></script>
 <script src="{% static '' %}assets/extra-libs/DataTables/datatables.min.js"></script>
-<script>$(document).ready(function () {
-    $('#zero_config').DataTable({
-        "columns": [
-            null, // Cột 1
-            null, // Cột 2
-            null, // Cột 3
-            null, // Cột 4
-            null, // Cột 5
-            null  // Cột mới (nếu có)
-        ]
-    });
-});
-</script>
+<script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+{% block script %}
+{% endblock %}
 </body>
 
 </html>
