@@ -39,30 +39,35 @@
                                     {% if attendance.id_student.id_student == student.id_student.id_student %}
                                         {{ attendance.check_in_time|date:"d/m/Y H:i:s" }}
                                     {% endif %}
+                                {% empty %}
+                                    Chưa điểm danh
                                 {% endfor %}
                             </td>
+
                             <td>
-                                <select class="form-select shadow-none"
-                                        name="attendance_status_{{ student.id_student.id_student }}">
-                                    <option value="1"
-                                            {% for attendance in attendance_list %}
-                                            {% if attendance.id_student.id_student == student.id_student.id_student and attendance.attendance_status == 1 %}selected
-                                            {% endif %}
-                                            {% endfor %}>Đúng giờ
-                                    </option>
-                                    <option value="2"
-                                            {% for attendance in attendance_list %}
-                                            {% if attendance.id_student.id_student == student.id_student.id_student and attendance.attendance_status == 2 %}selected
-                                            {% endif %}
-                                            {% endfor %}>Trễ
-                                    </option>
-                                    <option value="3"
-                                            {% for attendance in attendance_list %}
-                                            {% if attendance.id_student.id_student == student.id_student.id_student and attendance.attendance_status == 3 %}selected
-                                            {% endif %}
-                                            {% endfor %}>Vắng mặt
-                                    </option>
-                                </select>
+                                <label>
+                                    <select class="form-select shadow-none"
+                                            name="attendance_status_{{ student.id_student.id_student }}">
+                                        <option value="1"
+                                                {% for attendance in attendance_list %}
+                                                {% if attendance.id_student.id_student == student.id_student.id_student and attendance.attendance_status == 1 %}selected
+                                                {% endif %}
+                                                {% endfor %}>Vắng mặt
+                                        </option>
+                                        <option value="2"
+                                                {% for attendance in attendance_list %}
+                                                {% if attendance.id_student.id_student == student.id_student.id_student and attendance.attendance_status == 2 %}selected
+                                                {% endif %}
+                                                {% endfor %}>Đúng giờ
+                                        </option>
+                                        <option value="3"
+                                                {% for attendance in attendance_list %}
+                                                {% if attendance.id_student.id_student == student.id_student.id_student and attendance.attendance_status == 3 %}selected
+                                                {% endif %}
+                                                {% endfor %}>Trễ
+                                        </option>
+                                    </select>
+                                </label>
                             </td>
                         </tr>
                     {% endfor %}

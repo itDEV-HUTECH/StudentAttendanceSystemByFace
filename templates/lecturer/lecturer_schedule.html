@@ -30,19 +30,19 @@
             {% for classroom in lecturer_classes %}
                 <tr>
                     <td class="text-center">
-                        {% if classroom.day_of_week_begin == 1 %}
+                        {% if classroom.day_of_week_begin == 7 %}
                             Chủ Nhật
-                        {% elif classroom.day_of_week_begin == 2 %}
+                        {% elif classroom.day_of_week_begin == 1 %}
                             Thứ Hai
-                        {% elif classroom.day_of_week_begin == 3 %}
+                        {% elif classroom.day_of_week_begin == 2 %}
                             Thứ Ba
-                        {% elif classroom.day_of_week_begin == 4 %}
+                        {% elif classroom.day_of_week_begin == 3 %}
                             Thứ Tư
-                        {% elif classroom.day_of_week_begin == 5 %}
+                        {% elif classroom.day_of_week_begin == 4 %}
                             Thứ Năm
-                        {% elif classroom.day_of_week_begin == 6 %}
+                        {% elif classroom.day_of_week_begin == 5 %}
                             Thứ Sáu
-                        {% elif classroom.day_of_week_begin == 7 %}
+                        {% elif classroom.day_of_week_begin == 6 %}
                             Thứ Bảy
                         {% endif %}
                     </td>

@@ -148,8 +148,10 @@ def lecturer_mark_attendance(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
     students_in_class = StudentClassDetails.objects.filter(id_classroom=classroom)
     attendance_list = Attendance.objects.filter(id_classroom=classroom)
-
-    if request.method == 'POST':
+    day_of_week_today = date.today().isoweekday()
+    if day_of_week_today != classroom.day_of_week_begin:
+        return redirect('lecturer_attendance')
+    elif request.method == 'POST':
         for student in students_in_class:
             student_id = student.id_student
             attendance_status = request.POST.get(f'attendance_status_{student_id.id_student}')
