@@ -1,4 +1,11 @@
 {% extends "student/base_student_dashboard.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css"
+          href="{% static '' %}assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static '' %}assets/libs/quill/dist/quill.snow.css"/>
+{% endblock %}
 
 {% block content %}
     <div class="card">
@@ -27,16 +34,6 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="birthday" class="col-sm-2 control-label col-form-label">
-                        Ngày sinh
-                    </label>
-                    <div class="col-sm-5">
-                        <input type="date" class="form-control" id="birthday" name="birthday"
-                               value="{{ student.birthday }}"/>
-                    </div>
-                </div>
-
-                <div class="form-group row">
                     <label for="email" class="col-sm-2 control-label col-form-label">Email</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" id="email" name="email"
@@ -49,6 +46,21 @@
                     <div class="col-sm-5">
                         <input type="text" class="form-control" id="phone" name="phone"
                                value="{{ student.phone }}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="birthday" class="col-sm-2 control-label col-form-label">
+                        Ngày sinh
+                    </label>
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="birthday" name="birthday"
+                                   placeholder="dd/mm/yyyy" value="{{ student.birthday|date:'d/m/Y' }}"/>
+                            <div class="input-group-append">
+                                <span class="input-group-text h-100"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -77,4 +89,12 @@
             </div>
         </form>
     </div>
+    {% block script %}
+        <script>
+            jQuery("#birthday").datepicker({
+                autoclose: true,
+                todayHighlight: true,
+            });
+        </script>
+    {% endblock %}
 {% endblock %}

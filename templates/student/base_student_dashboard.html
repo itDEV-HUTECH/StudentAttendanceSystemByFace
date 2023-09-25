@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Cổng thông tin sinh viên</title>
     <link rel="icon" type="image/png" sizes="16x16" href="{% static '' %}assets/images/favicon.png"/>
-    <link href="{% static '' %}assets/libs/flot/css/float-chart.css" rel="stylesheet"/>
     <link href="{% static '' %}dist/css/style.min.css" rel="stylesheet"/>
+    {% block css %}
+    {% endblock %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -121,14 +122,9 @@
 <script src="{% static '' %}dist/js/waves.js"></script>
 <script src="{% static '' %}dist/js/sidebarmenu.js"></script>
 <script src="{% static '' %}dist/js/custom.min.js"></script>
-<script src="{% static '' %}assets/libs/flot/excanvas.js"></script>
-<script src="{% static '' %}assets/libs/flot/jquery.flot.js"></script>
-<script src="{% static '' %}assets/libs/flot/jquery.flot.pie.js"></script>
-<script src="{% static '' %}assets/libs/flot/jquery.flot.time.js"></script>
-<script src="{% static '' %}assets/libs/flot/jquery.flot.stack.js"></script>
-<script src="{% static '' %}assets/libs/flot/jquery.flot.crosshair.js"></script>
-<script src="{% static '' %}assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-<script src="{% static '' %}dist/js/pages/chart/chart-page-init.js"></script>
+<script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+{% block script %}
+{% endblock %}
 </body>
 
 </html>

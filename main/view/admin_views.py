@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
@@ -24,7 +26,7 @@ def admin_profile_view(request):
                 admin.email = request.POST['email']
                 admin.phone = request.POST['phone']
                 admin.address = request.POST['address']
-                admin.birthday = request.POST['birthday']
+                admin.birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
                 admin.save()
                 messages.success(request, 'Thay đổi thông tin thành công.')
             context = {'admin': admin}
