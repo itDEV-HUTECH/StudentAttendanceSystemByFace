@@ -1,0 +1,132 @@
+[
+	{
+		"id_student" : "1000",
+		"student_name" : "Sinh viên 10",
+		"email" : "sv10@gmail.com",
+		"phone" : "1000",
+		"address" : "1000",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "10",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_student" : "1001",
+		"student_name" : "Sinh viên 11",
+		"email" : "sv11@gmail.com",
+		"phone" : "1001",
+		"address" : "1001",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "11",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_student" : "1002",
+		"student_name" : "Sinh viên 12",
+		"email" : "sv12@gmail.com",
+		"phone" : "1002",
+		"address" : "1002",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "12",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_student" : "1003",
+		"student_name" : "Sinh viên 13",
+		"email" : "sv13@gmail.com",
+		"phone" : "1003",
+		"address" : "1003",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "13",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_student" : "111",
+		"student_name" : "Sinh viên 1",
+		"email" : "sv1@gmail.com",
+		"phone" : "111",
+		"address" : "111",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "1",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_student" : "222",
+		"student_name" : "Sinh viên 2",
+		"email" : "sv2@gmail.com",
+		"phone" : "222",
+		"address" : "222",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "2",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_student" : "333",
+		"student_name" : "Sinh viên 3",
+		"email" : "sv3@gmail.com",
+		"phone" : "333",
+		"address" : "333",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "3",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_student" : "444",
+		"student_name" : "Sinh viên 4",
+		"email" : "sv4@gmail.com",
+		"phone" : "444",
+		"address" : "444",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "4",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_student" : "555",
+		"student_name" : "Sinh viên 5",
+		"email" : "sv5@gmail.com",
+		"phone" : "555",
+		"address" : "555",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "5",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_student" : "666",
+		"student_name" : "Sinh viên 6",
+		"email" : "sv6@gmail.com",
+		"phone" : "666",
+		"address" : "666",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "6",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_student" : "777",
+		"student_name" : "Sinh viên 7",
+		"email" : "sv7@gmail.com",
+		"phone" : "777",
+		"address" : "777",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "7",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_student" : "888",
+		"student_name" : "Sinh viên 8",
+		"email" : "sv8@gmail.com",
+		"phone" : "888",
+		"address" : "888",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "8",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_student" : "999",
+		"student_name" : "Sinh viên 9",
+		"email" : "sv9@gmail.com",
+		"phone" : "999",
+		"address" : "999",
+		"birthday" : "2002-11-11",
+		"PathImageFolder" : "9",
+		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	}
+]

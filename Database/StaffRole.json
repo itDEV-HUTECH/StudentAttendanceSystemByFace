@@ -1,0 +1,27 @@
+[
+	{
+		"id" : 1,
+		"role_id" : 1,
+		"staff_id" : "admin"
+	},
+	{
+		"id" : 2,
+		"role_id" : 3,
+		"staff_id" : "111"
+	},
+	{
+		"id" : 3,
+		"role_id" : 3,
+		"staff_id" : "222"
+	},
+	{
+		"id" : 4,
+		"role_id" : 2,
+		"staff_id" : "333"
+	},
+	{
+		"id" : 5,
+		"role_id" : 2,
+		"staff_id" : "444"
+	}
+]

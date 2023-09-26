@@ -1,0 +1,102 @@
+[
+	{
+		"id_classroom" : 1,
+		"name" : "Ngôn ngữ phát triển ứng dụng mới\t",
+		"begin_date" : "2023-11-13",
+		"end_date" : "2024-01-14",
+		"day_of_week_begin" : 1,
+		"begin_time" : "07:30:00.000000",
+		"end_time" : "11:30:00.000000",
+		"id_lecturer_id" : "111"
+	},
+	{
+		"id_classroom" : 2,
+		"name" : "Lập trình trên thiết bị di động\t",
+		"begin_date" : "2023-12-11",
+		"end_date" : "2023-12-31",
+		"day_of_week_begin" : 2,
+		"begin_time" : "12:30:00.000000",
+		"end_time" : "16:30:00.000000",
+		"id_lecturer_id" : "111"
+	},
+	{
+		"id_classroom" : 3,
+		"name" : "Quản lý dự án công nghệ thông tin\t",
+		"begin_date" : "2023-08-21",
+		"end_date" : "2023-10-22",
+		"day_of_week_begin" : 3,
+		"begin_time" : "07:30:00.000000",
+		"end_time" : "11:30:00.000000",
+		"id_lecturer_id" : "111"
+	},
+	{
+		"id_classroom" : 4,
+		"name" : "Lập trình mạng máy tính\t",
+		"begin_date" : "2023-09-25",
+		"end_date" : "2023-10-15",
+		"day_of_week_begin" : 4,
+		"begin_time" : "12:30:00.000000",
+		"end_time" : "16:30:00.000000",
+		"id_lecturer_id" : "111"
+	},
+	{
+		"id_classroom" : 5,
+		"name" : "Ngôn ngữ phát triển ứng dụng mới\t",
+		"begin_date" : "2023-11-13",
+		"end_date" : "2024-01-14",
+		"day_of_week_begin" : 1,
+		"begin_time" : "07:30:00.000000",
+		"end_time" : "11:30:00.000000",
+		"id_lecturer_id" : "222"
+	},
+	{
+		"id_classroom" : 6,
+		"name" : "Lập trình trên thiết bị di động\t",
+		"begin_date" : "2023-12-11",
+		"end_date" : "2023-12-31",
+		"day_of_week_begin" : 2,
+		"begin_time" : "12:30:00.000000",
+		"end_time" : "16:30:00.000000",
+		"id_lecturer_id" : "222"
+	},
+	{
+		"id_classroom" : 7,
+		"name" : "Quản lý dự án công nghệ thông tin\t",
+		"begin_date" : "2023-08-21",
+		"end_date" : "2023-10-22",
+		"day_of_week_begin" : 3,
+		"begin_time" : "07:30:00.000000",
+		"end_time" : "11:30:00.000000",
+		"id_lecturer_id" : "222"
+	},
+	{
+		"id_classroom" : 8,
+		"name" : "Lập trình mạng máy tính\t",
+		"begin_date" : "2023-09-25",
+		"end_date" : "2023-10-15",
+		"day_of_week_begin" : 4,
+		"begin_time" : "12:30:00.000000",
+		"end_time" : "16:30:00.000000",
+		"id_lecturer_id" : "222"
+	},
+	{
+		"id_classroom" : 9,
+		"name" : "Test cho gv1",
+		"begin_date" : "2023-08-21",
+		"end_date" : "2023-10-22",
+		"day_of_week_begin" : 2,
+		"begin_time" : "12:30:00.000000",
+		"end_time" : "16:30:00.000000",
+		"id_lecturer_id" : "111"
+	},
+	{
+		"id_classroom" : 10,
+		"name" : "Test cho gv2",
+		"begin_date" : "2023-08-21",
+		"end_date" : "2023-10-22",
+		"day_of_week_begin" : 2,
+		"begin_time" : "12:30:00.000000",
+		"end_time" : "16:30:00.000000",
+		"id_lecturer_id" : "222"
+	}
+]
