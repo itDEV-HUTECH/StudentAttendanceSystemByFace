@@ -22,7 +22,7 @@
                 <th scope="col">Môn Học</th>
                 <th class="text-center" scope="col">Thời gian bắt đầu</th>
                 <th class="text-center" scope="col">Thời gian kết thúc</th>
-                <th class="text-center" scope="col">Chức năng</th>
+                <th class="text-center" scope="col">Thao tác</th>
             </tr>
             </thead>
             <tbody>
@@ -53,7 +53,12 @@
                             <a href="{% url 'lecturer_mark_attendance' classroom.id_classroom %}"
                                class="btn btn-primary"
                                target="_self">
-                                Điểm danh
+                                Điểm danh bằng thủ công
+                            </a>
+                            <a href="{% url 'lecturer_mark_attendance_by_face' %}"
+                               class="btn btn-primary"
+                               target="_self">
+                                Điểm danh bằng khuôn mặt
                             </a>
                         {% else %}
                             <button class="btn btn-secondary" disabled>

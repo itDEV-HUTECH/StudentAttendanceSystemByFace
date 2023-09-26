@@ -65,7 +65,7 @@ def student_schedule_view(request):
             students__id_student=id_student,
             begin_date__lte=end_of_week,
             end_date__gte=week_start,
-        )
+        ).order_by('day_of_week_begin', 'begin_time')
 
         previous_week_start = week_start - timedelta(days=7)
         next_week_start = week_start + timedelta(days=7)

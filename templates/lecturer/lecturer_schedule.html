@@ -51,8 +51,9 @@
                     <td class="text-center">{{ classroom.end_time|time:"H:i" }}</td>
                 </tr>
             {% empty %}
-                <tr>
-                    <td class="text-center" colspan="5">Không có lịch học nào trong tuần này.</td>
+                <tr class="text-center text-danger">
+                    <td colspan="5"><strong>Không có giảng dạy trong tuần này!</strong>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

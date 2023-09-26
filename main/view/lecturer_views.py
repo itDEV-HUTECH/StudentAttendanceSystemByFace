@@ -36,7 +36,7 @@ def lecturer_schedule_view(request):
             id_lecturer__id_staff=id_staff,
             begin_date__lte=end_of_week,
             end_date__gte=week_start
-        )
+        ).order_by('day_of_week_begin', 'begin_time')
 
         previous_week_start = week_start - timedelta(days=7)
         next_week_start = week_start + timedelta(days=7)
@@ -127,7 +127,7 @@ def lecturer_attendance_class_view(request):
             id_lecturer__id_staff=id_staff,
             begin_date__lte=end_of_week,
             end_date__gte=week_start
-        )
+        ).order_by('day_of_week_begin', 'begin_time')
 
         day_of_week_today = today.isoweekday()
 
@@ -163,9 +163,10 @@ def lecturer_mark_attendance(request, classroom_id):
             ).first()
 
             if attendance:
-                attendance.attendance_status = attendance_status
-                attendance.check_in_time = datetime.now()
-                attendance.save()
+                if attendance_status != str(attendance.attendance_status):
+                    attendance.attendance_status = attendance_status
+                    attendance.check_in_time = datetime.now()
+                    attendance.save()
             else:
                 attendance = Attendance.objects.create(
                     id_student=student_id,
@@ -180,6 +181,10 @@ def lecturer_mark_attendance(request, classroom_id):
                'classroom': classroom,
                'attendance_list': attendance_list}
     return render(request, 'lecturer/lecturer_mask_attendance.html', context)
+
+
+def lecturer_mark_attendance_by_face(request):
+    return render(request, 'lecturer/lecturer_mask_attendance_by_face.html')
 
 
 def lecturer_attendance_history_view(request):

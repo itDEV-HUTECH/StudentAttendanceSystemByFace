@@ -70,6 +70,11 @@
                                 </label>
                             </td>
                         </tr>
+                    {% empty %}
+                        <tr class="text-center text-danger">
+                            <td colspan="10"><strong>Danh sách sinh viên đang được cập nhật</strong>
+                            </td>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>
