@@ -61,7 +61,7 @@ def admin_change_password_view(request):
 @admin_required
 def admin_student_management_view(request):
     students = StudentInfo.objects.all()
-    per_page = 2
+    per_page = 10
     paginator = Paginator(students, per_page)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
@@ -92,8 +92,7 @@ def admin_student_add(request):
         student.save()
         messages.success(request, 'Thêm sinh viên thành công.')
         return redirect('admin_student_management')
-    return render(request, 'admin/admin_student_add.html')
-
+    return render(request, 'admin/modal-popup/popup_add_student.html')
 
 @admin_required
 def admin_student_delete(request, id_student):

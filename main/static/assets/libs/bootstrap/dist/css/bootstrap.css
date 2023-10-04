@@ -2198,7 +2198,7 @@ progress {
   opacity: 1;
 }
 .form-control:disabled, .form-control[readonly] {
-  background-color: #e9ecef;
+  background-color: #c4c5c5;
   opacity: 1;
 }
 .form-control::file-selector-button {
@@ -2207,7 +2207,7 @@ progress {
   -webkit-margin-end: 0.75rem;
   margin-inline-end: 0.75rem;
   color: #212529;
-  background-color: #e9ecef;
+  background-color: #c4c5c5;
   pointer-events: none;
   border-color: inherit;
   border-style: solid;
@@ -2230,7 +2230,7 @@ progress {
   -webkit-margin-end: 0.75rem;
   margin-inline-end: 0.75rem;
   color: #212529;
-  background-color: #e9ecef;
+  background-color: #c4c5c5;
   pointer-events: none;
   border-color: inherit;
   border-style: solid;
@@ -2362,7 +2362,7 @@ textarea.form-control-lg {
 }
 .form-select:disabled {
   color: #6c757d;
-  background-color: #e9ecef;
+  background-color: #c4c5c5;
 }
 .form-select:-moz-focusring {
   color: transparent;
@@ -2678,7 +2678,7 @@ textarea.form-control-lg {
   color: #212529;
   text-align: center;
   white-space: nowrap;
-  background-color: #e9ecef;
+  background-color: #c4c5c5;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 }
@@ -3814,7 +3814,7 @@ textarea.form-control-lg {
   border-top-right-radius: 0.25rem;
 }
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
-  border-color: #e9ecef #e9ecef #dee2e6;
+  border-color: #c4c5c5 #c4c5c5 #dee2e6;
 }
 .nav-tabs .nav-link.disabled {
   color: #6c757d;
@@ -4457,13 +4457,13 @@ textarea.form-control-lg {
 .page-link:hover {
   z-index: 2;
   color: #0a58ca;
-  background-color: #e9ecef;
+  background-color: #c4c5c5;
   border-color: #dee2e6;
 }
 .page-link:focus {
   z-index: 3;
   color: #0a58ca;
-  background-color: #e9ecef;
+  background-color: #c4c5c5;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
@@ -4659,7 +4659,7 @@ textarea.form-control-lg {
   height: 1rem;
   overflow: hidden;
   font-size: 0.75rem;
-  background-color: #e9ecef;
+  background-color: #c4c5c5;
   border-radius: 0.25rem;
 }
 
@@ -4717,7 +4717,7 @@ textarea.form-control-lg {
 }
 .list-group-item-action:active {
   color: #212529;
-  background-color: #e9ecef;
+  background-color: #c4c5c5;
 }
 
 .list-group-item {

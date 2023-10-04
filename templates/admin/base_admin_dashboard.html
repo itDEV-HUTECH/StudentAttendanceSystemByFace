@@ -170,8 +170,14 @@
         $('#studentIdToDelete').text(studentId);
     }
 
-    $('#closeModal, #close_Modal').click(function () {
-        $('#confirmDeleteModal').modal('hide');
+    function addNewStudent() {
+        $('#addNewStudentModal').modal('show');
+    }
+</script>
+<script>
+    jQuery("#birthday").datepicker({
+        autoclose: true,
+        todayHighlight: true,
     });
 </script>
 </body>
