@@ -12,6 +12,9 @@
         <div class="card-body">
             <h3 class="card-title mb-0">Danh sách sinh viên</h3>
         </div>
+        <div class="card-body">
+            <a href="javascript:void(0)" class="btn btn-success mdi mdi-account-plus"> Thêm sinh viên </a>
+        </div>
         <div class="table-responsive">
             <table class="table">
                 <thead class="text-center">
@@ -101,37 +104,6 @@
         </div>
     </div>
 
-    <!-- Modal Xác nhận xóa -->
-    <div id="confirmDeleteModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Xác nhận xóa</h4>
-                    <button id="closeModal" type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Bạn có chắc chắn muốn xóa sinh viên này?</p>
-                </div>
-                <div class="modal-footer">
-                    <button id="close_Modal" type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                    <a id="confirmDeleteButton" href="#" class="btn btn-danger">Xóa</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {% block script %}
-        <script>
-            function confirmDelete(studentId) {
-                var deleteUrl = "{% url 'admin_student_delete' '1' %}".replace('1', studentId);
-                $('#confirmDeleteButton').attr('href', deleteUrl);
-                $('#confirmDeleteModal').modal('show');
-            }
-
-            $('#closeModal, #close_Modal').click(function () {
-                $('#confirmDeleteModal').modal('hide');
-            });
-        </script>
-    {% endblock %}
+    {% include 'admin/modal-popup/popup_delete_student.html' %}
 
 {% endblock %}
