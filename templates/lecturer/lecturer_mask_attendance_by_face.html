@@ -1,27 +1,13 @@
 {% extends "lecturer/base_lecturer_dashboard.html" %}
 
 {% block content %}
+
+    < <h1>Mark Attendance by Face</h1>
     <div>
-        <h1>Camera Device</h1>
-        <video id="camera" autoplay playsinline width="1080" height="720"></video>
-        {#        <video controls autoplay>#}
-        {#            <source src="http://192.168.1.4:8080/" type="video/mp4">#}
-        {#        </video>#}
+        <img id="video-feed" src="{% url 'live_video_feed' %}" alt="Live Video Feed" />
     </div>
 
     <script>
-        const video = document.getElementById('camera');
 
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({video: true})
-                .then(function (stream) {
-                    video.srcObject = stream;
-                })
-                .catch(function (error) {
-                    console.error('Lỗi khi truy cập camera:', error);
-                });
-        } else {
-            console.error('Trình duyệt này không hỗ trợ getUserMedia.');
-        }
     </script>
 {% endblock %}

@@ -5,10 +5,24 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
 from django.http import Http404
 from django.shortcuts import redirect, render
+from django.http import StreamingHttpResponse
+from django.views.decorators import gzip
 
 from main.decorators import lecturer_required
 from main.models import StaffInfo, Classroom, StudentClassDetails, Attendance
+import os
+import cv2
+import numpy as np
+import time
+from django.http import StreamingHttpResponse
+from django.views.decorators import gzip
+from django.shortcuts import render
+from facenet_pytorch import MTCNN
+from main.src.anti_spoof_predict import AntiSpoofPredict
+from main.src.generate_patches import CropImage
+from main.src.utility import parse_model_name
 
+mtcnn = MTCNN()
 
 @lecturer_required
 def lecturer_dashboard_view(request):
@@ -183,9 +197,76 @@ def lecturer_mark_attendance(request, classroom_id):
     return render(request, 'lecturer/lecturer_mask_attendance.html', context)
 
 
+
+
+def generate_frames(model_dir, device_id):
+    model_test = AntiSpoofPredict(device_id)
+    image_cropper = CropImage()
+    capture = cv2.VideoCapture(2)  # Change this to the desired camera index.
+
+    while True:
+        ret, frame = capture.read()
+        if not ret:
+            break
+
+        image_bbox = model_test.get_bbox(frame)
+
+        prediction = np.zeros((1, 3))
+        test_speed = 0
+        for model_name in os.listdir(model_dir):
+            h_input, w_input, model_type, scale = parse_model_name(model_name)
+            param = {
+                "org_img": frame,
+                "bbox": image_bbox,
+                "scale": scale,
+                "out_w": w_input,
+                "out_h": h_input,
+                "crop": True,
+            }
+            if scale is None:
+                param["crop"] = False
+            img = image_cropper.crop(**param)
+            start = time.time()
+            prediction += model_test.predict(img, os.path.join(model_dir, model_name))
+            test_speed += time.time() - start
+
+        label = np.argmax(prediction)
+        value = prediction[0][label] / 2
+        if label == 1:
+            result_text = "RealFace Score: {:.2f}".format(value)
+            color = (255, 0, 0)
+        else:
+            result_text = "FakeFace Score: {:.2f}".format(value)
+            color = (0, 0, 255)
+
+        print("Prediction cost {:.2f} s".format(test_speed))
+        cv2.rectangle(
+            frame,
+            (image_bbox[0], image_bbox[1] - 50),
+            (image_bbox[0] + image_bbox[2], image_bbox[1] + image_bbox[3]),
+            color, 2)
+
+        cv2.putText(
+            frame,
+            result_text,
+            (image_bbox[0], image_bbox[1]),
+            cv2.FONT_HERSHEY_COMPLEX, 0.5 * frame.shape[0] / 1024, color)
+
+        ret, buffer = cv2.imencode('.jpg', frame)
+        if ret:
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n\r\n')
+
+    capture.release()
+    cv2.destroyAllWindows()
+
+
 def lecturer_mark_attendance_by_face(request):
     return render(request, 'lecturer/lecturer_mask_attendance_by_face.html')
 
-
+def live_video_feed(request):
+    model_dir = "main/resources/anti_spoof_models"
+    device_id = 0
+    return StreamingHttpResponse(generate_frames(model_dir, device_id), content_type="multipart/x-mixed-replace;boundary=frame")
 def lecturer_attendance_history_view(request):
     return render(request, 'lecturer/lecturer_attendance_history.html')

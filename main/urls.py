@@ -30,6 +30,7 @@ urlpatterns = [
          name='lecturer_mark_attendance_by_face'),
     path('lecturer/attendance-history', lecturer_views.lecturer_attendance_history_view,
          name='lecturer_attendance_history'),
+    path('lecturer/live_video_feed/', lecturer_views.live_video_feed, name='live_video_feed'),
 
     # Student
     path('student/login', student_views.student_login_view, name='student_login'),

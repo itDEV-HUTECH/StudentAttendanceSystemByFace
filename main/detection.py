@@ -69,10 +69,10 @@ def test(model_dir, device_id):
             (image_bbox[0], image_bbox[1]),
             cv2.FONT_HERSHEY_COMPLEX, 0.5 * frame.shape[0] / 1024, color)
 
-        cv2.imshow('Webcam Feed', frame)
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        ret, buffer = cv2.imencode('.jpg', frame)
+        if ret:
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n\r\n')
 
     capture.release()
     cv2.destroyAllWindows()
@@ -92,4 +92,5 @@ if __name__ == "__main__":
         default="./resources/anti_spoof_models",
         help="model_lib used to test")
     args = parser.parse_args()
+    print(str(args.model_dir )+  str(args.device_id))
     test(args.model_dir, args.device_id)
