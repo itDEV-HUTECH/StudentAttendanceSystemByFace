@@ -5,9 +5,88 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
 from django.http import Http404
 from django.shortcuts import redirect, render
+from django.http import StreamingHttpResponse
+from django.views.decorators import gzip
 
 from main.decorators import lecturer_required
 from main.models import StaffInfo, Classroom, StudentClassDetails, Attendance
+from django.http import StreamingHttpResponse
+from django.shortcuts import render
+
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from PIL import Image
+import io
+
+import base64
+
+import os
+import cv2
+import numpy as np
+
+import time
+
+from main.src.anti_spoof_predict import AntiSpoofPredict
+from main.src.generate_patches import CropImage
+from main.src.utility import parse_model_name
+
+model_test = AntiSpoofPredict(0)
+image_cropper = CropImage()
+
+model_dir = "main/resources/anti_spoof_models"
+device_id = 0
+
+model_dir = "main/resources/anti_spoof_models"
+device_id = 0
+
+for model_name in os.listdir(model_dir):
+    h_input, w_input, model_type, scale = parse_model_name(model_name)
+
+
+def get_new_box(src_w, src_h, bbox, scale):
+    x, y, box_w, box_h = bbox
+
+    scale = min((src_h - 1) / box_h, min((src_w - 1) / box_w, scale))
+
+    new_width = box_w * scale
+    new_height = box_h * scale
+    center_x, center_y = box_w / 2 + x, box_h / 2 + y
+
+    left_top_x = center_x - new_width / 2
+    left_top_y = center_y - new_height / 2
+    right_bottom_x = center_x + new_width / 2
+    right_bottom_y = center_y + new_height / 2
+
+    if left_top_x < 0:
+        right_bottom_x -= left_top_x
+        left_top_x = 0
+
+    if left_top_y < 0:
+        right_bottom_y -= left_top_y
+        left_top_y = 0
+
+    if right_bottom_x > src_w - 1:
+        left_top_x -= right_bottom_x - src_w + 1
+        right_bottom_x = src_w - 1
+
+    if right_bottom_y > src_h - 1:
+        left_top_y -= right_bottom_y - src_h + 1
+        right_bottom_y = src_h - 1
+
+    return int(left_top_x), int(left_top_y), int(right_bottom_x), int(right_bottom_y)
+
+
+def crop(org_img, bbox, scale, out_w, out_h, crop=True):
+    if not crop:
+        dst_img = cv2.resize(org_img, (out_w, out_h))
+    else:
+        src_h, src_w, _ = np.shape(org_img)
+        left_top_x, left_top_y, right_bottom_x, right_bottom_y = get_new_box(src_w, src_h, bbox, scale)
+
+        img = org_img[left_top_y: right_bottom_y + 1, left_top_x: right_bottom_x + 1]
+        dst_img = cv2.resize(img, (out_w, out_h))
+    return dst_img
 
 
 @lecturer_required
@@ -161,6 +240,75 @@ def lecturer_mark_attendance(request, classroom_id):
                'classroom': classroom,
                'attendance_list': attendance_list}
     return render(request, 'lecturer/lecturer_mask_attendance.html', context)
+
+
+def generate_frames(model_dir, device_id):
+    model_test = AntiSpoofPredict(device_id)
+    image_cropper = CropImage()
+    capture = cv2.VideoCapture(2)  # Change this to the desired camera index.
+
+    while True:
+        ret, frame = capture.read()
+        if not ret:
+            break
+
+        image_bbox = model_test.get_bbox(frame)
+
+        prediction = np.zeros((1, 3))
+        test_speed = 0
+        for model_name in os.listdir(model_dir):
+            h_input, w_input, model_type, scale = parse_model_name(model_name)
+            param = {
+                "org_img": frame,
+                "bbox": image_bbox,
+                "scale": scale,
+                "out_w": w_input,
+                "out_h": h_input,
+                "crop": True,
+            }
+            if scale is None:
+                param["crop"] = False
+            img = image_cropper.crop(**param)
+            start = time.time()
+            prediction += model_test.predict(img, os.path.join(model_dir, model_name))
+            test_speed += time.time() - start
+
+        label = np.argmax(prediction)
+        value = prediction[0][label] / 2
+        if label == 1:
+            result_text = "RealFace Score: {:.2f}".format(value)
+            color = (255, 0, 0)
+        else:
+            result_text = "FakeFace Score: {:.2f}".format(value)
+            color = (0, 0, 255)
+
+        cv2.rectangle(
+            frame,
+            (image_bbox[0], image_bbox[1] - 50),
+            (image_bbox[0] + image_bbox[2], image_bbox[1] + image_bbox[3]),
+            color, 2)
+
+        cv2.putText(
+            frame,
+            result_text,
+            (image_bbox[0], image_bbox[1]),
+            cv2.FONT_HERSHEY_COMPLEX, 1.5 * frame.shape[0] / 1024, color)
+
+        ret, buffer = cv2.imencode('.jpg', frame)
+        if ret:
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n\r\n')
+
+    capture.release()
+    cv2.destroyAllWindows()
+
+
+@gzip.gzip_page
+def live_video_feed(request):
+    model_dir = "main/resources/anti_spoof_models"
+    device_id = 0
+    return StreamingHttpResponse(generate_frames(model_dir, device_id),
+                                 content_type="multipart/x-mixed-replace;boundary=frame")
 
 
 def lecturer_mark_attendance_by_face(request):
