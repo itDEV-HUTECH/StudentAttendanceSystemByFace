@@ -146,8 +146,12 @@
 <script src="{% static '' %}assets/extra-libs/multicheck/jquery.multicheck.js"></script>
 <script src="{% static '' %}assets/extra-libs/DataTables/datatables.min.js"></script>
 <script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-{% block script %}
-{% endblock %}
+<script>
+    jQuery("#birthday").datepicker({
+        autoclose: true,
+        todayHighlight: true,
+    });
+</script>
 </body>
 
 </html>

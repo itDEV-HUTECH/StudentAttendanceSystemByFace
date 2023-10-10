@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Cổng thông tin nội bộ</title>
     <link rel="icon" type="image/png" sizes="16x16" href="{% static '' %}assets/images/favicon.png"/>
-    <link href="{% static '' %}assets/libs/flot/css/float-chart.css" rel="stylesheet"/>
     <link href="{% static '' %}dist/css/style.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css"
           href="{% static '' %}assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
@@ -163,8 +162,24 @@
 <script src="{% static '' %}assets/extra-libs/multicheck/jquery.multicheck.js"></script>
 <script src="{% static '' %}assets/extra-libs/DataTables/datatables.min.js"></script>
 <script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-{% block script %}
-{% endblock %}
+<script>
+    function confirmDelete(studentId) {
+        var deleteUrl = "{% url 'admin_student_delete' '1' %}".replace('1', studentId);
+        $('#confirmDeleteButton').attr('href', deleteUrl);
+        $('#confirmDeleteModal').modal('show');
+        $('#studentIdToDelete').text(studentId);
+    }
+
+    function addNewStudent() {
+        $('#addNewStudentModal').modal('show');
+    }
+</script>
+<script>
+    jQuery("#birthday").datepicker({
+        autoclose: true,
+        todayHighlight: true,
+    });
+</script>
 </body>
 
 </html>
