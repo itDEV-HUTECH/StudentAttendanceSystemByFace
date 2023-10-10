@@ -21,7 +21,6 @@ import io
 
 import base64
 
-
 import os
 import cv2
 import numpy as np
@@ -43,6 +42,7 @@ device_id = 0
 
 for model_name in os.listdir(model_dir):
     h_input, w_input, model_type, scale = parse_model_name(model_name)
+
 
 def get_new_box(src_w, src_h, bbox, scale):
     x, y, box_w, box_h = bbox
@@ -75,6 +75,8 @@ def get_new_box(src_w, src_h, bbox, scale):
         right_bottom_y = src_h - 1
 
     return int(left_top_x), int(left_top_y), int(right_bottom_x), int(right_bottom_y)
+
+
 def crop(org_img, bbox, scale, out_w, out_h, crop=True):
     if not crop:
         dst_img = cv2.resize(org_img, (out_w, out_h))
@@ -260,8 +262,6 @@ def lecturer_mark_attendance(request, classroom_id):
     return render(request, 'lecturer/lecturer_mask_attendance.html', context)
 
 
-
-
 def generate_frames(model_dir, device_id):
     model_test = AntiSpoofPredict(device_id)
     image_cropper = CropImage()
@@ -322,14 +322,18 @@ def generate_frames(model_dir, device_id):
     capture.release()
     cv2.destroyAllWindows()
 
+
 @gzip.gzip_page
 def live_video_feed(request):
     model_dir = "main/resources/anti_spoof_models"
     device_id = 0
-    return StreamingHttpResponse(generate_frames(model_dir, device_id), content_type="multipart/x-mixed-replace;boundary=frame")
+    return StreamingHttpResponse(generate_frames(model_dir, device_id),
+                                 content_type="multipart/x-mixed-replace;boundary=frame")
+
 
 def lecturer_mark_attendance_by_face(request):
     return render(request, 'lecturer/lecturer_mask_attendance_by_face.html')
+
 
 def lecturer_attendance_history_view(request):
     return render(request, 'lecturer/lecturer_attendance_history.html')
