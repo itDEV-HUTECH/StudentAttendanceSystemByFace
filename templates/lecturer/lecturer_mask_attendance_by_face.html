@@ -1,13 +1,19 @@
 {% extends "lecturer/base_lecturer_dashboard.html" %}
 
 {% block content %}
+<style>
+.container_video {
 
-    < <h1>Mark Attendance by Face</h1>
-    <div>
-        <img id="video-feed" src="{% url 'live_video_feed' %}" alt="Live Video Feed" />
-    </div>
+}
 
-    <script>
+.img_video {
+    width: 1280px;
+    height: 960px;
+}
+</style>
 
-    </script>
+<center><h1>Mark Attendance by Face</h1></center>
+<div class="container_video">
+    <img class="img_video" id="video-feed" src="{% url 'live_video_feed' %}" alt="Live Video Feed" />
+</div>
 {% endblock %}

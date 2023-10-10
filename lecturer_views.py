@@ -262,22 +262,24 @@ def lecturer_mark_attendance(request, classroom_id):
 
 
 
-def generate_frames(model_dir, device_id):
-    model_test = AntiSpoofPredict(device_id)
-    image_cropper = CropImage()
-    capture = cv2.VideoCapture(2)  # Change this to the desired camera index.
+@csrf_exempt
+def process_video_frame(request):
+    if request.method == 'POST':
+        try:
+            # Receive the JSON data containing the image_data
+            data = json.loads(request.body)
+            image_data_url = data.get('image_data', '')
+            # Decode the data URL and convert it back to an image
+            image_data = base64.b64decode(image_data_url.split(',')[1])
+            image = Image.open(io.BytesIO(image_data))
+            # Convert the PIL image to a NumPy array (OpenCV format)
+            np_array = np.array(image)
 
-    while True:
-        ret, frame = capture.read()
-        if not ret:
-            break
-
-        image_bbox = model_test.get_bbox(frame)
-
-        prediction = np.zeros((1, 3))
-        test_speed = 0
-        for model_name in os.listdir(model_dir):
-            h_input, w_input, model_type, scale = parse_model_name(model_name)
+            # Convert numpy array to OpenCV image
+            frame = cv2.cvtColor(np_array, cv2.COLOR_RGB2BGR)
+            image_bbox = model_test.get_bbox(frame)
+            height, width, _ = frame.shape  # Giả sử frame là hình ảnh
+            prediction = np.zeros((1, 3))
             param = {
                 "org_img": frame,
                 "bbox": image_bbox,
@@ -289,44 +291,40 @@ def generate_frames(model_dir, device_id):
             if scale is None:
                 param["crop"] = False
             img = image_cropper.crop(**param)
-            start = time.time()
             prediction += model_test.predict(img, os.path.join(model_dir, model_name))
-            test_speed += time.time() - start
+            label = np.argmax(prediction)
+            value = prediction[0][label] / 2
+            if label == 1:
+                result_text = "RealFace Score: {:.2f}".format(value)
+                color = (255, 0, 0)
+            else:
+                result_text = "FakeFace Score: {:.2f}".format(value)
+                color = (0, 0, 255)
 
-        label = np.argmax(prediction)
-        value = prediction[0][label] / 2
-        if label == 1:
-            result_text = "RealFace Score: {:.2f}".format(value)
-            color = (255, 0, 0)
-        else:
-            result_text = "FakeFace Score: {:.2f}".format(value)
-            color = (0, 0, 255)
+            cv2.rectangle(
+                frame,
+                (image_bbox[0], image_bbox[1] - 50),
+                (image_bbox[0] + image_bbox[2], image_bbox[1] + image_bbox[3]),  # Increase the height by 20 pixels
+                color, 2)
 
-        cv2.rectangle(
-            frame,
-            (image_bbox[0], image_bbox[1] - 50),
-            (image_bbox[0] + image_bbox[2], image_bbox[1] + image_bbox[3]),
-            color, 2)
+            cv2.putText(
+                frame,
+                result_text,
+                (image_bbox[0], image_bbox[1]),
+                cv2.FONT_HERSHEY_COMPLEX, 0.5 * frame.shape[0] / 1024, color)
+            _, processed_image_data = cv2.imencode('.jpg', frame)
+            processed_image_data_url = "data:image/jpeg;base64," + base64.b64encode(processed_image_data).decode()
 
-        cv2.putText(
-            frame,
-            result_text,
-            (image_bbox[0], image_bbox[1]),
-            cv2.FONT_HERSHEY_COMPLEX, 1.5 * frame.shape[0] / 1024, color)
+            # Return the processed image data URL to the frontend
+            return JsonResponse({'processed_image_data': processed_image_data_url})
 
-        ret, buffer = cv2.imencode('.jpg', frame)
-        if ret:
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n\r\n')
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
 
-    capture.release()
-    cv2.destroyAllWindows()
+    return JsonResponse({'error': 'Invalid request method.'})
 
-@gzip.gzip_page
-def live_video_feed(request):
-    model_dir = "main/resources/anti_spoof_models"
-    device_id = 0
-    return StreamingHttpResponse(generate_frames(model_dir, device_id), content_type="multipart/x-mixed-replace;boundary=frame")
+
+
 
 def lecturer_mark_attendance_by_face(request):
     return render(request, 'lecturer/lecturer_mask_attendance_by_face.html')
