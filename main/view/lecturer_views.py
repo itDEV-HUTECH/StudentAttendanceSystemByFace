@@ -1,32 +1,20 @@
+import os
+import time
 from datetime import date, timedelta, datetime
 
+import cv2
+import numpy as np
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
 from django.http import Http404
-from django.shortcuts import redirect, render
 from django.http import StreamingHttpResponse
+from django.shortcuts import redirect
+from django.shortcuts import render
 from django.views.decorators import gzip
 
 from main.decorators import lecturer_required
 from main.models import StaffInfo, Classroom, StudentClassDetails, Attendance
-from django.http import StreamingHttpResponse
-from django.shortcuts import render
-
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from PIL import Image
-import io
-
-import base64
-
-import os
-import cv2
-import numpy as np
-
-import time
-
 from main.src.anti_spoof_predict import AntiSpoofPredict
 from main.src.generate_patches import CropImage
 from main.src.utility import parse_model_name
