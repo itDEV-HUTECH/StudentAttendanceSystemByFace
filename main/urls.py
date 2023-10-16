@@ -27,11 +27,11 @@ urlpatterns = [
     path('lecturer/attendance', lecturer_views.lecturer_attendance_class_view, name='lecturer_attendance'),
     path('lecturer/attendance/<int:classroom_id>', lecturer_views.lecturer_mark_attendance,
          name='lecturer_mark_attendance'),
-    path('lecturer/attendance-by-face/', lecturer_views.lecturer_mark_attendance_by_face,
+    path('lecturer/attendance-by-face', lecturer_views.lecturer_mark_attendance_by_face,
          name='lecturer_mark_attendance_by_face'),
     path('lecturer/attendance-history', lecturer_views.lecturer_attendance_history_view,
          name='lecturer_attendance_history'),
-    path('lecturer/live_video_feed/', lecturer_views.live_video_feed, name='live_video_feed'),
+    path('lecturer/live_video_feed', lecturer_views.live_video_feed, name='live_video_feed'),
 
     # Student
     path('student/login', student_views.student_login_view, name='student_login'),
