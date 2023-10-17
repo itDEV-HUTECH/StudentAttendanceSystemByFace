@@ -1,4 +1,10 @@
 {% extends "lecturer/base_lecturer_dashboard.html" %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/extra-libs/multicheck/multicheck.css' %}"/>
+{% endblock %}
 
 {% block content %}
 <style>
@@ -10,10 +16,43 @@
     width: 1280px;
     height: 960px;
 }
-</style>
+.container_video.col-4{
+    text-align: center;
+}
+.container_video label{
+    margin-bottom: 0px;
+    margin-top:5px;
+}
 
-<center><h1>Mark Attendance by Face</h1></center>
-<div class="container_video">
-    <img class="img_video" id="video-feed" src="{% url 'live_video_feed' %}" alt="Live Video Feed" />
+</style>
+<div class="card">
+    <div class="table-responsive">
+        <form method="post" action="{% url 'lecturer_mark_attendance_by_face' classroom.id_classroom %}">
+            {% csrf_token %}
+            <div class="container_video">
+                <div class="row px-4">
+                    <div class="col-8">
+                        <h2 class="card-title mb-0" style="padding: 20px; text-align:center">{{ classroom.name }}</h2>
+                        <img  id="video-feed" style="width:100%" src="{% url 'live_video_feed' %}" alt="Live Video Feed" />
+                    </div>
+                    <div class="col-4" style="padding-top: 60px">
+                        <h4>Thông tin sinh viên</h4>
+                        <div class="row">
+                            <label>Ho</label>
+                            <input type="text">
+                        </div>
+                        <div class="row">
+                            <label>Va</label>
+                            <input type="text">
+                        </div>
+                        <div class="row">
+                            <label>Ten</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

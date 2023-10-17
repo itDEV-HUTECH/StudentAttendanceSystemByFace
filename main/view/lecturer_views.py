@@ -32,50 +32,6 @@ for model_name in os.listdir(model_dir):
     h_input, w_input, model_type, scale = parse_model_name(model_name)
 
 
-def get_new_box(src_w, src_h, bbox, scale):
-    x, y, box_w, box_h = bbox
-
-    scale = min((src_h - 1) / box_h, min((src_w - 1) / box_w, scale))
-
-    new_width = box_w * scale
-    new_height = box_h * scale
-    center_x, center_y = box_w / 2 + x, box_h / 2 + y
-
-    left_top_x = center_x - new_width / 2
-    left_top_y = center_y - new_height / 2
-    right_bottom_x = center_x + new_width / 2
-    right_bottom_y = center_y + new_height / 2
-
-    if left_top_x < 0:
-        right_bottom_x -= left_top_x
-        left_top_x = 0
-
-    if left_top_y < 0:
-        right_bottom_y -= left_top_y
-        left_top_y = 0
-
-    if right_bottom_x > src_w - 1:
-        left_top_x -= right_bottom_x - src_w + 1
-        right_bottom_x = src_w - 1
-
-    if right_bottom_y > src_h - 1:
-        left_top_y -= right_bottom_y - src_h + 1
-        right_bottom_y = src_h - 1
-
-    return int(left_top_x), int(left_top_y), int(right_bottom_x), int(right_bottom_y)
-
-
-def crop(org_img, bbox, scale, out_w, out_h, crop=True):
-    if not crop:
-        dst_img = cv2.resize(org_img, (out_w, out_h))
-    else:
-        src_h, src_w, _ = np.shape(org_img)
-        left_top_x, left_top_y, right_bottom_x, right_bottom_y = get_new_box(src_w, src_h, bbox, scale)
-
-        img = org_img[left_top_y: right_bottom_y + 1, left_top_x: right_bottom_x + 1]
-        dst_img = cv2.resize(img, (out_w, out_h))
-    return dst_img
-
 
 @lecturer_required
 def lecturer_dashboard_view(request):
@@ -299,8 +255,45 @@ def live_video_feed(request):
                                  content_type="multipart/x-mixed-replace;boundary=frame")
 
 
-def lecturer_mark_attendance_by_face(request):
-    return render(request, 'lecturer/lecturer_mask_attendance_by_face.html')
+def lecturer_mark_attendance_by_face(request, classroom_id):
+    classroom = Classroom.objects.get(pk=classroom_id)
+    students_in_class = StudentClassDetails.objects.filter(id_classroom=classroom)
+    attendance_list = Attendance.objects.filter(id_classroom=classroom)
+    day_of_week_today = date.today().isoweekday()
+
+    if day_of_week_today != classroom.day_of_week_begin:
+        return redirect('lecturer_attendance')
+    elif request.method == 'POST':
+        for student in students_in_class:
+            student_id = student.id_student
+            attendance_status = request.POST.get(f'attendance_status_{student_id.id_student}')
+
+            attendance = Attendance.objects.filter(
+                id_student=student_id,
+                id_classroom=classroom,
+                check_in_time__date=datetime.now().date()
+            ).first()
+
+            if attendance:
+                if attendance_status != str(attendance.attendance_status):
+                    attendance.attendance_status = attendance_status
+                    attendance.check_in_time = datetime.now()
+                    attendance.save()
+            else:
+                attendance = Attendance.objects.create(
+                    id_student=student_id,
+                    id_classroom=classroom,
+                    check_in_time=datetime.now(),
+                    attendance_status=attendance_status
+                )
+
+        return redirect('lecturer_mark_attendance', classroom_id=classroom_id)
+
+    context = {'students_in_class': students_in_class,
+               'classroom_id': classroom_id,
+               'classroom': classroom,
+               'attendance_list': attendance_list}
+    return render(request, 'lecturer/lecturer_mask_attendance_by_face.html', context)
 
 
 def lecturer_attendance_history_view(request):

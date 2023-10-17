@@ -40,8 +40,8 @@
                              width="25"/>
                     </b>
                     <span class="logo-text ms-2">
-                        <img src="{% static '' %}assets/images/logo-text.png" alt="homepage" class="light-logo"/>
-                    </span>
+                            <img src="{% static '' %}assets/images/logo-text.png" alt="homepage" class="light-logo"/>
+                        </span>
                 </a>
                 <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="#">
                     <i class="ti-menu ti-close"></i>
@@ -50,9 +50,10 @@
             <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
                 <ul class="navbar-nav float-start me-auto">
                     <li class="nav-item d-none d-lg-block">
-                        <span class="nav-link sidebartoggler waves-effect waves-light" Fdata-sidebartype="mini-sidebar">
-                            <i class="mdi mdi-menu font-24"></i>
-                        </span>
+                            <span class="nav-link sidebartoggler waves-effect waves-light"
+                                  Fdata-sidebartype="mini-sidebar">
+                                <i class="mdi mdi-menu font-24"></i>
+                            </span>
                     </li>
                 </ul>
                 <ul class="navbar-nav float-end">
@@ -156,6 +157,7 @@
 <script src="{% static '' %}assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="{% static '' %}assets/extra-libs/sparkline/sparkline.js"></script>
 <script src="{% static '' %}dist/js/waves.js"></script>
+<script src="{% static '' %}dist/js/sesson.js"></script>
 <script src="{% static '' %}dist/js/sidebarmenu.js"></script>
 <script src="{% static '' %}dist/js/custom.min.js"></script>
 <script src="{% static '' %}assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
@@ -174,9 +176,78 @@
         $('#addNewStudentModal').modal('show');
     }
 
+    function addNewStudent() {
+        $('#addNewStudentModal').modal('show');
+    }
+
     function editStudent(studentId) {
         $('#editStudentModal').modal('show');
     }
+</script>
+<script>
+    jQuery("#birthday").datepicker({
+        autoclose: true,
+        todayHighlight: true,
+    });
+</script>
+<script>
+    let isChecking = false;
+    let intervalId;
+    document.getElementById("addStudentButton").addEventListener("click", function () {
+        // Get the student ID from the input with the ID "id_student"
+        var studentId = document.getElementById("id_student").value;
+        const videoElement = document.getElementById('video-feed');
+        const idStudentField = document.getElementById("id_student");
+        const studentNameField = document.getElementById("student_name");
+        const emailField = document.getElementById("email");
+        const phoneField = document.getElementById("phone");
+        const addressField = document.getElementById("address");
+        const birthdayField = document.getElementById("birthday");
+        const pathImageFolderField = document.getElementById("PathImageFolder");
+
+        if (
+            idStudentField.value === "" ||
+            studentNameField.value === "" ||
+            emailField.value === "" ||
+            phoneField.value === "" ||
+            addressField.value === "" ||
+            birthdayField.value === "" ||
+            pathImageFolderField.value === ""
+        ) {
+            alert("Vui lòng điền đầy đủ thông tin.");
+            event.preventDefault(); // Ngăn chặn việc gửi form nếu dữ liệu không hợp lệ
+        } else {
+            videoElement.src = "/admin/student-management/live_video_feed/" + studentId;
+            if (isChecking) {
+                // Nếu đang kiểm tra, dừng kiểm tra
+                clearInterval(intervalId);
+                isChecking = false;
+                console.log("Dừng kiểm tra");
+            } else {
+                intervalId = setInterval(() => {
+                    fetch("/admin/student-management/check_capture_status/")  // Thay đổi thành URL chính xác
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+
+                            if (data.capture_status == 1) {
+                                alert("Thành công");
+                                const form = document.getElementById("myForm");
+                                form.submit();
+                                clearInterval(intervalId);  // Dừng kiểm tra
+                                isChecking = false;
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Lỗi:", error);
+                        });
+                }, 1000);
+                isChecking = true;
+                console.log("Bắt đầu kiểm tra");
+            }
+        }
+
+    });
 </script>
 <script>
     jQuery("#birthday").datepicker({
