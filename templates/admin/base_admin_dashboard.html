@@ -176,12 +176,23 @@
         $('#addNewStudentModal').modal('show');
     }
 
-    function addNewStudent() {
-        $('#addNewStudentModal').modal('show');
-    }
-
     function editStudent(studentId) {
-        $('#editStudentModal').modal('show');
+        var editUrl = "{% url 'admin_student_edit' '1' %}".replace('1', studentId);
+        $.ajax({
+            url: editUrl,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $('#editStudentModal').modal('show');
+                $('#id_student').val(data.id_student);
+                $('#student_name').val(data.student_name);
+                $('#email').val(data.email);
+                $('#phone').val(data.phone);
+                $('#address').val(data.address);
+                $('#birthday').val(data.birthday);
+                $('#PathImageFolder').val(data.PathImageFolder);
+            }
+        });
     }
 </script>
 <script>
@@ -246,7 +257,14 @@
                 console.log("Bắt đầu kiểm tra");
             }
         }
+    });
 
+    const idStudentField = document.getElementById("id_student");
+    const pathImageFolderField = document.getElementById("PathImageFolder");
+    // Thêm sự kiện onchange vào trường id_student
+    idStudentField.addEventListener("change", function () {
+        const studentId = idStudentField.value;
+        pathImageFolderField.value = "/main/data/test_images/" + studentId;
     });
 </script>
 <script>

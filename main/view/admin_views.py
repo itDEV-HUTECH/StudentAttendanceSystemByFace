@@ -153,7 +153,6 @@ def admin_student_delete(request, id_student):
     return redirect('admin_student_management')
 
 
-@admin_required
 def capture(id, request):
     global CAPTURE_STATUS
     CAPTURE_STATUS = 0  # Sử dụng 'global' ở đầu hàm để thông báo rằng bạn muốn sử dụng biến toàn cục
@@ -161,7 +160,7 @@ def capture(id, request):
     color = (0, 0, 255)  # BGR color for drawing rectangles
     thickness = 2  # Thickness of the rectangle
     model_test = AntiSpoofPredict(device_id)  # Define the AntiSpoofPredict object (assumed to be a valid class)
-    capture = cv2.VideoCapture(2)  # Capture from camera at index 2 (can be adjusted)
+    capture = cv2.VideoCapture(0)  # Capture from camera at index 2 (can be adjusted)
     output_dir = f"./main/data/test_images/{id}"
     os.makedirs(output_dir, exist_ok=True)
     while image_count < 300:
@@ -172,7 +171,7 @@ def capture(id, request):
         image_bbox = model_test.get_bbox(frame)  # Assuming `get_bbox` returns the bounding box of the face
         if image_bbox is not None:
             x, y, w, h = (image_bbox[0]), (image_bbox[1] - 50), (image_bbox[0] + image_bbox[2]), (
-                        image_bbox[1] + image_bbox[3])
+                    image_bbox[1] + image_bbox[3])
 
             cropped_face = frame[y:h, x:w]
             if cropped_face is not None and cropped_face.size != 0:
