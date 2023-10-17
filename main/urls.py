@@ -16,10 +16,17 @@ urlpatterns = [
     path('admin/change-password', admin_views.admin_change_password_view, name='admin_change_password'),
     path('admin/student-management', admin_views.admin_student_management_view, name='admin_student_management'),
     path('admin/student-management/add', admin_views.admin_student_add, name='admin_student_add'),
+    path('admin/student-management/live_video_feed/<int:id_student>', admin_views.live_video_feed, name='live_video_feed'),
+    path('admin/student-management/delete/<int:id_student>', admin_views.admin_student_delete,
+         name='admin_student_delete'),
+    path('admin/student-management/check_capture_status/', admin_views.check_capture_status, name='check_capture_status'),
+
     path('admin/student-management/delete/<int:id_student>', admin_views.admin_student_delete,
          name='admin_student_delete'),
 
     # Lecturer
+    path('admin/student-management/student_capture', admin_views.student_capture, name='student_capture'),
+    path('admin/student-management/capture/cap', admin_views.capture, name='capture'),
     path('lecturer/dashboard', lecturer_views.lecturer_dashboard_view, name='lecturer_dashboard'),
     path('lecturer/schedule', lecturer_views.lecturer_schedule_view, name='lecturer_schedule'),
     path('lecturer/profile', lecturer_views.lecturer_profile_view, name='lecturer_profile'),
@@ -27,7 +34,7 @@ urlpatterns = [
     path('lecturer/attendance', lecturer_views.lecturer_attendance_class_view, name='lecturer_attendance'),
     path('lecturer/attendance/<int:classroom_id>', lecturer_views.lecturer_mark_attendance,
          name='lecturer_mark_attendance'),
-    path('lecturer/attendance-by-face', lecturer_views.lecturer_mark_attendance_by_face,
+    path('lecturer/attendance-by-face/<int:classroom_id>', lecturer_views.lecturer_mark_attendance_by_face,
          name='lecturer_mark_attendance_by_face'),
     path('lecturer/attendance-history', lecturer_views.lecturer_attendance_history_view,
          name='lecturer_attendance_history'),
