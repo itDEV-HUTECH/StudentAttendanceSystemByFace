@@ -6,13 +6,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{% url 'admin_student_add' %}">
+                <form id="myForm" method="POST" action="{% url 'admin_student_add' %}">
                     {% csrf_token %}
                     <div class="mb-3 form-group row d-flex justify-content-center">
                         <label for="id_student" class="col-sm-2 control-label col-form-label">Mã Sinh Viên:</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="id_student" id="id_student" required>
+                                <input type="number" class="form-control" name="id_student" id="id_student" required>
                             </div>
                         </div>
                     </div>
@@ -72,16 +72,27 @@
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="PathImageFolder" id="PathImageFolder"
-                                       required>
+                                       required readonly>
                             </div>
                         </div>
                     </div>
+                    <img  id="video-feed" style="width:100%"  src="https://www.womanthology.co.uk/wp-content/uploads/2017/06/facescan.gif" alt="Live Video Feed" />
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-success text-white">Thêm</button>
+                        <button type="button" class="btn btn-success text-white" id="addStudentButton">Thêm</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
