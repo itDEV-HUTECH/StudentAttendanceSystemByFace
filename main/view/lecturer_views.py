@@ -189,7 +189,7 @@ def lecturer_mark_attendance(request, classroom_id):
 def generate_frames(model_dir, device_id):
     model_test = AntiSpoofPredict(device_id)
     image_cropper = CropImage()
-    capture = cv2.VideoCapture(2)  # Change this to the desired camera index.
+    capture = cv2.VideoCapture(0)  # Change this to the desired camera index.
 
     while True:
         ret, frame = capture.read()

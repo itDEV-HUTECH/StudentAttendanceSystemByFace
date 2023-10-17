@@ -57,7 +57,8 @@
                             {# <a href="{% url 'admin:edit_student' student.id_student %}" class="btn btn-primary btn-sm">Sửa</a> #}
                             <a href="javascript:void(0)" class="btn btn-danger btn-sm mdi mdi-delete"
                                onclick="confirmDelete({{ student.id_student }})">Xóa</a>
-                            <a href="javascript:void(0)" class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
+                            <a href="javascript:void(0)" class="btn btn-primary btn-sm mdi mdi-account-edit"
+                               onclick="editStudent({{ student.id_student }})">Sửa</a>
                         </td>
                     </tr>
                 {% empty %}
@@ -106,6 +107,7 @@
         </div>
     </div>
 
-    {% include 'admin/modal-popup/popup_delete_student.html' %}
     {% include 'admin/modal-popup/popup_add_student.html' %}
+    {% include 'admin/modal-popup/popup_edit_student.html' %}
+    {% include 'admin/modal-popup/popup_delete_student.html' %}
 {% endblock %}

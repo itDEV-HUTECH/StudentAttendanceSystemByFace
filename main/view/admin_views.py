@@ -133,6 +133,24 @@ def admin_student_add(request):
         return redirect('admin_student_management')
     return render(request, 'admin/modal-popup/popup_add_student.html')
 
+
+@admin_required
+def admin_student_edit(request, id_student):
+    student = StudentInfo.objects.get(id_student=id_student)
+    context = {'student': student}
+    if request.method == 'POST':
+        student.student_name = request.POST['student_name']
+        student.email = request.POST['email']
+        student.phone = request.POST['phone']
+        student.address = request.POST['address']
+        student.birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
+        student.PathImageFolder = request.POST['PathImageFolder']
+        student.save()
+        messages.success(request, 'Thay đổi thông tin thành công.')
+        return redirect('admin_student_management')
+    return render(request, 'admin/modal-popup/popup_edit_student.html', context)
+
+
 @admin_required
 def admin_student_delete(request, id_student):
     StudentInfo.objects.filter(id_student=id_student).delete()
