@@ -18,6 +18,7 @@ import base64
 from django.http import HttpResponse
 
 from main.src.anti_spoof_predict import AntiSpoofPredict
+
 color = (255, 0, 0)
 thickness = 2
 max_images = 300
@@ -25,12 +26,11 @@ device_id = 0
 CAPTURE_STATUS = 0  # Đặt giá trị ban đầu cho biến toàn cục
 
 
-
-
 @admin_required
-
 def admin_dashboard_view(request):
     return render(request, 'admin/admin_home.html')
+
+
 @admin_required
 def student_capture(request):
     if request.method == 'POST':
@@ -42,7 +42,6 @@ def student_capture(request):
         birthday = request.POST.get('birthday')
         PathImageFolder = request.POST.get('PathImageFolder')
 
-
         # Process the data and save it to the database
 
         # Return a response, e.g., a success message
@@ -50,9 +49,6 @@ def student_capture(request):
 
     # Handle other HTTP methods if necessary
     return JsonResponse({'error': 'Invalid request method'})
-
-
-
 
 
 @admin_required
@@ -155,10 +151,12 @@ def admin_student_edit(request, id_student):
 def admin_student_delete(request, id_student):
     StudentInfo.objects.filter(id_student=id_student).delete()
     return redirect('admin_student_management')
+
+
 @admin_required
 def capture(id, request):
     global CAPTURE_STATUS
-    CAPTURE_STATUS = 0 # Sử dụng 'global' ở đầu hàm để thông báo rằng bạn muốn sử dụng biến toàn cục
+    CAPTURE_STATUS = 0  # Sử dụng 'global' ở đầu hàm để thông báo rằng bạn muốn sử dụng biến toàn cục
     image_count = 0
     color = (0, 0, 255)  # BGR color for drawing rectangles
     thickness = 2  # Thickness of the rectangle
@@ -173,7 +171,8 @@ def capture(id, request):
 
         image_bbox = model_test.get_bbox(frame)  # Assuming `get_bbox` returns the bounding box of the face
         if image_bbox is not None:
-            x, y, w, h = (image_bbox[0]), (image_bbox[1] - 50), (image_bbox[0] + image_bbox[2]), (image_bbox[1] + image_bbox[3])
+            x, y, w, h = (image_bbox[0]), (image_bbox[1] - 50), (image_bbox[0] + image_bbox[2]), (
+                        image_bbox[1] + image_bbox[3])
 
             cropped_face = frame[y:h, x:w]
             if cropped_face is not None and cropped_face.size != 0:
@@ -186,7 +185,8 @@ def capture(id, request):
                 cv2.rectangle(frame, (x, y), (w, h), color, thickness)
                 image_count += 1
 
-                cv2.putText(frame, f"Image Count: {image_count}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+                cv2.putText(frame, f"Image Count: {image_count}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+                            (255, 255, 255), 1)
 
         _, buffer = cv2.imencode('.jpg', frame)
         if _:
@@ -196,17 +196,17 @@ def capture(id, request):
         if image_count >= 300:
             CAPTURE_STATUS = 1
 
-
     capture.release()
     cv2.destroyAllWindows()
 
 
 @admin_required
 def live_video_feed(request, id_student):
-    return StreamingHttpResponse(capture(id_student,request),content_type="multipart/x-mixed-replace;boundary=frame")
+    return StreamingHttpResponse(capture(id_student, request), content_type="multipart/x-mixed-replace;boundary=frame")
+
 
 # Create a view to check the capture status
 @admin_required
 def check_capture_status(request):
     print(CAPTURE_STATUS)
-    return JsonResponse({'capture_status': CAPTURE_STATUS })
+    return JsonResponse({'capture_status': CAPTURE_STATUS})
