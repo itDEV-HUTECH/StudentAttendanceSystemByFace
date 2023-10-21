@@ -7,52 +7,56 @@
 {% endblock %}
 
 {% block content %}
-<style>
-.container_video {
+    <style>
+        .container_video {
 
-}
+        }
 
-.img_video {
-    width: 1280px;
-    height: 960px;
-}
-.container_video.col-4{
-    text-align: center;
-}
-.container_video label{
-    margin-bottom: 0px;
-    margin-top:5px;
-}
+        .img_video {
+            width: 1280px;
+            height: 960px;
+        }
 
-</style>
-<div class="card">
-    <div class="table-responsive">
-        <form method="post" action="{% url 'lecturer_mark_attendance_by_face' classroom.id_classroom %}">
-            {% csrf_token %}
-            <div class="container_video">
-                <div class="row px-4">
-                    <div class="col-8">
-                        <h2 class="card-title mb-0" style="padding: 20px; text-align:center">{{ classroom.name }}</h2>
-                        <img id="video-feed" style="width: 100%;" src="{% url 'live_video_feed2' classroom.id_classroom %}" alt="Live Video Feed" />
-                    </div>
-                    <div class="col-4" style="padding-top: 60px">
-                        <h4>Thông tin sinh viên</h4>
-                        <div class="row">
-                            <label>Ho</label>
-                            <input type="text">
+        .container_video.col-4 {
+            text-align: center;
+        }
+
+        .container_video label {
+            margin-bottom: 0px;
+            margin-top: 5px;
+        }
+
+    </style>
+    <div class="card">
+        <div class="table-responsive">
+            <form method="post" action="{% url 'lecturer_mark_attendance_by_face' classroom.id_classroom %}">
+                {% csrf_token %}
+                <div class="container_video">
+                    <div class="row px-4">
+                        <div class="col-8">
+                            <h2 class="card-title mb-0"
+                                style="padding: 20px; text-align:center">{{ classroom.name }}</h2>
+                            <img id="video-feed" style="width: 100%;"
+                                 src="{% url 'live_video_feed2' classroom.id_classroom %}" alt="Live Video Feed"/>
                         </div>
-                        <div class="row">
-                            <label>Va</label>
-                            <input type="text">
-                        </div>
-                        <div class="row">
-                            <label>Ten</label>
-                            <input type="text">
+                        <div class="col-4" style="padding-top: 60px">
+                            <h4>Thông tin sinh viên</h4>
+                            <div class="row">
+                                <label>Ho</label>
+                                <input type="text">
+                            </div>
+                            <div class="row">
+                                <label>Va</label>
+                                <input type="text">
+                            </div>
+                            <div class="row">
+                                <label>Ten</label>
+                                <input type="text">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 {% endblock %}

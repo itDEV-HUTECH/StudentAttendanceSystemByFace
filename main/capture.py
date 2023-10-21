@@ -1,5 +1,3 @@
-
-
 from facenet_pytorch import MTCNN
 from django.http import JsonResponse
 
@@ -7,12 +5,9 @@ import os
 import cv2
 import base64
 
-
 color = (255, 0, 0)
 
-
 thickness = 2
-
 
 max_images = 300
 device_id = 0
@@ -21,9 +16,9 @@ capturing_done = False
 mtcnn = MTCNN()
 from src.anti_spoof_predict import AntiSpoofPredict
 
-
 max_images = 300
 device_id = 0
+
 
 def capture(ID):
     image_count = 0
@@ -68,6 +63,7 @@ def capture(ID):
             }
 
     return captured_images, response_data
+
 
 captured_images, response_data = capture(222222)
 print(response_data)

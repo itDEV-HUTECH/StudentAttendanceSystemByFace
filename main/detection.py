@@ -1,4 +1,3 @@
-
 import os
 import cv2
 import numpy as np
@@ -13,6 +12,8 @@ from src.generate_patches import CropImage
 from src.utility import parse_model_name
 
 warnings.filterwarnings('ignore')
+
+
 def test(model_dir, device_id):
     model_test = AntiSpoofPredict(device_id)
     image_cropper = CropImage()
@@ -76,5 +77,3 @@ def test(model_dir, device_id):
 
     capture.release()
     cv2.destroyAllWindows()
-
-

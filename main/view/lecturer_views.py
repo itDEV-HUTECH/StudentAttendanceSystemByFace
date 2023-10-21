@@ -19,6 +19,7 @@ from main.src.anti_spoof_predict import AntiSpoofPredict
 from main.src.generate_patches import CropImage
 from main.src.utility import parse_model_name
 from main.view.reg import *
+
 model_test = AntiSpoofPredict(0)
 image_cropper = CropImage()
 
@@ -185,7 +186,6 @@ def lecturer_mark_attendance(request, classroom_id):
     return render(request, 'lecturer/lecturer_mask_attendance.html', context)
 
 
-
 def generate_frames(model_dir, device_id):
     model_test = AntiSpoofPredict(device_id)
     image_cropper = CropImage()
@@ -254,10 +254,12 @@ def live_video_feed(request):
     return StreamingHttpResponse(generate_frames(model_dir, device_id),
                                  content_type="multipart/x-mixed-replace;boundary=frame")
 
+
 @gzip.gzip_page
 def live_video_feed2(request, classroom_id):
     return StreamingHttpResponse(main(classroom_id),
                                  content_type="multipart/x-mixed-replace; boundary=frame")
+
 
 def lecturer_mark_attendance_by_face(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)

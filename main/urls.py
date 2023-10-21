@@ -18,10 +18,12 @@ urlpatterns = [
     path('admin/student-management/add', admin_views.admin_student_add, name='admin_student_add'),
     path('admin/student-management/train', admin_views.train, name='train'),
 
-    path('admin/student-management/live_video_feed/<int:id_student>', admin_views.live_video_feed, name='live_video_feed'),
+    path('admin/student-management/live_video_feed/<int:id_student>', admin_views.live_video_feed,
+         name='live_video_feed'),
     path('admin/student-management/delete/<int:id_student>', admin_views.admin_student_delete,
          name='admin_student_delete'),
-    path('admin/student-management/check_capture_status/', admin_views.check_capture_status, name='check_capture_status'),
+    path('admin/student-management/check_capture_status/', admin_views.check_capture_status,
+         name='check_capture_status'),
 
     path('admin/student-management/delete/<int:id_student>', admin_views.admin_student_delete,
          name='admin_student_delete'),

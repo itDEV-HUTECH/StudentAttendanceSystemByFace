@@ -14,7 +14,7 @@ import cv2
 # Function to draw a progress bar
 from main.decorators import lecturer_required
 
-from main.models import StaffInfo, Classroom, StudentClassDetails, Attendance,StudentInfo
+from main.models import StaffInfo, Classroom, StudentClassDetails, Attendance, StudentInfo
 from datetime import datetime, time, timedelta
 
 
@@ -74,6 +74,8 @@ def draw_progress_bar(frame, progress, x, y, w, h):
     cv2.rectangle(frame, (bar_x, bar_y), (bar_x + bar_width, bar_y + bar_height), (0, 0, 0), -1)
     filled_width = int(bar_width * progress)
     cv2.rectangle(frame, (bar_x, bar_y), (bar_x + filled_width, bar_y + bar_height), (0, 255, 0), -1)
+
+
 def main(id_subject):
     id_subject = id_subject
     MINSIZE = 20
@@ -124,7 +126,8 @@ def main(id_subject):
 
                             # Check if the cropped image is not empty
                             if cropped is not None and cropped.size > 0:
-                                scaled = cv2.resize(cropped, (INPUT_IMAGE_SIZE, INPUT_IMAGE_SIZE), interpolation=cv2.INTER_CUBIC)
+                                scaled = cv2.resize(cropped, (INPUT_IMAGE_SIZE, INPUT_IMAGE_SIZE),
+                                                    interpolation=cv2.INTER_CUBIC)
                                 scaled = facenet.prewhiten(scaled)
                                 scaled_reshape = scaled.reshape(-1, INPUT_IMAGE_SIZE, INPUT_IMAGE_SIZE, 3)
                                 feed_dict = {images_placeholder: scaled_reshape, phase_train_placeholder: False}
@@ -149,7 +152,8 @@ def main(id_subject):
                                         cv2.rectangle(frame, (x, y), (w, h), (0, 255, 0), 2)
                                         text_x = x
                                         text_y = h + 20
-                                        cv2.putText(frame, best_name, (text_x, text_y), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1,
+                                        cv2.putText(frame, best_name, (text_x, text_y), cv2.FONT_HERSHEY_COMPLEX_SMALL,
+                                                    1,
                                                     (255, 255, 255), thickness=1, lineType=2)
                                         cv2.putText(frame, str(round(best_class_probabilities[0], 3)),
                                                     (text_x, text_y + 17), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1,
@@ -158,7 +162,7 @@ def main(id_subject):
                                         if current_face_progress >= 30:
                                             justscanned = True
                                             recognized_names.append(best_name)
-                                            insert = insert_attendance(id_subject,best_name)
+                                            insert = insert_attendance(id_subject, best_name)
                                             print(insert)
                                             if current_face_name != "SUCCESS":
                                                 print("Success: Face Recognized as", insert)
