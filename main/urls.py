@@ -16,13 +16,15 @@ urlpatterns = [
     path('admin/change-password', admin_views.admin_change_password_view, name='admin_change_password'),
     path('admin/student-management', admin_views.admin_student_management_view, name='admin_student_management'),
     path('admin/student-management/add', admin_views.admin_student_add, name='admin_student_add'),
-    path('admin/student-management/live_video_feed/<int:id_student>', admin_views.live_video_feed,
-         name='live_video_feed'),
+    path('admin/student-management/train', admin_views.train, name='train'),
+
+    path('admin/student-management/live_video_feed/<int:id_student>', admin_views.live_video_feed, name='live_video_feed'),
     path('admin/student-management/delete/<int:id_student>', admin_views.admin_student_delete,
          name='admin_student_delete'),
-    path('admin/student-management/edit/<int:id_student>', admin_views.admin_student_edit, name='admin_student_edit'),
-    path('admin/student-management/check_capture_status/', admin_views.check_capture_status,
-         name='check_capture_status'),
+    path('admin/student-management/check_capture_status/', admin_views.check_capture_status, name='check_capture_status'),
+
+    path('admin/student-management/delete/<int:id_student>', admin_views.admin_student_delete,
+         name='admin_student_delete'),
 
     # Lecturer
     path('admin/student-management/student_capture', admin_views.student_capture, name='student_capture'),
@@ -39,6 +41,7 @@ urlpatterns = [
     path('lecturer/attendance-history', lecturer_views.lecturer_attendance_history_view,
          name='lecturer_attendance_history'),
     path('lecturer/live_video_feed', lecturer_views.live_video_feed, name='live_video_feed'),
+    path('lecturer/live_video_feed2/<int:classroom_id>', lecturer_views.live_video_feed2, name='live_video_feed2'),
 
     # Student
     path('student/login', student_views.student_login_view, name='student_login'),

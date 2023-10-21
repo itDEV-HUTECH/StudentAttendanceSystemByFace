@@ -78,19 +78,3 @@ def test(model_dir, device_id):
     cv2.destroyAllWindows()
 
 
-if __name__ == "__main__":
-    desc = "test"
-    parser = argparse.ArgumentParser(description=desc)
-    parser.add_argument(
-        "--device_id",
-        type=int,
-        default=0,
-        help="which gpu id, [0/1/2/3]")
-    parser.add_argument(
-        "--model_dir",
-        type=str,
-        default="./resources/anti_spoof_models",
-        help="model_lib used to test")
-    args = parser.parse_args()
-    print(str(args.model_dir )+  str(args.device_id))
-    test(args.model_dir, args.device_id)
