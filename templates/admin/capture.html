@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Capture Image</title>
+</head>
+<body>
+    <h1>Capture Image from Webcam</h1>
+    <button id="captureBtn">Capture</button>
+    <br>
+    <img id="capturedImage" alt="Captured Image">
+    <script>
+        document.getElementById('captureBtn').addEventListener('click', function () {
+            fetch('/admin/capture/')  // URL endpoint của view chụp ảnh
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        const img = document.getElementById('capturedImage');
+                        img.src = 'data:image/jpeg;base64,' + data.image;
+                    }
+                });
+        });
+    </script>
+</body>
+</html>

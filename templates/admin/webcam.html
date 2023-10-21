@@ -1,0 +1,49 @@
+<!-- webcam.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Webcam Capture</title>
+</head>
+<body>
+    <h1>Webcam Capture</h1>
+    <button id="startButton">Start</button>
+    <button id="stopButton">Stop</button>
+    <div id="webcamImage">
+        <img id="webcamImg" src="" alt="Webcam Image">
+    </div>
+
+    <!-- Thêm CSRF token vào trang -->
+    <input type="hidden" id="csrf_token" value="{% csrf_token %}">
+
+    <script>
+        var csrftoken = document.getElementById("csrf_token").value; // Lấy CSRF token
+
+        document.getElementById("startButton").addEventListener("click", function () {
+            // Gửi yêu cầu bắt đầu lấy hình từ webcam đến view
+            fetch('/admin/webcam', {
+                method: 'POST',
+                body: 'action=start',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Hiển thị hình ảnh từ webcam lên trang web
+                document.getElementById('webcamImg').src = 'data:image/jpeg;base64,' + data.image;
+            });
+        });
+
+        document.getElementById("stopButton").addEventListener("click", function () {
+            // Gửi yêu cầu dừng lấy hình từ webcam đến view
+            fetch('/admin/webcam', {
+                method: 'POST',
+                body: 'action=stop',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                }
+            });
+        });
+    </script>
+</body>
+</html>

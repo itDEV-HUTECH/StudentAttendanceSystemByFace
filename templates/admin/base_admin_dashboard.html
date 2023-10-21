@@ -54,146 +54,129 @@
                                   Fdata-sidebartype="mini-sidebar">
                                 <i class="mdi mdi-menu font-24"></i>
                             </span>
-                    </li>
-                </ul>
-                <ul class="navbar-nav float-end">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#"
-                           id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{% static '' %}assets/images/users/1.jpg" alt="user" class="rounded-circle"
-                                 width="31"/>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="dropdown-item" href="{% url 'admin_profile' %}">
-                                    <i class="mdi mdi-account me-1 ms-1"></i>Quản lý hồ sơ
-                                </a>
-                                <div class="dropdown-divider"></div>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'admin_change_password' %}">
-                                    <i class="mdi mdi-settings me-1 ms-1"></i>Đổi mật khẩu
-                                </a>
-                                <div class="dropdown-divider"></div>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'logout' %}">
-                                    <i class="fa fa-power-off me-1 ms-1"></i>Đăng xuất
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <aside class="left-sidebar" data-sidebarbg="skin5">
-        <div class="scroll-sidebar">
-            <nav class="sidebar-nav">
-                <ul id="sidebarnav" class="pt-4">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark"
-                           href="{% url 'admin_dashboard' %}" aria-expanded="false">
-                            <i class="mdi mdi-home"></i>
-                            <span class="hide-menu">Trang chủ</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark"
-                           aria-expanded="false">
-                            <i class="mdi mdi-folder-account"></i>
-                            <span class="hide-menu">Quản lý</span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse first-level">
-                            <li class="sidebar-item">
-                                <a href="{% url 'admin_profile' %}" class="sidebar-link">
-                                    <i class="mdi mdi-account-edit"></i>
-                                    <span class="hide-menu"> Giảng viên </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="{% url 'admin_student_management' %}" class="sidebar-link">
-                                    <i class="mdi mdi-account-edit"></i>
-                                    <span class="hide-menu"> Sinh viên </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="{% url 'admin_profile' %}" class="sidebar-link">
-                                    <i class="mdi mdi-account-edit"></i>
-                                    <span class="hide-menu"> Nhân viên </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="{% url 'admin_change_password' %}" class="sidebar-link">
-                                    <i class="mdi mdi-account-edit"></i>
-                                    <span class="hide-menu"> Admin </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                           href="#" aria-expanded="false">
-                            <i class="mdi mdi-folder"></i>
-                            <span class="hide-menu">Quản lý lớp học</span>
-                        </a>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav float-end">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#"
+                               id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{% static '' %}assets/images/users/1.jpg" alt="user" class="rounded-circle"
+                                     width="31"/>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'admin_profile' %}">
+                                        <i class="mdi mdi-account me-1 ms-1"></i>Quản lý hồ sơ
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'admin_change_password' %}">
+                                        <i class="mdi mdi-settings me-1 ms-1"></i>Đổi mật khẩu
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'logout' %}">
+                                        <i class="fa fa-power-off me-1 ms-1"></i>Đăng xuất
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </nav>
+        </header>
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+            <div class="scroll-sidebar">
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav" class="pt-4">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark"
+                               href="{% url 'admin_dashboard' %}" aria-expanded="false">
+                                <i class="mdi mdi-home"></i>
+                                <span class="hide-menu">Trang chủ</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark"
+                               aria-expanded="false">
+                                <i class="mdi mdi-folder-account"></i>
+                                <span class="hide-menu">Quản lý</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item">
+                                    <a href="{% url 'admin_profile' %}" class="sidebar-link">
+                                        <i class="mdi mdi-account-edit"></i>
+                                        <span class="hide-menu"> Giảng viên </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="{% url 'admin_student_management' %}" class="sidebar-link">
+                                        <i class="mdi mdi-account-edit"></i>
+                                        <span class="hide-menu"> Sinh viên </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="{% url 'admin_profile' %}" class="sidebar-link">
+                                        <i class="mdi mdi-account-edit"></i>
+                                        <span class="hide-menu"> Nhân viên </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="{% url 'admin_change_password' %}" class="sidebar-link">
+                                        <i class="mdi mdi-account-edit"></i>
+                                        <span class="hide-menu"> Admin </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               href="#" aria-expanded="false">
+                                <i class="mdi mdi-folder"></i>
+                                <span class="hide-menu">Quản lý lớp học</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <footer class="footer text-center">
+                Attendance system was built and developed by HUTECH students
+            </footer>
         </div>
-    </aside>
-    <div class="page-wrapper">
-        <div class="container-fluid">
-            {% block content %}
-            {% endblock %}
-        </div>
-        <footer class="footer text-center">
-            Attendance system was built and developed by HUTECH students
-        </footer>
     </div>
-</div>
-<script src="{% static '' %}assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="{% static '' %}assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{% static '' %}assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-<script src="{% static '' %}assets/extra-libs/sparkline/sparkline.js"></script>
-<script src="{% static '' %}dist/js/waves.js"></script>
-<script src="{% static '' %}dist/js/sesson.js"></script>
-<script src="{% static '' %}dist/js/sidebarmenu.js"></script>
-<script src="{% static '' %}dist/js/custom.min.js"></script>
-<script src="{% static '' %}assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
-<script src="{% static '' %}assets/extra-libs/multicheck/jquery.multicheck.js"></script>
-<script src="{% static '' %}assets/extra-libs/DataTables/datatables.min.js"></script>
-<script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<script>
-    function confirmDelete(studentId) {
-        var deleteUrl = "{% url 'admin_student_delete' '1' %}".replace('1', studentId);
-        $('#confirmDeleteButton').attr('href', deleteUrl);
-        $('#confirmDeleteModal').modal('show');
-        $('#studentIdToDelete').text(studentId);
-    }
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static '' %}assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="{% static '' %}assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static '' %}assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="{% static '' %}assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="{% static '' %}dist/js/waves.js"></script>
+    <script src="{% static '' %}dist/js/sidebarmenu.js"></script>
+    <script src="{% static '' %}dist/js/custom.min.js"></script>
+    <script src="{% static '' %}assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+    <script src="{% static '' %}assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+    <script src="{% static '' %}assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        function confirmDelete(studentId) {
+            var deleteUrl = "{% url 'admin_student_delete' '1' %}".replace('1', studentId);
+            $('#confirmDeleteButton').attr('href', deleteUrl);
+            $('#confirmDeleteModal').modal('show');
+            $('#studentIdToDelete').text(studentId);
+        }
 
     function addNewStudent() {
         $('#addNewStudentModal').modal('show');
     }
 
-    function editStudent(studentId) {
-        var editUrl = "{% url 'admin_student_edit' '1' %}".replace('1', studentId);
-        $.ajax({
-            url: editUrl,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                $('#editStudentModal').modal('show');
-                $('#id_student').val(data.id_student);
-                $('#student_name').val(data.student_name);
-                $('#email').val(data.email);
-                $('#phone').val(data.phone);
-                $('#address').val(data.address);
-                $('#birthday').val(data.birthday);
-                $('#PathImageFolder').val(data.PathImageFolder);
-            }
-        });
-    }
+
 </script>
 <script>
     jQuery("#birthday").datepicker({
@@ -264,8 +247,57 @@
     // Thêm sự kiện onchange vào trường id_student
     idStudentField.addEventListener("change", function () {
         const studentId = idStudentField.value;
-        pathImageFolderField.value = "/main/data/test_images/" + studentId;
+        pathImageFolderField.value = "./main/Dataset/FaceData/processed/" + studentId;
     });
+</script>
+<script>
+document.getElementById('train-button').addEventListener('click', function() {
+    let timerInterval
+Swal.fire({
+  title: 'Thông báo!',
+  html: 'Quá trình training đang được diễn ra, vui lòng đợi !!!!',
+  timer: 20000,
+  timerProgressBar: true,
+  didOpen: () => {
+    Swal.showLoading()
+    const b = Swal.getHtmlContainer().querySelector('b')
+    timerInterval = setInterval(() => {
+    }, 100)
+  },
+  willClose: () => {
+    clearInterval(timerInterval)
+  }
+}).then((result) => {
+  /* Read more about handling dismissals below */
+  if (result.dismiss === Swal.DismissReason.timer) {
+    console.log('I was closed by the timer')
+  }
+})
+    fetch('/admin/student-management/train')
+        .then(response => response.json())
+        .then(data => {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: data.resuil,
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            // Làm mới trang sau khi thành công
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
+        })
+        .catch(error => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Có lỗi xảy ra trong quá trình thực hiện yêu cầu.'
+            });
+            console.error('Fetch Error:', error);
+        });
+});
 </script>
 <script>
     jQuery("#birthday").datepicker({

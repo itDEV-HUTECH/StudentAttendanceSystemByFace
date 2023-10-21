@@ -16,6 +16,8 @@
             <a href="javascript:void(0)" class="btn btn-success mdi mdi-account-plus text-white"
                onclick="addNewStudent()"> Thêm sinh viên
             </a>
+            <button type="button" class="btn btn-danger mdi mdi-account-plus text-white" id="train-button">Train</button>
+            <div id="result"></div>
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -106,7 +108,6 @@
             <p>Trang {{ list_students.number }} / {{ list_students.paginator.num_pages }}</p>
         </div>
     </div>
-
     {% include 'admin/modal-popup/popup_add_student.html' %}
     {% include 'admin/modal-popup/popup_edit_student.html' %}
     {% include 'admin/modal-popup/popup_delete_student.html' %}
