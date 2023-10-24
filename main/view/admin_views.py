@@ -1,29 +1,24 @@
+import math
+import os
+import pickle
 from datetime import datetime
 
+import cv2
+import facenet
+import numpy as np
+import tensorflow as tf
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
 from django.core.paginator import Paginator
+from django.http import JsonResponse
+from django.http import StreamingHttpResponse
 from django.shortcuts import render, redirect
-from django.views.decorators import gzip
+from sklearn.svm import SVC
+
+from main import facenet
 from main.decorators import admin_required
 from main.models import StaffInfo, StudentInfo
-from django.http import StreamingHttpResponse
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
-import os
-import cv2
-import base64
-from django.http import HttpResponse
-import tensorflow as tf
-import numpy as np
-import facenet
-import os
-import math
-import pickle
-from sklearn.svm import SVC
-from main import facenet
 from main.src.anti_spoof_predict import AntiSpoofPredict
 
 color = (255, 0, 0)
@@ -167,7 +162,6 @@ def admin_student_edit(request, id_student):
         student.save()
         messages.success(request, 'Thay đổi thông tin thành công.')
         return redirect('admin_student_management')
-    return render(request, 'admin/modal-popup/popup_edit_student.html', context)
 
 
 @admin_required

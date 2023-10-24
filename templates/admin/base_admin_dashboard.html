@@ -164,20 +164,7 @@
 <script src="{% static '' %}assets/extra-libs/multicheck/jquery.multicheck.js"></script>
 <script src="{% static '' %}assets/extra-libs/DataTables/datatables.min.js"></script>
 <script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<script>
-    function confirmDelete(studentId) {
-        var deleteUrl = "{% url 'admin_student_delete' '1' %}".replace('1', studentId);
-        $('#confirmDeleteButton').attr('href', deleteUrl);
-        $('#confirmDeleteModal').modal('show');
-        $('#studentIdToDelete').text(studentId);
-    }
-
-    function addNewStudent() {
-        $('#addNewStudentModal').modal('show');
-    }
-
-
-</script>
+<script src="{% static '' %}assets/js/manage-student.js"></script>
 <script>
     jQuery("#birthday").datepicker({
         autoclose: true,
@@ -297,12 +284,6 @@
                 });
                 console.error('Fetch Error:', error);
             });
-    });
-</script>
-<script>
-    jQuery("#birthday").datepicker({
-        autoclose: true,
-        todayHighlight: true,
     });
 </script>
 </body>
