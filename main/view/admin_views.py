@@ -162,6 +162,8 @@ def admin_student_edit(request, id_student):
         student.save()
         messages.success(request, 'Thay đổi thông tin thành công.')
         return redirect('admin_student_management')
+    return render(request, 'admin/modal-popup/popup_edit_student.html', context)
+    # return render(request, 'admin/admin_edit_student.html', context)
 
 
 @admin_required

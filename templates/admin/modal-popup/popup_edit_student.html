@@ -6,13 +6,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST">
+                <form method="POST" class="editStudentForm">
                     {% csrf_token %}
                     <div class="mb-3 form-group row d-flex justify-content-center">
                         <label for="id_student" class="col-sm-2 control-label col-form-label">Mã Sinh Viên:</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="id_student" id="id_student" required>
+                                <input type="text" class="form-control" name="id_student" id="id_student"
+                                       value="{{ student.id_student }}" required>
                             </div>
                         </div>
                     </div>
@@ -21,7 +22,8 @@
                         <label for="student_name" class="col-sm-2 control-label col-form-label">Tên Sinh Viên:</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="student_name" id="student_name" required>
+                                <input type="text" class="form-control" name="student_name" id="student_name"
+                                       value="{{ student.student_name }}" required>
                             </div>
                         </div>
                     </div>
@@ -30,7 +32,8 @@
                         <label for="email" class="col-sm-2 control-label col-form-label">Email:</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="email" id="email" required>
+                                <input type="text" class="form-control" name="email" id="email"
+                                       value="{{ student.email }}" required>
                             </div>
                         </div>
                     </div>
@@ -39,7 +42,8 @@
                         <label for="phone" class="col-sm-2 control-label col-form-label">Số điện thoại:</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="phone" id="phone" required>
+                                <input type="text" class="form-control" name="phone" id="phone"
+                                       value="{{ student.phone }}" required>
                             </div>
                         </div>
                     </div>
@@ -48,7 +52,8 @@
                         <label for="address" class="col-sm-2 control-label col-form-label">Địa chỉ:</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="address" id="address" required>
+                                <input type="text" class="form-control" name="address" id="address"
+                                       value="{{ student.address }}" required>
                             </div>
                         </div>
                     </div>
@@ -58,7 +63,7 @@
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" id="birthday" name="birthday"
-                                       placeholder="dd/mm/yyyy" required/>
+                                       placeholder="dd/mm/yyyy" value="{{ student.birthday|date:"d/m/Y" }}" required/>
                                 <div class="input-group-append">
                                     <span class="input-group-text h-100"><i class="mdi mdi-calendar"></i></span>
                                 </div>
@@ -72,7 +77,7 @@
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="PathImageFolder" id="PathImageFolder"
-                                       required>
+                                       value="{{ student.PathImageFolder }}" required>
                             </div>
                         </div>
                     </div>
