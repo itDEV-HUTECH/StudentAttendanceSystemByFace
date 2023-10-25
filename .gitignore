@@ -4,6 +4,6 @@
 ### VS Code ###
 .vscode/
 
-settings.py
+FaceByAttendance/settings.py
 
 main/data
