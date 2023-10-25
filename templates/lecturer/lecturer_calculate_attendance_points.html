@@ -1,0 +1,45 @@
+{% extends "lecturer/base_lecturer_dashboard.html" %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="text-center" scope="col">Thứ</th>
+            <th scope="col">Môn Học</th>
+            <th class="text-center" scope="col">Thời gian bắt đầu</th>
+            <th class="text-center" scope="col">Thời gian kết thúc</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for classroom in classrooms %}
+            <tr>
+                <td class="text-center">
+                    {% if classroom.day_of_week_begin == 7 %}
+                        Chủ Nhật
+                    {% elif classroom.day_of_week_begin == 1 %}
+                        Thứ Hai
+                    {% elif classroom.day_of_week_begin == 2 %}
+                        Thứ Ba
+                    {% elif classroom.day_of_week_begin == 3 %}
+                        Thứ Tư
+                    {% elif classroom.day_of_week_begin == 4 %}
+                        Thứ Năm
+                    {% elif classroom.day_of_week_begin == 5 %}
+                        Thứ Sáu
+                    {% elif classroom.day_of_week_begin == 6 %}
+                        Thứ Bảy
+                    {% endif %}
+                </td>
+                <td>{{ classroom.name }}</td>
+                <td class="text-center">{{ classroom.begin_time|time:"H:i" }}</td>
+                <td class="text-center">{{ classroom.end_time|time:"H:i" }}</td>
+            </tr>
+        {% empty %}
+            <tr class="text-center text-danger">
+                <td colspan="5"><strong>Không có giảng dạy trong tuần này!</strong>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
