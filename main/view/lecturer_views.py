@@ -1,9 +1,6 @@
-import os
 import time
-from datetime import date, timedelta, datetime
+from datetime import date
 
-import cv2
-import numpy as np
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
@@ -13,8 +10,6 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.decorators import gzip
 
-from main.decorators import lecturer_required
-from main.models import StaffInfo, Classroom, StudentClassDetails, Attendance
 from main.src.anti_spoof_predict import AntiSpoofPredict
 from main.src.generate_patches import CropImage
 from main.src.utility import parse_model_name
@@ -121,14 +116,14 @@ def lecturer_change_password_view(request):
 
 @lecturer_required
 def lecturer_attendance_class_view(request):
-    id_staff = request.session.get('id_staff')
+    id_lecturer = request.session.get('id_staff')
 
     today = date.today()
     week_start = today - timedelta(days=today.weekday())
     end_of_week = week_start + timedelta(days=6)
 
     lecturer_classes = Classroom.objects.filter(
-        id_lecturer__id_staff=id_staff,
+        id_lecturer__id_staff=id_lecturer,
         begin_date__lte=end_of_week,
         end_date__gte=week_start
     ).order_by('day_of_week_begin', 'begin_time')
@@ -304,3 +299,12 @@ def lecturer_mark_attendance_by_face(request, classroom_id):
 
 def lecturer_attendance_history_view(request):
     return render(request, 'lecturer/lecturer_attendance_history.html')
+
+
+def lecturer_calculate_attendance_points_view(request):
+    id_staff = request.session.get('id_staff')
+    classrooms = Classroom.objects.filter(
+        id_lecturer__id_staff=id_staff
+    ).order_by('day_of_week_begin', 'begin_time')
+    context = {'classrooms': classrooms}
+    return render(request, 'lecturer/lecturer_calculate_attendance_points.html', context)

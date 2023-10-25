@@ -172,6 +172,35 @@
     });
 </script>
 <script>
+    function confirmDelete(studentId) {
+        var deleteUrl = "{% url 'admin_student_delete' '1' %}".replace('1', studentId);
+        $('#confirmDeleteButton').attr('href', deleteUrl);
+        $('#confirmDeleteModal').modal('show');
+        $('#studentIdToDelete').text(studentId);
+    }
+
+    function editStudent(studentId) {
+        var id_student = studentId
+        $.ajax({
+                type: "GET",
+                url: "{% url 'admin_student_get_info' '1' %}".replace('1', id_student),
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $('#id_student').val(data.id_student);
+                    $('#student_name').val(data.student_name);
+                    $('#email').val(data.email);
+                    $('#phone').val(data.phone);
+                    $('#address').val(data.address);
+                    $('#birthday').val(data.birthday);
+                    $('#PathImageFolder').val(data.PathImageFolder);
+                    $('#editStudentModal').modal('show');
+                },
+            }
+        )
+    }
+</script>
+<script>
     let isChecking = false;
     let intervalId;
     document.getElementById("addStudentButton").addEventListener("click", function () {
@@ -213,7 +242,7 @@
 
                             if (data.capture_status == 1) {
                                 alert("Thành công");
-                                const form = document.getElementById("myForm");
+                                const form = document.getElementById("addStudentForm");
                                 form.submit();
                                 clearInterval(intervalId);  // Dừng kiểm tra
                                 isChecking = false;
