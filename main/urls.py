@@ -19,6 +19,8 @@ urlpatterns = [
     path('admin/student-management/delete/<int:id_student>', admin_views.admin_student_delete,
          name='admin_student_delete'),
     path('admin/student-management/edit/<int:id_student>', admin_views.admin_student_edit, name='admin_student_edit'),
+    path('admin/student-management/get-info/<int:id_student>', admin_views.admin_student_get_info,
+         name='admin_student_get_info'),
     path('admin/student-management/train', admin_views.train, name='train'),
     path('admin/student-management/live_video_feed/<int:id_student>', admin_views.live_video_feed,
          name='live_video_feed'),
@@ -43,6 +45,8 @@ urlpatterns = [
          name='lecturer_attendance_history'),
     path('lecturer/live_video_feed', lecturer_views.live_video_feed, name='live_video_feed'),
     path('lecturer/live_video_feed2/<int:classroom_id>', lecturer_views.live_video_feed2, name='live_video_feed2'),
+    path('lecturer/calculate-attendance-points', lecturer_views.lecturer_calculate_attendance_points_view,
+         name='calculate_attendance_points'),
 
     # Student
     path('student/login', student_views.student_login_view, name='student_login'),

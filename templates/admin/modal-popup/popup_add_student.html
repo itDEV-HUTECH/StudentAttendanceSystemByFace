@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="myForm" method="POST" action="{% url 'admin_student_add' %}">
+                <form id="addStudentForm" method="POST" action="{% url 'admin_student_add' %}">
                     {% csrf_token %}
                     <div class="mb-3 form-group row d-flex justify-content-center">
                         <label for="id_student" class="col-sm-2 control-label col-form-label">Mã Sinh Viên:</label>
@@ -89,12 +89,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-

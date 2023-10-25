@@ -162,14 +162,32 @@ def admin_student_edit(request, id_student):
         student.save()
         messages.success(request, 'Thay đổi thông tin thành công.')
         return redirect('admin_student_management')
-    return render(request, 'admin/modal-popup/popup_edit_student.html', context)
-    # return render(request, 'admin/admin_edit_student.html', context)
+    # return render(request, 'admin/modal-popup/popup_edit_student.html', context)
+    return render(request, 'admin/admin_edit_student.html', context)
 
 
 @admin_required
 def admin_student_delete(request, id_student):
     StudentInfo.objects.filter(id_student=id_student).delete()
     return redirect('admin_student_management')
+
+
+@admin_required
+def admin_student_get_info(request, id_student):
+    try:
+        student = StudentInfo.objects.get(id_student=id_student)
+        student_data = {
+            'id_student': student.id_student,
+            'student_name': student.student_name,
+            'email': student.email,
+            'phone': student.phone,
+            'address': student.address,
+            'birthday': student.birthday.strftime('%d/%m/%Y'),
+            'PathImageFolder': student.PathImageFolder,
+        }
+        return JsonResponse({'student': student_data})
+    except StudentInfo.DoesNotExist:
+        return JsonResponse({'error': 'Không tìm thấy học sinh'}, status=404)
 
 
 def capture(id, request):

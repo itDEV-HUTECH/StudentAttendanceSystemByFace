@@ -60,9 +60,9 @@
                             <a href="{% url 'admin_student_delete' student.id_student %}"
                                class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
                                onclick="confirmDelete({{ student.id_student }})">Xóa</a>
-                            <a href="{% url 'admin_student_edit' student.id_student %}"
-                               class="btn btn-primary btn-sm mdi mdi-account-edit" id="editStudent"
-                               onclick="editStudent({{ student.id_student }})">Sửa</a>
+                            {#                            <a href="{% url 'admin_student_edit' student.id_student %}"#}
+                            {#                               class="btn btn-primary btn-sm mdi mdi-account-edit" id="editStudent"#}
+                            {#                               onclick="editStudent({{ student.id_student }})">Sửa</a>#}
                             <a href="{% url 'admin_student_edit' student.id_student %}"
                                class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
                         </td>
