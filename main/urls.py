@@ -45,8 +45,10 @@ urlpatterns = [
          name='lecturer_attendance_history'),
     path('lecturer/live_video_feed', lecturer_views.live_video_feed, name='live_video_feed'),
     path('lecturer/live_video_feed2/<int:classroom_id>', lecturer_views.live_video_feed2, name='live_video_feed2'),
-    path('lecturer/calculate-attendance-points', lecturer_views.lecturer_calculate_attendance_points_view,
-         name='calculate_attendance_points'),
+    path('lecturer/list-classroom', lecturer_views.lecturer_list_classroom_view,
+         name='lecturer_list_classroom'),
+    path('lecturer/calculate-attendance-points/<int:classroom_id>', lecturer_views.lecturer_calculate_attendance_points_view,
+         name='lecturer_calculate_attendance_points'),
 
     # Student
     path('student/login', student_views.student_login_view, name='student_login'),
