@@ -301,10 +301,32 @@ def lecturer_attendance_history_view(request):
     return render(request, 'lecturer/lecturer_attendance_history.html')
 
 
-def lecturer_calculate_attendance_points_view(request):
+def lecturer_list_classroom_view(request):
     id_staff = request.session.get('id_staff')
     classrooms = Classroom.objects.filter(
         id_lecturer__id_staff=id_staff
     ).order_by('day_of_week_begin', 'begin_time')
     context = {'classrooms': classrooms}
+    return render(request, 'lecturer/lecturer_list_classroom.html', context)
+
+
+def lecturer_calculate_attendance_points_view(request, classroom_id):
+    classroom = Classroom.objects.get(pk=classroom_id)
+    students_in_class = StudentClassDetails.objects.filter(id_classroom=classroom)
+
+    student_attendance_counts = []
+    for student in students_in_class:
+        attendance_count = (Attendance.objects.filter(id_classroom=classroom,
+                                                      id_student=student.id_student,
+                                                      attendance_status=2)
+                            .count())
+        attendance_percentage = (attendance_count / 9) * 3
+        student_attendance_counts.append({'student': student,
+                                          'attendance_count': attendance_count,
+                                          'attendance_percentage': attendance_percentage})
+
+    context = {
+        'students_in_class': student_attendance_counts,
+        'classroom': classroom,
+    }
     return render(request, 'lecturer/lecturer_calculate_attendance_points.html', context)

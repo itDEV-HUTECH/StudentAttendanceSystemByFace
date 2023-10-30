@@ -1,45 +1,47 @@
 {% extends "lecturer/base_lecturer_dashboard.html" %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static '' %}assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static '' %}assets/extra-libs/multicheck/multicheck.css"/>
+{% endblock %}
 
 {% block content %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th class="text-center" scope="col">Thứ</th>
-            <th scope="col">Môn Học</th>
-            <th class="text-center" scope="col">Thời gian bắt đầu</th>
-            <th class="text-center" scope="col">Thời gian kết thúc</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for classroom in classrooms %}
-            <tr>
-                <td class="text-center">
-                    {% if classroom.day_of_week_begin == 7 %}
-                        Chủ Nhật
-                    {% elif classroom.day_of_week_begin == 1 %}
-                        Thứ Hai
-                    {% elif classroom.day_of_week_begin == 2 %}
-                        Thứ Ba
-                    {% elif classroom.day_of_week_begin == 3 %}
-                        Thứ Tư
-                    {% elif classroom.day_of_week_begin == 4 %}
-                        Thứ Năm
-                    {% elif classroom.day_of_week_begin == 5 %}
-                        Thứ Sáu
-                    {% elif classroom.day_of_week_begin == 6 %}
-                        Thứ Bảy
-                    {% endif %}
-                </td>
-                <td>{{ classroom.name }}</td>
-                <td class="text-center">{{ classroom.begin_time|time:"H:i" }}</td>
-                <td class="text-center">{{ classroom.end_time|time:"H:i" }}</td>
-            </tr>
-        {% empty %}
-            <tr class="text-center text-danger">
-                <td colspan="5"><strong>Không có giảng dạy trong tuần này!</strong>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title mb-0">{{ classroom.name }}</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="text-center">
+                <tr>
+                    <th scope="col">MSSV</th>
+                    <th scope="col">Họ và tên</th>
+                    <th scope="col">Email(s)</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Ngày sinh</th>
+                    <th scope="col">Số buổi đi học</th>
+                    <th scope="col">Điểm chuyên cần</th>
+                </tr>
+                </thead>
+                <tbody class="customtable">
+                {% for student in students_in_class %}
+                    <tr class="text-center">
+                        <td>{{ student.student.id_student.id_student }}</td>
+                        <td>{{ student.student.id_student.student_name }}</td>
+                        <td>{{ student.student.id_student.email }}</td>
+                        <td>{{ student.student.id_student.phone }}</td>
+                        <td>{{ student.student.id_student.birthday|date:"d/m/Y" }}</td>
+                        <td>{{ student.attendance_count }}</td>
+                        <td>{{ student.attendance_percentage }}</td>
+                    </tr>
+                {% empty %}
+                    <tr class="text-center text-danger">
+                        <td colspan="10"><strong>Danh sách sinh viên đang được cập nhật</strong></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
