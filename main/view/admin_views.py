@@ -197,7 +197,7 @@ def capture(id, request):
     color = (0, 0, 255)  # BGR color for drawing rectangles
     thickness = 2  # Thickness of the rectangle
     model_test = AntiSpoofPredict(device_id)  # Define the AntiSpoofPredict object (assumed to be a valid class)
-    capture = cv2.VideoCapture(2)  # Capture from camera at index 2 (can be adjusted)
+    capture = cv2.VideoCapture(0)  # Capture from camera at index 2 (can be adjusted)
     output_dir = f"./main/Dataset/FaceData/processed/{id}"
     os.makedirs(output_dir, exist_ok=True)
     while image_count < 300:

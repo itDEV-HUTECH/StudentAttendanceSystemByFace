@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="card">
-        <h3 class="text-center">Sửa thông tin sinh viên</h3>
+        <h3 class="text-center mt-3 mb-3">Sửa thông tin sinh viên</h3>
         <form method="POST" class="editStudentForm">
             {% csrf_token %}
             <div class="mb-3 form-group row d-flex justify-content-center">
@@ -80,7 +80,6 @@
             </div>
 
             <div class="footer text-center">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
                 <button type="submit" class="btn btn-success text-white">Lưu</button>
             </div>
         </form>
