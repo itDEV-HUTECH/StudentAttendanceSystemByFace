@@ -190,6 +190,19 @@ def admin_student_get_info(request, id_student):
         return JsonResponse({'error': 'Không tìm thấy học sinh'}, status=404)
 
 
+@admin_required
+def admin_lecturer_management_view(request):
+    lecturer = StaffInfo.objects.filter(roles__name='Lecturer')
+    per_page = 10
+    paginator = Paginator(lecturer, per_page)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    context = {
+        'list_lecturers': page,
+    }
+    return render(request, 'admin/admin_lecturer_management.html', context)
+
+
 def capture(id, request):
     global CAPTURE_STATUS
     CAPTURE_STATUS = 0  # Sử dụng 'global' ở đầu hàm để thông báo rằng bạn muốn sử dụng biến toàn cục

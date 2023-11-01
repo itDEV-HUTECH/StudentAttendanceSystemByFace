@@ -10,15 +10,12 @@
 {% block content %}
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title mb-0">Danh sách sinh viên</h3>
+            <h3 class="card-title mb-0">Danh sách giảng viên</h3>
         </div>
         <div class="card-body">
-            <a href="{% url 'admin_student_add' %}" class="btn btn-success mdi mdi-account-plus text-white"
+            <a href="#" class="btn btn-success mdi mdi-account-plus text-white"
                id="addStudent">Thêm sinh viên
             </a>
-            <button type="button" class="btn btn-danger mdi mdi-account-plus text-white" id="train-button">Train
-            </button>
-            <div id="result"></div>
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -30,18 +27,17 @@
                             <span class="checkmark"></span>
                         </label>
                     </th>
-                    <th scope="col">MSSV</th>
+                    <th scope="col">Mã giảng viên</th>
                     <th scope="col">Họ và tên</th>
                     <th scope="col">Email</th>
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Địa chỉ</th>
                     <th scope="col">Ngày sinh</th>
-                    <th scope="col">Đường dẫn ảnh</th>
                     <th scope="col">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
-                {% for student in list_students %}
+                {% for lecturer in list_lecturers %}
                     <tr class="text-center">
                         <th>
                             <label class="customcheckbox">
@@ -49,21 +45,17 @@
                                 <span class="checkmark"></span>
                             </label>
                         </th>
-                        <td>{{ student.id_student }}</td>
-                        <td>{{ student.student_name }}</td>
-                        <td>{{ student.email }}</td>
-                        <td>{{ student.phone }}</td>
-                        <td>{{ student.address }}</td>
-                        <td>{{ student.birthday|date:"d/m/Y" }}</td>
-                        <td>{{ student.PathImageFolder }}</td>
+                        <td>{{ lecturer.id_staff }}</td>
+                        <td>{{ lecturer.staff_name }}</td>
+                        <td>{{ lecturer.email }}</td>
+                        <td>{{ lecturer.phone }}</td>
+                        <td>{{ lecturer.address }}</td>
+                        <td>{{ lecturer.birthday|date:"d/m/Y" }}</td>
                         <td>
-                            <a href="{% url 'admin_student_delete' student.id_student %}"
+                            <a href="#"
                                class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
-                               onclick="confirmDelete({{ student.id_student }})">Xóa</a>
-                            {#                            <a href="{% url 'admin_student_edit' student.id_student %}"#}
-                            {#                               class="btn btn-primary btn-sm mdi mdi-account-edit" id="editStudent"#}
-                            {#                               onclick="editStudent({{ student.id_student }})">Sửa</a>#}
-                            <a href="{% url 'admin_student_edit' student.id_student %}"
+                               onclick="confirmDelete({{ lecturer.id_staff }})">Xóa</a>
+                            <a href="#"
                                class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
                         </td>
                     </tr>
@@ -77,42 +69,39 @@
         </div>
         <div class="pagination justify-content-center">
             <ul class="pagination">
-                {% if list_students.has_previous %}
+                {% if list_lecturers.has_previous %}
                     <li class="page-item">
                         <a class="page-link" href="?page=1">‹‹</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ list_students.previous_page_number }}">‹</a>
+                        <a class="page-link" href="?page={{ list_lecturers.previous_page_number }}">‹</a>
                     </li>
                 {% endif %}
 
-                {% for i in list_students.paginator.page_range %}
-                    {% if list_students.number == i %}
+                {% for i in list_lecturers.paginator.page_range %}
+                    {% if list_lecturers.number == i %}
                         <li class="page-item active">
                             <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                         </li>
-                    {% elif i > list_students.number|add:'-3' and i < list_students.number|add:'3' %}
+                    {% elif i > list_lecturers.number|add:'-3' and i < list_lecturers.number|add:'3' %}
                         <li class="page-item">
                             <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
 
-                {% if list_students.has_next %}
+                {% if list_lecturers.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ list_students.next_page_number }}">›</a>
+                        <a class="page-link" href="?page={{ list_lecturers.next_page_number }}">›</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ list_students.paginator.num_pages }}">››</a>
+                        <a class="page-link" href="?page={{ list_lecturers.paginator.num_pages }}">››</a>
                     </li>
                 {% endif %}
             </ul>
         </div>
         <div class="text-center">
-            <p>Trang {{ list_students.number }} / {{ list_students.paginator.num_pages }}</p>
+            <p>Trang {{ list_lecturers.number }} / {{ list_lecturers.paginator.num_pages }}</p>
         </div>
     </div>
-    {% include 'admin/modal-popup/popup_add_student.html' %}
-    {% include 'admin/modal-popup/popup_edit_student.html' %}
-    {% include 'admin/modal-popup/popup_delete_student.html' %}
 {% endblock %}

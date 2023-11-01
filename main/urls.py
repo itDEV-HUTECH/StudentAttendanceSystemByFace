@@ -28,6 +28,7 @@ urlpatterns = [
          name='admin_student_delete'),
     path('admin/student-management/check_capture_status/', admin_views.check_capture_status,
          name='check_capture_status'),
+    path('admin/lecturer-management', admin_views.admin_lecturer_management_view, name='admin_lecturer_management'),
 
     # Lecturer
     path('admin/student-management/student_capture', admin_views.student_capture, name='student_capture'),
@@ -47,7 +48,8 @@ urlpatterns = [
     path('lecturer/live_video_feed2/<int:classroom_id>', lecturer_views.live_video_feed2, name='live_video_feed2'),
     path('lecturer/list-classroom', lecturer_views.lecturer_list_classroom_view,
          name='lecturer_list_classroom'),
-    path('lecturer/calculate-attendance-points/<int:classroom_id>', lecturer_views.lecturer_calculate_attendance_points_view,
+    path('lecturer/calculate-attendance-points/<int:classroom_id>',
+         lecturer_views.lecturer_calculate_attendance_points_view,
          name='lecturer_calculate_attendance_points'),
 
     # Student
