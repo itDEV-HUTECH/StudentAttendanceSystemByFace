@@ -1,5 +1,6 @@
+import os
 import time
-from datetime import date
+from datetime import date, timedelta
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -11,6 +12,8 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.decorators import gzip
 
+from main.decorators import lecturer_required
+from main.models import StaffInfo, StudentClassDetails
 from main.src.anti_spoof_predict import AntiSpoofPredict
 from main.src.generate_patches import CropImage
 from main.src.utility import parse_model_name
