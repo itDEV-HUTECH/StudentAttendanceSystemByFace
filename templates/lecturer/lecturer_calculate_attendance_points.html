@@ -17,11 +17,12 @@
                 <tr>
                     <th scope="col">MSSV</th>
                     <th scope="col">Họ và tên</th>
-                    <th scope="col">Email(s)</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Ngày sinh</th>
-                    <th scope="col">Số buổi đi học</th>
+                    <th scope="col">Số buổi đi học / Số buổi trễ / Số buổi vắng</th>
                     <th scope="col">Điểm chuyên cần</th>
+                    <th scope="col">Trạng thái</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
@@ -32,8 +33,18 @@
                         <td>{{ student.student.id_student.email }}</td>
                         <td>{{ student.student.id_student.phone }}</td>
                         <td>{{ student.student.id_student.birthday|date:"d/m/Y" }}</td>
-                        <td>{{ student.attendance_count }}</td>
-                        <td>{{ student.attendance_percentage }}</td>
+                        <td>{{ student.total_attendance_present }}
+                            / {{ student.late_count }}
+                            / {{ student.absent_count }}</td>
+                        <td>{{ student.total_attendance_percentage }}</td>
+                        <td>
+                            {% if student.total_number_attendance != 9 %}
+                                <span class="text-center badge bg-warning">Đang trong quá trình học</span>
+                            {% elif student.absent_count > 2 %}
+                                <span class="text-center badge bg-danger">Nghỉ quá quy định</span>
+                            {% else %}
+                                <span class="text-center badge bg-success">Bình thường</span>
+                            {% endif %}
                     </tr>
                 {% empty %}
                     <tr class="text-center text-danger">
@@ -42,6 +53,42 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+        <div class="pagination justify-content-center">
+            <ul class="pagination">
+                {% if students_in_class.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">‹‹</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ students_in_class.previous_page_number }}">‹</a>
+                    </li>
+                {% endif %}
+
+                {% for i in students_in_class.paginator.page_range %}
+                    {% if students_in_class.number == i %}
+                        <li class="page-item active">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% elif i > students_in_class.number|add:'-3' and i < students_in_class.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if students_in_class.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ students_in_class.next_page_number }}">›</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ students_in_class.paginator.num_pages }}">››</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="text-center">
+            <p>Trang {{ students_in_class.number }} / {{ students_in_class.paginator.num_pages }}</p>
         </div>
     </div>
 {% endblock %}

@@ -114,8 +114,8 @@ def admin_change_password_view(request):
 @admin_required
 def admin_student_management_view(request):
     students = StudentInfo.objects.all()
-    per_page = 10
-    paginator = Paginator(students, per_page)
+    student_per_page = 10
+    paginator = Paginator(students, student_per_page)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
     context = {

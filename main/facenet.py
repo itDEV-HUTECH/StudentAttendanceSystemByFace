@@ -27,19 +27,20 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import math
 import os
-from subprocess import Popen, PIPE
-import tensorflow as tf
-import numpy as np
-from scipy import misc
-from sklearn.model_selection import KFold
-from scipy import interpolate
-from tensorflow.python.training import training
 import random
 import re
-from tensorflow.python.platform import gfile
-import math
+from subprocess import Popen, PIPE
+
+import numpy as np
+import tensorflow as tf
+from scipy import interpolate
+from scipy import misc
 from six import iteritems
+from sklearn.model_selection import KFold
+from tensorflow.python.platform import gfile
+from tensorflow.python.training import training
 
 
 def triplet_loss(anchor, positive, negative, alpha):

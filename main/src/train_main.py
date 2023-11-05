@@ -6,14 +6,13 @@
 # @Software : PyCharm
 
 import torch
+from src.data_io.dataset_loader import get_train_loader
+from src.model_lib.MultiFTNet import MultiFTNet
+from src.utility import get_time
+from tensorboardX import SummaryWriter
 from torch import optim
 from torch.nn import CrossEntropyLoss, MSELoss
 from tqdm import tqdm
-from tensorboardX import SummaryWriter
-
-from src.utility import get_time
-from src.model_lib.MultiFTNet import MultiFTNet
-from src.data_io.dataset_loader import get_train_loader
 
 
 class TrainMain:
@@ -109,7 +108,7 @@ class TrainMain:
         loss_cls = self.cls_criterion(embeddings, labels)
         loss_fea = self.ft_criterion(feature_map, imgs[1].to(self.conf.device))
 
-        loss = 0.5*loss_cls + 0.5*loss_fea
+        loss = 0.5 * loss_cls + 0.5 * loss_fea
         acc = self._get_accuracy(embeddings, labels)[0]
         loss.backward()
         self.optimizer.step()

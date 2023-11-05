@@ -1,9 +1,8 @@
-from facenet_pytorch import MTCNN
-from django.http import JsonResponse
-
-import os
-import cv2
 import base64
+import os
+
+import cv2
+from facenet_pytorch import MTCNN
 
 color = (255, 0, 0)
 

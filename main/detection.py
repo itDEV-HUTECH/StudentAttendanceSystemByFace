@@ -1,9 +1,9 @@
 import os
+import time
+import warnings
+
 import cv2
 import numpy as np
-import argparse
-import warnings
-import time
 from facenet_pytorch import MTCNN
 
 mtcnn = MTCNN()

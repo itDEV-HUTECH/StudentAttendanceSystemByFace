@@ -1,21 +1,18 @@
+import pickle
+from datetime import datetime
+
+import cv2
+import imutils
+import numpy as np
 import tensorflow as tf
 from imutils.video import VideoStream
-import argparse
+
 from main import facenet
-import imutils
-import os
-import sys
-import math
-import pickle
 from main.align import detect_face
-import numpy as np
-import cv2
+from main.models import Classroom, Attendance, StudentInfo
+
 
 # Function to draw a progress bar
-from main.decorators import lecturer_required
-
-from main.models import StaffInfo, Classroom, StudentClassDetails, Attendance, StudentInfo
-from datetime import datetime, time, timedelta
 
 
 def insert_attendance(id_classroom, student_id):

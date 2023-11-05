@@ -9,8 +9,9 @@
 default config for training
 """
 
-import torch
 from datetime import datetime
+
+import torch
 from easydict import EasyDict
 from src.utility import make_if_not_exist, get_width_height, get_kernel
 
@@ -57,8 +58,8 @@ def update_config(args, conf):
     conf.device = "cuda:{}".format(conf.devices[0]) if torch.cuda.is_available() else "cpu"
 
     # resize fourier image size
-    conf.ft_height = 2*conf.kernel_size[0]
-    conf.ft_width = 2*conf.kernel_size[1]
+    conf.ft_height = 2 * conf.kernel_size[0]
+    conf.ft_width = 2 * conf.kernel_size[1]
     current_time = datetime.now().strftime('%b%d_%H-%M-%S')
     job_name = 'Anti_Spoofing_{}'.format(args.patch_info)
     log_path = '{}/{}/{} '.format(conf.log_path, job_name, current_time)

@@ -5,8 +5,8 @@
 # @File : utility.py
 # @Software : PyCharm
 
-from datetime import datetime
 import os
+from datetime import datetime
 
 
 def get_time():
@@ -21,7 +21,7 @@ def get_kernel(height, width):
 def get_width_height(patch_info):
     w_input = int(patch_info.split('x')[-1])
     h_input = int(patch_info.split('x')[0].split('_')[-1])
-    return w_input,h_input
+    return w_input, h_input
 
 
 def parse_model_name(model_name):

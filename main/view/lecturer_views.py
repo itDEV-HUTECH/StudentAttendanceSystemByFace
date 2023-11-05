@@ -4,6 +4,7 @@ from datetime import date
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
+from django.core.paginator import Paginator
 from django.http import Http404
 from django.http import StreamingHttpResponse
 from django.shortcuts import redirect
@@ -313,20 +314,38 @@ def lecturer_list_classroom_view(request):
 def lecturer_calculate_attendance_points_view(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
     students_in_class = StudentClassDetails.objects.filter(id_classroom=classroom)
+    student_per_page = 5
+    page_number = request.GET.get('page')
 
     student_attendance_counts = []
     for student in students_in_class:
-        attendance_count = (Attendance.objects.filter(id_classroom=classroom,
-                                                      id_student=student.id_student,
-                                                      attendance_status=2)
-                            .count())
-        attendance_percentage = (attendance_count / 9) * 3
-        student_attendance_counts.append({'student': student,
-                                          'attendance_count': attendance_count,
-                                          'attendance_percentage': attendance_percentage})
+        absent_count = Attendance.objects.filter(id_classroom=classroom, id_student=student.id_student,
+                                                 attendance_status=1).count()
+        present_count = Attendance.objects.filter(id_classroom=classroom, id_student=student.id_student,
+                                                  attendance_status=2).count()
+        late_count = Attendance.objects.filter(id_classroom=classroom, id_student=student.id_student,
+                                               attendance_status=3).count()
+
+        total_number_attendance = absent_count + late_count + present_count
+        total_attendance_present = late_count + present_count
+        total_attendance_percentage = round((((absent_count * 0) + (late_count * 0.5) + present_count) / 9) * 3, 2)
+
+        student_attendance_counts.append({
+            'student': student,
+            'absent_count': absent_count,
+            'late_count': late_count,
+            'present_count': present_count,
+            'total_number_attendance': total_number_attendance,
+            'total_attendance_present': total_attendance_present,
+            'total_attendance_percentage': total_attendance_percentage
+        })
+
+        paginator = Paginator(student_attendance_counts, student_per_page)
+        page = paginator.get_page(page_number)
 
     context = {
-        'students_in_class': student_attendance_counts,
+        'students_in_class': page,
         'classroom': classroom,
     }
+
     return render(request, 'lecturer/lecturer_calculate_attendance_points.html', context)
