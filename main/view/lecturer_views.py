@@ -148,40 +148,45 @@ def lecturer_attendance_class_view(request):
 def lecturer_mark_attendance(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
     students_in_class = StudentClassDetails.objects.filter(id_classroom=classroom)
-    attendance_list = Attendance.objects.filter(id_classroom=classroom)
     day_of_week_today = date.today().isoweekday()
 
     if day_of_week_today != classroom.day_of_week_begin:
         return redirect('lecturer_attendance')
-    elif request.method == 'POST':
+
+    attendance_list = Attendance.objects.filter(
+        id_classroom=classroom,
+        check_in_time__date=datetime.now()
+    )
+
+    if request.method == 'POST':
         for student in students_in_class:
             student_id = student.id_student
             attendance_status = request.POST.get(f'attendance_status_{student_id.id_student}')
 
-            attendance = Attendance.objects.filter(
+            attendance, created = Attendance.objects.get_or_create(
                 id_student=student_id,
                 id_classroom=classroom,
-                check_in_time__date=datetime.now().date()
-            ).first()
+                check_in_time__date=datetime.now().date(),
+                defaults={
+                    'attendance_status': attendance_status,
+                    'check_in_time': datetime.now()
+                }
+            )
 
-            if attendance:
+            if not created:
                 if attendance_status != str(attendance.attendance_status):
                     attendance.attendance_status = attendance_status
                     attendance.check_in_time = datetime.now()
                     attendance.save()
-            else:
-                attendance = Attendance.objects.create(
-                    id_student=student_id,
-                    id_classroom=classroom,
-                    check_in_time=datetime.now(),
-                    attendance_status=attendance_status
-                )
 
         return redirect('lecturer_mark_attendance', classroom_id=classroom_id)
 
-    context = {'students_in_class': students_in_class,
-               'classroom': classroom,
-               'attendance_list': attendance_list}
+    context = {
+        'students_in_class': students_in_class,
+        'classroom': classroom,
+        'attendance_list': attendance_list
+    }
+
     return render(request, 'lecturer/lecturer_mask_attendance.html', context)
 
 
@@ -263,41 +268,45 @@ def live_video_feed2(request, classroom_id):
 def lecturer_mark_attendance_by_face(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
     students_in_class = StudentClassDetails.objects.filter(id_classroom=classroom)
-    attendance_list = Attendance.objects.filter(id_classroom=classroom)
     day_of_week_today = date.today().isoweekday()
 
     if day_of_week_today != classroom.day_of_week_begin:
         return redirect('lecturer_attendance')
-    elif request.method == 'POST':
+
+    attendance_list = Attendance.objects.filter(
+        id_classroom=classroom,
+        check_in_time__date=datetime.now()
+    )
+
+    if request.method == 'POST':
         for student in students_in_class:
             student_id = student.id_student
             attendance_status = request.POST.get(f'attendance_status_{student_id.id_student}')
 
-            attendance = Attendance.objects.filter(
+            attendance, created = Attendance.objects.get_or_create(
                 id_student=student_id,
                 id_classroom=classroom,
-                check_in_time__date=datetime.now().date()
-            ).first()
+                check_in_time__date=datetime.now().date(),
+                defaults={
+                    'attendance_status': attendance_status,
+                    'check_in_time': datetime.now()
+                }
+            )
 
-            if attendance:
+            if not created:
                 if attendance_status != str(attendance.attendance_status):
                     attendance.attendance_status = attendance_status
                     attendance.check_in_time = datetime.now()
                     attendance.save()
-            else:
-                attendance = Attendance.objects.create(
-                    id_student=student_id,
-                    id_classroom=classroom,
-                    check_in_time=datetime.now(),
-                    attendance_status=attendance_status
-                )
 
-        return redirect('lecturer_mark_attendance', classroom_id=classroom_id)
+        return redirect('lecturer_mark_attendance_by_face', classroom_id=classroom_id)
 
-    context = {'students_in_class': students_in_class,
-               'classroom_id': classroom_id,
-               'classroom': classroom,
-               'attendance_list': attendance_list}
+    context = {
+        'students_in_class': students_in_class,
+        'classroom': classroom,
+        'attendance_list': attendance_list
+    }
+
     return render(request, 'lecturer/lecturer_mask_attendance_by_face.html', context)
 
 
@@ -307,10 +316,13 @@ def lecturer_attendance_history_view(request):
 
 def lecturer_list_classroom_view(request):
     id_staff = request.session.get('id_staff')
+
     classrooms = Classroom.objects.filter(
         id_lecturer__id_staff=id_staff
     ).order_by('day_of_week_begin', 'begin_time')
+
     context = {'classrooms': classrooms}
+
     return render(request, 'lecturer/lecturer_list_classroom.html', context)
 
 
