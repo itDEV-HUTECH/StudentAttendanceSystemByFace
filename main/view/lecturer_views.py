@@ -310,10 +310,12 @@ def lecturer_mark_attendance_by_face(request, classroom_id):
     return render(request, 'lecturer/lecturer_mask_attendance_by_face.html', context)
 
 
+@lecturer_required
 def lecturer_attendance_history_view(request):
     return render(request, 'lecturer/lecturer_attendance_history.html')
 
 
+@lecturer_required
 def lecturer_list_classroom_view(request):
     id_staff = request.session.get('id_staff')
 
@@ -326,6 +328,7 @@ def lecturer_list_classroom_view(request):
     return render(request, 'lecturer/lecturer_list_classroom.html', context)
 
 
+@lecturer_required
 def lecturer_calculate_attendance_points_view(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
     students_in_class = StudentClassDetails.objects.filter(id_classroom=classroom)

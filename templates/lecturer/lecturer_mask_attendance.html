@@ -36,7 +36,7 @@
                             <td>{{ student.id_student.birthday|date:"d/m/Y" }}</td>
                             <td>
                                 {% for attendance in attendance_list %}
-                                    {% if attendance.id_student.id_student == student.id_student.id_student %}
+                                    {% if attendance.id_student == student.id_student.id_student %}
                                         {{ attendance.check_in_time|date:"d/m/Y H:i:s" }}
                                     {% endif %}
                                 {% empty %}
