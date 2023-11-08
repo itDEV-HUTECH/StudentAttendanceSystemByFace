@@ -7,7 +7,7 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 
 from main.decorators import student_required
-from main.models import StudentInfo, Classroom
+from main.models import StudentInfo, Classroom, Attendance
 
 
 def student_login_view(request):
@@ -114,3 +114,50 @@ def student_change_password_view(request):
             messages.error(request, 'Mật khẩu cũ không đúng.')
 
     return render(request, 'student/student_change_password.html')
+
+
+@student_required
+def student_checkpoint_view(request):
+    id_student = request.session['id_student']
+
+    student_classes = Classroom.objects.filter(
+        students__id_student=id_student,
+    ).order_by('day_of_week_begin', 'begin_time')
+    current_date = date.today()
+
+    attendance_scores = []
+
+    for classroom in student_classes:
+        absent_count = Attendance.objects.filter(
+            attendance_status=1,
+            id_student=id_student,
+            id_classroom=classroom.id_classroom,
+        ).count()
+
+        present_count = Attendance.objects.filter(
+            attendance_status=2,
+            id_student=id_student,
+            id_classroom=classroom.id_classroom,
+        ).count()
+
+        late_count = Attendance.objects.filter(
+            attendance_status=3,
+            id_student=id_student,
+            id_classroom=classroom.id_classroom,
+        ).count()
+
+        total_attendance_percentage = round((((absent_count * 0) + (late_count * 0.5) + present_count) / 9) * 3, 2)
+        attendance_scores.append({
+            'classroom': classroom,
+            'absent_count': absent_count,
+            'present_count': present_count,
+            'late_count': late_count,
+            'total_attendance_percentage': total_attendance_percentage,
+        })
+
+    context = {
+        'attendance_scores': attendance_scores,
+        'current_date': current_date,
+    }
+
+    return render(request, 'student/student_checkpoint.html', context)
