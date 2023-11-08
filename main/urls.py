@@ -58,6 +58,7 @@ urlpatterns = [
     path('student/schedule', student_views.student_schedule_view, name='student_schedule'),
     path('student/profile', student_views.student_profile_view, name='student_profile'),
     path('student/change-password', student_views.student_change_password_view, name='student_change_password'),
+    path('student/checkpoint', student_views.student_checkpoint_view, name='student_checkpoint'),
 
     # Staff
 

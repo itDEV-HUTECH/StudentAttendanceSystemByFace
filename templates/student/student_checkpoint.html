@@ -1,0 +1,56 @@
+{% extends "student/base_student_dashboard.html" %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="card-title mb-0">Danh sách lớp học</h3>
+                <strong class="current-date">{{ current_date|date:"d/m/Y" }}</strong>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">Thứ</th>
+                <th scope="col">Môn Học</th>
+                <th class="text-center" scope="col">Ngày bắt đầu</th>
+                <th class="text-center" scope="col">Ngày gian kết thúc</th>
+                <th class="text-center" scope="col">Điểm chuyên cần hiện tại</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for score in attendance_scores %}
+                <tr>
+                    <td class="text-center">
+                        {% if score.classroom.day_of_week_begin == 7 %}
+                            Chủ Nhật
+                        {% elif score.classroom.day_of_week_begin == 1 %}
+                            Thứ Hai
+                        {% elif score.classroom.day_of_week_begin == 2 %}
+                            Thứ Ba
+                        {% elif score.classroom.day_of_week_begin == 3 %}
+                            Thứ Tư
+                        {% elif score.classroom.day_of_week_begin == 4 %}
+                            Thứ Năm
+                        {% elif score.classroom.day_of_week_begin == 5 %}
+                            Thứ Sáu
+                        {% elif score.classroom.day_of_week_begin == 6 %}
+                            Thứ Bảy
+                        {% endif %}
+                    </td>
+                    <td>{{ score.classroom.name }}</td>
+                    <td class="text-center">{{ score.classroom.begin_date|date:"d/m/Y" }}</td>
+                    <td class="text-center">{{ score.classroom.end_date|date:"d/m/Y" }}</td>
+                    <td class="text-center">
+                        {{ score.total_attendance_percentage }}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr class="text-center text-danger">
+                    <td colspan="5"><strong>Lớp học hiện tại đang được cập nhật!</strong></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
