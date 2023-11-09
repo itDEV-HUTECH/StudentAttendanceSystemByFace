@@ -3,6 +3,7 @@ from datetime import date, timedelta, datetime
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import make_password, check_password
+from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import redirect, render
 
@@ -123,10 +124,12 @@ def student_checkpoint_view(request):
     student_classes = Classroom.objects.filter(
         students__id_student=id_student,
     ).order_by('day_of_week_begin', 'begin_time')
+
     current_date = date.today()
+    classroom_per_page = 5
+    page_number = request.GET.get('page')
 
     attendance_scores = []
-
     for classroom in student_classes:
         absent_count = Attendance.objects.filter(
             attendance_status=1,
@@ -146,17 +149,25 @@ def student_checkpoint_view(request):
             id_classroom=classroom.id_classroom,
         ).count()
 
+        total_number_attendance = absent_count + late_count + present_count
+        total_attendance_present = late_count + present_count
         total_attendance_percentage = round((((absent_count * 0) + (late_count * 0.5) + present_count) / 9) * 3, 2)
+
         attendance_scores.append({
             'classroom': classroom,
             'absent_count': absent_count,
             'present_count': present_count,
             'late_count': late_count,
+            'total_number_attendance': total_number_attendance,
+            'total_attendance_present': total_attendance_present,
             'total_attendance_percentage': total_attendance_percentage,
         })
 
+        paginator = Paginator(attendance_scores, classroom_per_page)
+        page = paginator.get_page(page_number)
+
     context = {
-        'attendance_scores': attendance_scores,
+        'attendance_scores': page,
         'current_date': current_date,
     }
 
