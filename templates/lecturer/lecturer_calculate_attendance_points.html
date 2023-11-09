@@ -33,9 +33,11 @@
                         <td>{{ student.student.id_student.email }}</td>
                         <td>{{ student.student.id_student.phone }}</td>
                         <td>{{ student.student.id_student.birthday|date:"d/m/Y" }}</td>
-                        <td>{{ student.total_attendance_present }}
+                        <td>
+                            {{ student.total_attendance_present }}
                             / {{ student.late_count }}
-                            / {{ student.absent_count }}</td>
+                            / {{ student.absent_count }}
+                        </td>
                         <td>{{ student.total_attendance_percentage }}</td>
                         <td>
                             {% if student.total_number_attendance != 9 %}
@@ -45,6 +47,7 @@
                             {% else %}
                                 <span class="text-center badge bg-success">Bình thường</span>
                             {% endif %}
+                        </td>
                     </tr>
                 {% empty %}
                     <tr class="text-center text-danger">
