@@ -333,7 +333,7 @@ def lecturer_attendance_history_view(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
     students_attendance = Attendance.objects.filter(id_classroom=classroom).order_by('id_student')
 
-    student_per_page = 2
+    student_per_page = 5
     page_number = request.GET.get('page')
     pagniator = Paginator(students_attendance, student_per_page)
     page = pagniator.get_page(page_number)

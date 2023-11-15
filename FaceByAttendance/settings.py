@@ -75,7 +75,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'face_by_attendance',
         'USER': 'root',
-        'PASSWORD': 'admin',
+        'PASSWORD': '123456789',
         'HOST': 'localhost',
         'PORT': 3306,
     }
@@ -122,4 +122,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://fine-nicely-troll.ngrok-free.app/",
+    "http://fine-nicely-troll.ngrok-free.app/",
 ]

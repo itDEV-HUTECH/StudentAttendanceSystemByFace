@@ -13,33 +13,27 @@
         </div>
         <div class="table-responsive">
             <table class="table">
-                <thead class="text-center">
+                <thead>
                 <tr>
-                    <th scope="col">MSSV</th>
+                    <th class="text-center" scope="col">MSSV</th>
                     <th scope="col">Họ và tên</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Số điện thoại</th>
-                    <th scope="col">Ngày sinh</th>
-                    <th scope="col">Số buổi đi học / Số buổi trễ / Số buổi vắng</th>
-                    <th scope="col">Điểm chuyên cần</th>
-                    <th scope="col">Trạng thái</th>
+                    <th class="text-center" scope="col">Số buổi đi học / Số buổi trễ / Số buổi vắng</th>
+                    <th class="text-center" scope="col">Điểm chuyên cần</th>
+                    <th class="text-center" scope="col">Trạng thái</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
                 {% for student in students_in_class %}
-                    <tr class="text-center">
-                        <td>{{ student.student.id_student.id_student }}</td>
+                    <tr>
+                        <td class="text-center">{{ student.student.id_student.id_student }}</td>
                         <td>{{ student.student.id_student.student_name }}</td>
-                        <td>{{ student.student.id_student.email }}</td>
-                        <td>{{ student.student.id_student.phone }}</td>
-                        <td>{{ student.student.id_student.birthday|date:"d/m/Y" }}</td>
-                        <td>
+                        <td class="text-center">
                             {{ student.total_attendance_present }}
                             / {{ student.late_count }}
                             / {{ student.absent_count }}
                         </td>
-                        <td>{{ student.total_attendance_percentage }}</td>
-                        <td>
+                        <td class="text-center">{{ student.total_attendance_percentage }}</td>
+                        <td class="text-center">
                             {% if student.total_number_attendance != 9 %}
                                 <span class="text-center badge bg-warning">Đang trong quá trình học</span>
                             {% elif student.absent_count > 2 %}

@@ -63,7 +63,10 @@ urlpatterns = [
     path('student/profile', student_views.student_profile_view, name='student_profile'),
     path('student/change-password', student_views.student_change_password_view, name='student_change_password'),
     path('student/checkpoint', student_views.student_checkpoint_view, name='student_checkpoint'),
-
+    path('student/list-classroom', student_views.student_list_classroom_view,
+         name='student_list_classroom'),
+    path('student/history/attendance-history/<int:classroom_id>', student_views.student_attendance_history_view,
+         name='student_attendance_history'),
     # Staff
 
     path('logout', views.logout_view, name='logout'),

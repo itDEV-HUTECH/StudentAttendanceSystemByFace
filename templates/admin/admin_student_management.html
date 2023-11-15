@@ -22,7 +22,7 @@
         </div>
         <div class="table-responsive">
             <table class="table">
-                <thead class="text-center">
+                <thead>
                 <tr>
                     <th>
                         <label class="customcheckbox mb-3">
@@ -30,33 +30,33 @@
                             <span class="checkmark"></span>
                         </label>
                     </th>
-                    <th scope="col">MSSV</th>
+                    <th class="text-center" scope="col">MSSV</th>
                     <th scope="col">Họ và tên</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Số điện thoại</th>
+                    <th class="text-center" scope="col">Số điện thoại</th>
                     <th scope="col">Địa chỉ</th>
-                    <th scope="col">Ngày sinh</th>
-                    <th scope="col">Đường dẫn ảnh</th>
-                    <th scope="col">Thao tác</th>
+                    <th class="text-center" scope="col">Ngày sinh</th>
+                    <th class="text-center" scope="col">Đường dẫn ảnh</th>
+                    <th class="text-center" scope="col">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
                 {% for student in list_students %}
-                    <tr class="text-center">
+                    <tr>
                         <th>
                             <label class="customcheckbox">
                                 <input type="checkbox" class="listCheckbox"/>
                                 <span class="checkmark"></span>
                             </label>
                         </th>
-                        <td>{{ student.id_student }}</td>
+                        <td class="text-center">{{ student.id_student }}</td>
                         <td>{{ student.student_name }}</td>
                         <td>{{ student.email }}</td>
-                        <td>{{ student.phone }}</td>
+                        <td class="text-center">{{ student.phone }}</td>
                         <td>{{ student.address }}</td>
-                        <td>{{ student.birthday|date:"d/m/Y" }}</td>
-                        <td>{{ student.PathImageFolder }}</td>
-                        <td>
+                        <td class="text-center">{{ student.birthday|date:"d/m/Y" }}</td>
+                        <td class="text-center">{{ student.PathImageFolder }}</td>
+                        <td class="text-center">
                             <a href="{% url 'admin_student_delete' student.id_student %}"
                                class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
                                onclick="confirmDelete({{ student.id_student }})">Xóa</a>

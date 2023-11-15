@@ -15,26 +15,26 @@
             <form method="post" action="{% url 'lecturer_mark_attendance' classroom.id_classroom %}">
                 {% csrf_token %}
                 <table class="table">
-                    <thead class="text-center">
+                    <thead>
                     <tr>
-                        <th scope="col">MSSV</th>
+                        <th class="text-center" scope="col">MSSV</th>
                         <th scope="col">Họ và tên</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Số điện thoại</th>
-                        <th scope="col">Ngày sinh</th>
-                        <th scope="col">Thời gian điểm danh</th>
-                        <th scope="col">Trạng thái điểm danh</th>
+                        <th class="text-center" scope="col">Số điện thoại</th>
+                        <th class="text-center" scope="col">Ngày sinh</th>
+                        <th class="text-center" scope="col">Thời gian điểm danh</th>
+                        <th class="text-center" scope="col">Trạng thái điểm danh</th>
                     </tr>
                     </thead>
                     <tbody class="customtable">
                     {% for student in students_in_class %}
-                        <tr class="text-center">
-                            <td>{{ student.id_student.id_student }}</td>
+                        <tr>
+                            <td class="text-center">{{ student.id_student.id_student }}</td>
                             <td>{{ student.id_student.student_name }}</td>
                             <td>{{ student.id_student.email }}</td>
-                            <td>{{ student.id_student.phone }}</td>
-                            <td>{{ student.id_student.birthday|date:"d/m/Y" }}</td>
-                            <td>
+                            <td class="text-center">{{ student.id_student.phone }}</td>
+                            <td class="text-center">{{ student.id_student.birthday|date:"d/m/Y" }}</td>
+                            <td class="text-center">
                                 {% for attendance in attendance_list %}
                                     {% if attendance.id_student == student.id_student %}
                                         {{ attendance.check_in_time|date:"d/m/Y H:i:s" }}
@@ -44,7 +44,7 @@
                                 {% endfor %}
                             </td>
 
-                            <td>
+                            <td class="text-center">
                                 <label>
                                     <select class="form-select shadow-none"
                                             name="attendance_status_{{ student.id_student.id_student }}">
