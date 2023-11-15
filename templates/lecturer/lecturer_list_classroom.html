@@ -40,7 +40,9 @@
                     <td class="text-center">{{ classroom.end_time|time:"H:i" }}</td>
                     <td class="text-center">
                         <a href="{% url 'lecturer_calculate_attendance_points' classroom.id_classroom %}"
-                           class="btn btn-info btn-sm mdi mdi-account-edit">Xem danh sách</a>
+                           class="btn btn-info btn-sm mdi mdi-account-edit">
+                            <span>Xem danh sách</span>
+                        </a>
                     </td>
                 </tr>
             {% empty %}

@@ -19,7 +19,7 @@
         </div>
         <div class="table-responsive">
             <table class="table">
-                <thead class="text-center">
+                <thead>
                 <tr>
                     <th>
                         <label class="customcheckbox mb-3">
@@ -27,36 +27,34 @@
                             <span class="checkmark"></span>
                         </label>
                     </th>
-                    <th scope="col">Mã giảng viên</th>
+                    <th class="text-center" scope="col">Mã giảng viên</th>
                     <th scope="col">Họ và tên</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Số điện thoại</th>
+                    <th class="text-center" scope="col">Số điện thoại</th>
                     <th scope="col">Địa chỉ</th>
-                    <th scope="col">Ngày sinh</th>
-                    <th scope="col">Thao tác</th>
+                    <th class="text-center" scope="col">Ngày sinh</th>
+                    <th class="text-center" scope="col">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
                 {% for lecturer in list_lecturers %}
-                    <tr class="text-center">
+                    <tr>
                         <th>
                             <label class="customcheckbox">
                                 <input type="checkbox" class="listCheckbox"/>
                                 <span class="checkmark"></span>
                             </label>
                         </th>
-                        <td>{{ lecturer.id_staff }}</td>
+                        <td class="text-center">{{ lecturer.id_staff }}</td>
                         <td>{{ lecturer.staff_name }}</td>
                         <td>{{ lecturer.email }}</td>
-                        <td>{{ lecturer.phone }}</td>
+                        <td class="text-center">{{ lecturer.phone }}</td>
                         <td>{{ lecturer.address }}</td>
-                        <td>{{ lecturer.birthday|date:"d/m/Y" }}</td>
-                        <td>
-                            <a href="#"
-                               class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
+                        <td class="text-center">{{ lecturer.birthday|date:"d/m/Y" }}</td>
+                        <td class="text-center">
+                            <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
                                onclick="confirmDelete({{ lecturer.id_staff }})">Xóa</a>
-                            <a href="#"
-                               class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
+                            <a href="#" class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
                         </td>
                     </tr>
                 {% empty %}
