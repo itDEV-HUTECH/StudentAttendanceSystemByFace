@@ -1,6 +1,79 @@
 {% extends "lecturer/base_lecturer_dashboard.html" %}
 
 {% block content %}
-    <h1>Home</h1>
-    <p> Welcome to the home page!</p>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title mb-0">{{ classroom.name }}</h3>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="text-center">MSSV</th>
+                    <th scope="col">Họ và tên</th>
+                    <th class="text-center">Thời gian điểm danh</th>
+                    <th class="text-center">Trạng thái</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for attendance in students_attendance %}
+                    <tr>
+                        <td class="text-center">{{ attendance.id_student.id_student }}</td>
+                        <td>{{ attendance.id_student.student_name }}</td>
+                        <td class="text-center">{{ attendance.check_in_time|date:"d/m/Y H:i:s" }}</td>
+                        <td class="text-center">
+                            {% if attendance.attendance_status == 1 %}
+                                <span class="text-center badge bg-danger">Vắng</span>
+                            {% elif attendance.attendance_status == 2 %}
+                                <span class="text-center badge bg-success">Đúng giờ</span>
+                            {% elif attendance.attendance_status == 3 %}
+                                <span class="text-center badge bg-warning">Trễ</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr class="text-center text-danger">
+                        <td colspan="5"><strong>Chưa có bản ghi nào!</strong>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination justify-content-center">
+                <ul class="pagination">
+                    {% if students_attendance.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1">‹‹</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ students_attendance.previous_page_number }}">‹</a>
+                        </li>
+                    {% endif %}
+
+                    {% for i in students_attendance.paginator.page_range %}
+                        {% if students_attendance.number == i %}
+                            <li class="page-item active">
+                                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% elif i > students_attendance.number|add:'-3' and i < students_attendance.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if students_attendance.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ students_attendance.next_page_number }}">›</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ students_attendance.paginator.num_pages }}">››</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="text-center">
+                <p>Trang {{ students_attendance.number }} / {{ students_attendance.paginator.num_pages }}</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

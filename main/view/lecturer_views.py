@@ -311,19 +311,55 @@ def lecturer_mark_attendance_by_face(request, classroom_id):
 
 
 @lecturer_required
-def lecturer_attendance_history_view(request):
-    return render(request, 'lecturer/lecturer_attendance_history.html')
+def lecturer_history_list_classroom_view(request):
+    id_lecturer = request.session.get('id_staff')
+    classroom_per_page = 5
+    page_number = request.GET.get('page')
+
+    classrooms = Classroom.objects.filter(
+        id_lecturer__id_staff=id_lecturer
+    ).order_by('day_of_week_begin', 'begin_time')
+
+    paginator = Paginator(classrooms, classroom_per_page)
+    page = paginator.get_page(page_number)
+
+    context = {'classrooms': page}
+
+    return render(request, 'lecturer/lecturer_history_list_classroom.html', context)
+
+
+@lecturer_required
+def lecturer_attendance_history_view(request, classroom_id):
+    classroom = Classroom.objects.get(pk=classroom_id)
+    students_attendance = Attendance.objects.filter(id_classroom=classroom).order_by('id_student')
+
+    student_per_page = 2
+    page_number = request.GET.get('page')
+    pagniator = Paginator(students_attendance, student_per_page)
+    page = pagniator.get_page(page_number)
+
+    context = {
+        'students_attendance': page,
+        'classroom': classroom
+    }
+
+    return render(request, 'lecturer/lecturer_attendance_history.html', context)
 
 
 @lecturer_required
 def lecturer_list_classroom_view(request):
-    id_staff = request.session.get('id_staff')
+    id_lecturer = request.session.get('id_staff')
+    classroom_per_page = 5
+    page_number = request.GET.get('page')
 
     classrooms = Classroom.objects.filter(
-        id_lecturer__id_staff=id_staff
+        id_lecturer__id_staff=id_lecturer
     ).order_by('day_of_week_begin', 'begin_time')
 
-    context = {'classrooms': classrooms}
+    paginator = Paginator(classrooms, classroom_per_page)
+    page = paginator.get_page(page_number)
+
+    context = {'classrooms': page}
 
     return render(request, 'lecturer/lecturer_list_classroom.html', context)
 
