@@ -1,0 +1,93 @@
+{% extends "student/base_student_dashboard.html" %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title mb-0">Danh sách lớp học</h3>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">Thứ</th>
+                <th scope="col">Môn Học</th>
+                <th class="text-center" scope="col">Ngày bắt đầu</th>
+                <th class="text-center" scope="col">Ngày gian kết thúc</th>
+                <th class="text-center" scope="col">Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for classroom in classrooms %}
+                <tr>
+                    <td class="text-center">
+                        {% if classroom.day_of_week_begin == 7 %}
+                            Chủ Nhật
+                        {% elif classroom.day_of_week_begin == 1 %}
+                            Thứ Hai
+                        {% elif classroom.day_of_week_begin == 2 %}
+                            Thứ Ba
+                        {% elif classroom.day_of_week_begin == 3 %}
+                            Thứ Tư
+                        {% elif classroom.day_of_week_begin == 4 %}
+                            Thứ Năm
+                        {% elif classroom.day_of_week_begin == 5 %}
+                            Thứ Sáu
+                        {% elif classroom.day_of_week_begin == 6 %}
+                            Thứ Bảy
+                        {% endif %}
+                    </td>
+                    <td>{{ classroom.name }}</td>
+                    <td class="text-center">{{ classroom.begin_date|date:"d/m/Y" }}</td>
+                    <td class="text-center">{{ classroom.end_date|date:"d/m/Y" }}</td>
+                    <td class="text-center">
+                        <a href="{% url 'student_attendance_history' classroom.id_classroom %}"
+                           class="btn btn-info btn-sm mdi mdi-information-outline">
+                            <span>Chi tiết</span>
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr class="text-center text-danger">
+                    <td colspan="5"><strong>Lớp học hiện tại đang được cập nhật!</strong>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination justify-content-center">
+            <ul class="pagination">
+                {% if classrooms.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">‹‹</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ classrooms.previous_page_number }}">‹</a>
+                    </li>
+                {% endif %}
+
+                {% for i in classrooms.paginator.page_range %}
+                    {% if classrooms.number == i %}
+                        <li class="page-item active">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% elif i > classrooms.number|add:'-3' and i < classrooms.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if classrooms.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ classrooms.next_page_number }}">›</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ classrooms.paginator.num_pages }}">››</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="text-center">
+            <p>Trang {{ classrooms.number }} / {{ classrooms.paginator.num_pages }}</p>
+        </div>
+    </div>
+{% endblock %}

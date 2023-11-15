@@ -1,0 +1,41 @@
+{% extends "student/base_student_dashboard.html" %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title mb-0">{{ classroom.name }}</h3>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="text-center" scope="col">STT</th>
+                    <th class="text-center" scope="col">Thời gian điểm danh</th>
+                    <th class="text-center" scope="col">Trạng thái</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for attendance in students_attendance %}
+                    <tr>
+                        <td class="text-center">{{ forloop.counter }}</td>
+                        <td class="text-center">{{ attendance.check_in_time|date:"d/m/Y H:i:s" }}</td>
+                        <td class="text-center">
+                            {% if attendance.attendance_status == 1 %}
+                                <span class="text-center badge bg-danger">Vắng</span>
+                            {% elif attendance.attendance_status == 2 %}
+                                <span class="text-center badge bg-success">Đúng giờ</span>
+                            {% elif attendance.attendance_status == 3 %}
+                                <span class="text-center badge bg-warning">Trễ</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr class="text-center text-danger">
+                        <td colspan="5"><strong>Chưa có bản ghi nào!</strong>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
