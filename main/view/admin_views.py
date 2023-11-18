@@ -4,7 +4,6 @@ import pickle
 from datetime import datetime
 
 import cv2
-import facenet
 import numpy as np
 import tensorflow as tf
 from django.contrib import messages
