@@ -18,7 +18,7 @@ from sklearn.svm import SVC
 
 from main import facenet
 from main.decorators import admin_required
-from main.models import StaffInfo, StudentInfo
+from main.models import StaffInfo, StudentInfo, StaffRole
 from main.src.anti_spoof_predict import AntiSpoofPredict
 
 color = (255, 0, 0)
@@ -201,6 +201,42 @@ def admin_lecturer_management_view(request):
         'list_lecturers': page,
     }
     return render(request, 'admin/admin_lecturer_management.html', context)
+
+
+@admin_required
+def admin_lecturer_add(request):
+    if request.method == 'POST':
+        id_staff = request.POST['id_staff']
+        staff_name = request.POST['staff_name']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        address = request.POST['address']
+        birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
+        password = make_password(request.POST['id_staff'])
+        lecturer = StaffInfo(id_staff=id_staff,
+                             staff_name=staff_name,
+                             email=email, phone=phone,
+                             address=address,
+                             birthday=birthday,
+                             password=password
+                             )
+        lecturer.save()
+        # lecturer_role = StaffRole(staff=id_staff,role=3)
+        messages.success(request, 'Thêm sinh viên thành công.')
+        # lecturer_role.save()
+        return redirect('admin_lecturer_management')
+    return render(request, 'admin/modal-popup/popup_add_lecturer.html')
+
+
+# def add_roleStaff (id_lecturer, role):
+#     rolestaff = StaffRole(staff=id_lecturer,
+#                       role=role)
+#     rolestaff.save()
+@admin_required
+def admin_lecturer_delete(request, id_staff):
+    StaffInfo.objects.filter(id_staff=id_staff).delete()
+    return redirect('admin_lecturer_management')
+    # return render(request, 'admin/admin_edit_student.html')
 
 
 def capture(id, request):

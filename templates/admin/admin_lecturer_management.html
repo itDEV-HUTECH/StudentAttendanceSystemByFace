@@ -5,6 +5,7 @@
 {% block css %}
     <link href="{% static '' %}assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{% static '' %}assets/extra-libs/multicheck/multicheck.css"/>
+
 {% endblock %}
 
 {% block content %}
@@ -13,9 +14,10 @@
             <h3 class="card-title mb-0">Danh sách giảng viên</h3>
         </div>
         <div class="card-body">
-            <a href="#" class="btn btn-success mdi mdi-account-plus text-white"
-               id="addStudent">Thêm sinh viên
+            <a href="{% url 'admin_lecturer_add' %}" class="btn btn-success mdi mdi-account-plus text-white"
+               id="addLecturer">Thêm giảng viên
             </a>
+
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -52,20 +54,47 @@
                         <td>{{ lecturer.address }}</td>
                         <td>{{ lecturer.birthday|date:"d/m/Y" }}</td>
                         <td>
-                            <a href="#"
-                               class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
+<!--
+                            <a class="btn btn-danger btn-sm mdi mdi-delete" data-href="lecturer.id_staff"
+                               onclick="document.getElementById('lecturer.id_staff').style.display='block'">Xóa</a>
+
+                            <div id="lecturer.id_staff" class="modal">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Xác nhận xóa</h4>
+                                        <button type="button" class="btn-close" onclick="document.getElementById('lecturer.id_staff').style.display='none'" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">{% csrf_token %}
+                                        <p>Bạn có chắc chắn muốn xóa giảng viên "post.title "</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" onclick="document.getElementById('lecturer.id_staff').style.display='none'" class="cancelbtn">Thoát</button>
+                                        <a href="{% url 'admin_lecturer_delete' lecturer.id_staff  %}"
+                                           class="btn btn-danger"
+                                           onclick="confirmDelete({{ lecturer_id_staff }})">Xóa</a>
+
+                                        </div>
+                                </div>
+                            </div>
+                        </div>-->
+                           <a href="{% url 'admin_lecturer_delete' lecturer.id_staff %}"
+                               class="btn btn-danger btn-sm mdi mdi-delete"
                                onclick="confirmDelete({{ lecturer.id_staff }})">Xóa</a>
                             <a href="#"
                                class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
                         </td>
+
                     </tr>
                 {% empty %}
                     <tr class="text-center text-danger">
                         <td colspan="10"><strong>Không tồn tại sinh viên nào trong cơ sở dữ liệu!</strong></td>
                     </tr>
                 {% endfor %}
+
                 </tbody>
             </table>
+
         </div>
         <div class="pagination justify-content-center">
             <ul class="pagination">
@@ -104,4 +133,6 @@
             <p>Trang {{ list_lecturers.number }} / {{ list_lecturers.paginator.num_pages }}</p>
         </div>
     </div>
+    {% include 'admin/modal-popup/popup_add_lecturer.html' %}
+
 {% endblock %}
