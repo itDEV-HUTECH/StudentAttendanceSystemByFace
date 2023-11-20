@@ -9,7 +9,7 @@ from imutils.video import VideoStream
 
 from main import facenet
 from main.align import detect_face
-from main.models import Classroom, Attendance, StudentInfo
+from main.models import Classroom, Attendance, StudentInfo, StudentClassDetails
 
 
 # Function to draw a progress bar
@@ -17,46 +17,48 @@ from main.models import Classroom, Attendance, StudentInfo
 
 def insert_attendance(id_classroom, student_id):
     classroom = Classroom.objects.get(pk=id_classroom)
-    current_time = datetime.now()  # Get the current datetime
-
-    # Get the begin_time from the classroom instance
+    current_time = datetime.now()
     begin_time = classroom.begin_time
 
-    # Calculate the time difference as a timedelta
-    time_difference = datetime.combine(datetime.today(), current_time.time()) - datetime.combine(datetime.today(),
-                                                                                                 begin_time)
+    time_difference = (datetime.combine(datetime.now(), current_time.time())
+                       - datetime.combine(datetime.now(), begin_time))
 
-    # Check if time_difference is greater than 15 minutes (900 seconds)
     if time_difference.total_seconds() > 900:
-        attendance_status = 1
+        attendance_status = 3
     else:
-        attendance_status = 0
+        attendance_status = 2
+
+    students_in_class = StudentInfo.objects.filter(classroom=classroom)
+
+    for student in students_in_class:
+        attendance, created = Attendance.objects.get_or_create(
+            id_student=student,
+            id_classroom=classroom,
+            check_in_time__date=datetime.now(),
+            defaults={
+                'check_in_time': datetime.now(),
+                'attendance_status': 1,
+            })
+
+    student_info = StudentInfo.objects.get(id_student=student_id)
 
     try:
-        # Retrieve the StudentInfo instance based on the student_id
-        student_info = StudentInfo.objects.get(id_student=student_id)
-
-        # Create a new attendance record with a valid datetime for check_in_time
-        attendance = Attendance.objects.filter(
+        attendance, created = Attendance.objects.get_or_create(
             id_student=student_info,
             id_classroom=classroom,
-            check_in_time__date=datetime.now().date()
-        ).first()
+            check_in_time__date=datetime.now(),
+            defaults={
+                'check_in_time': datetime.now(),
+                'attendance_status': attendance_status,
+            }
+        )
 
-        if attendance:
-            if attendance_status != str(attendance.attendance_status):
-                attendance.attendance_status = attendance_status
-                attendance.check_in_time = datetime.now()
-                attendance.save()
-        else:
-            attendance = Attendance.objects.create(
-                id_student=student_info,
-                id_classroom=classroom,
-                check_in_time=datetime.now(),
-                attendance_status=attendance_status
-            )
-
+        if not created:
+            attendance.check_in_time = datetime.now()
+            attendance.attendance_status = attendance_status  # Thay thế bằng giá trị mong muốn
+            attendance.save()
         print("Trạng thái điểm danh", attendance_status, " Mã sv : ", student_id, "Lớp", id_classroom)
+
     except StudentInfo.DoesNotExist:
         print(f"Student with ID {student_id} does not exist.")
     except Exception as e:
@@ -95,7 +97,7 @@ def main(id_subject):
             phase_train_placeholder = tf.compat.v1.get_default_graph().get_tensor_by_name("phase_train:0")
             embedding_size = embeddings.get_shape()[1]
             pnet, rnet, onet = detect_face.create_mtcnn(sess, "main/align")
-            cap = VideoStream(src=3).start()
+            cap = VideoStream(src=0).start()
             # Initialize variables for progress tracking
             global justscanned
             global pause_cnt

@@ -166,18 +166,17 @@ def lecturer_mark_attendance(request, classroom_id):
             attendance, created = Attendance.objects.get_or_create(
                 id_student=student_id,
                 id_classroom=classroom,
-                check_in_time__date=datetime.now().date(),
+                check_in_time__date=datetime.now(),
                 defaults={
                     'attendance_status': attendance_status,
                     'check_in_time': datetime.now()
                 }
             )
 
-            if not created:
-                if attendance_status != str(attendance.attendance_status):
-                    attendance.attendance_status = attendance_status
-                    attendance.check_in_time = datetime.now()
-                    attendance.save()
+            if not created and attendance_status != str(attendance.attendance_status):
+                attendance.attendance_status = attendance_status
+                attendance.check_in_time = datetime.now()
+                attendance.save()
 
         return redirect('lecturer_mark_attendance', classroom_id=classroom_id)
 
@@ -277,29 +276,6 @@ def lecturer_mark_attendance_by_face(request, classroom_id):
         id_classroom=classroom,
         check_in_time__date=datetime.now()
     )
-
-    if request.method == 'POST':
-        for student in students_in_class:
-            student_id = student.id_student
-            attendance_status = request.POST.get(f'attendance_status_{student_id.id_student}')
-
-            attendance, created = Attendance.objects.get_or_create(
-                id_student=student_id,
-                id_classroom=classroom,
-                check_in_time__date=datetime.now().date(),
-                defaults={
-                    'attendance_status': attendance_status,
-                    'check_in_time': datetime.now()
-                }
-            )
-
-            if not created:
-                if attendance_status != str(attendance.attendance_status):
-                    attendance.attendance_status = attendance_status
-                    attendance.check_in_time = datetime.now()
-                    attendance.save()
-
-        return redirect('lecturer_mark_attendance_by_face', classroom_id=classroom_id)
 
     context = {
         'students_in_class': students_in_class,
