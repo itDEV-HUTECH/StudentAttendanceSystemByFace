@@ -49,6 +49,11 @@ def admin_dashboard_view(request):
 
 
 @admin_required
+def dashboard_add_news_view(request):
+    return render(request, 'admin/admin_add_news.html')
+
+
+@admin_required
 def student_capture(request):
     if request.method == 'POST':
         id_student = request.POST.get('id_student')
@@ -166,13 +171,13 @@ def admin_student_edit(request, id_student):
 
 
 @admin_required
-def admin_student_delete(request, id_student):
+def admin_student_delete(id_student):
     StudentInfo.objects.filter(id_student=id_student).delete()
     return redirect('admin_student_management')
 
 
 @admin_required
-def admin_student_get_info(request, id_student):
+def admin_student_get_info(id_student):
     try:
         student = StudentInfo.objects.get(id_student=id_student)
         student_data = {
