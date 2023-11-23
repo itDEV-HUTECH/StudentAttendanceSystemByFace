@@ -75,7 +75,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'face_by_attendance',
         'USER': 'root',
-        'PASSWORD': '123456789',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': 3306,
     }

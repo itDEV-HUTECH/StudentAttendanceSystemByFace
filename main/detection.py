@@ -17,7 +17,7 @@ warnings.filterwarnings('ignore')
 def test(model_dir, device_id):
     model_test = AntiSpoofPredict(device_id)
     image_cropper = CropImage()
-    capture = cv2.VideoCapture(2)  # 0 là số thứ tự của camera, có thể thay đổi nếu bạn có nhiều camera.
+    capture = cv2.VideoCapture(1)  # 0 là số thứ tự của camera, có thể thay đổi nếu bạn có nhiều camera.
 
     while True:
         ret, frame = capture.read()
