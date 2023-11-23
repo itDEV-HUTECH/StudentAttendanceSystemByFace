@@ -47,6 +47,7 @@ nrof_train_images_per_class = 10
 def admin_dashboard_view(request):
     return render(request, 'admin/admin_home.html')
 
+
 @admin_required
 def dashboard_add_news_view(request):
     return render(request, 'admin/admin_add_news.html')
@@ -205,6 +206,7 @@ def admin_lecturer_management_view(request):
     }
     return render(request, 'admin/admin_lecturer_management.html', context)
 
+
 @admin_required
 def admin_schedule_management_view(request):
     schedule = Classroom.objects.all()
@@ -216,7 +218,8 @@ def admin_schedule_management_view(request):
         'list_schedules': page,
     }
 
-    return render(request, 'admin/admin_schedule_management.html',  context)
+    return render(request, 'admin/admin_schedule_management.html', context)
+
 
 @admin_required
 def admin_schedule_add(request):
@@ -229,15 +232,16 @@ def admin_schedule_add(request):
         begin_time = request.POST['begin_time']
         end_time = request.POST['end_time']
         schedule = Classroom(id_classroom=id_classroom,
-                              name=name,
-                              begin_date=begin_date, end_date=end_date,
-                              day_of_week_begin=day_of_week_begin,
-                              begin_time=begin_time,
-                              end_time=end_time)
+                             name=name,
+                             begin_date=begin_date, end_date=end_date,
+                             day_of_week_begin=day_of_week_begin,
+                             begin_time=begin_time,
+                             end_time=end_time)
         schedule.save()
         messages.success(request, 'Thêm Thời Khóa Biểu thành công.')
         return redirect('admin_schedule_management')
     return render(request, 'admin/modal-popup/popup_add_schedule.html')
+
 
 @admin_required
 def admin_schedule_edit(request, id_classroom):
@@ -279,6 +283,7 @@ def admin_schedule_get_info(request, id_classroom):
         return JsonResponse({'schedule': schedule_data})
     except Classroom.DoesNotExist:
         return JsonResponse({'error': 'Không tìm thấy lớp học'}, status=404)
+
 
 def capture(id, request):
     global CAPTURE_STATUS
