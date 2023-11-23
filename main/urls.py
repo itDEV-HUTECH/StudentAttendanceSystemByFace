@@ -31,6 +31,7 @@ urlpatterns = [
     path('admin/lecturer-management', admin_views.admin_lecturer_management_view, name='admin_lecturer_management'),
     path('admin/student-management/student_capture', admin_views.student_capture, name='student_capture'),
     path('admin/student-management/capture/cap', admin_views.capture, name='capture'),
+    path('admin/schedule_management', admin_views.admin_schedule_management_view, name='admin_schedule_management'),
 
     # Lecturer
     path('lecturer/dashboard', lecturer_views.lecturer_dashboard_view, name='lecturer_dashboard'),
