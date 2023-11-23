@@ -124,6 +124,12 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
+                                <a href="{% url 'admin_schedule_management' %}" class="sidebar-link">
+                                    <i class="mdi mdi-account-edit"></i>
+                                    <span class="hide-menu"> Thời Khóa Biểu </span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
                                 <a href="{% url 'admin_change_password' %}" class="sidebar-link">
                                     <i class="mdi mdi-account-edit"></i>
                                     <span class="hide-menu"> Admin </span>
@@ -313,6 +319,41 @@
                 });
                 console.error('Fetch Error:', error);
             });
+    });
+</script>
+
+//Script về việc hiện modal
+<script>
+    $("#addSchedule").click(function (e) {
+        e.preventDefault();
+        $('#addNewScheduleModal').modal('show')
+    });
+</script>
+//Script về việc thêm một thời khóa biểu
+<script>
+    let isChecking = false;
+    let intervalId;
+    document.getElementById("addScheduleButton").addEventListener("click", function () {
+        var ClassroomId = document.getElementById("id_classroom").value;
+        const idClassroomField = document.getElementById("id_classroom");
+        const classroomNameField = document.getElementById("name");
+        const beginDateField = document.getElementById("begin_date");
+        const endDateField = document.getElementById("end_date");
+        const dayOfWeekBeginField = document.getElementById("day_of_week_begin");
+        const beginTimeField = document.getElementById("begin_time");
+        const endTimeField = document.getElementById("end_time");
+        if (
+            idClassroomField.value === "" ||
+            classroomNameField.value === "" ||
+            beginDateField.value === "" ||
+            endDateField.value === "" ||
+            dayOfWeekBeginField.value === "" ||
+            beginTimeField.value === "" ||
+            endTimeField.value === ""
+        ) {
+            alert("Vui lòng điền đầy đủ thông tin.");
+            event.preventDefault(); // Ngăn chặn việc gửi form nếu dữ liệu không hợp lệ
+        }
     });
 </script>
 </body>
