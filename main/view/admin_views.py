@@ -17,7 +17,7 @@ from sklearn.svm import SVC
 
 from main import facenet
 from main.decorators import admin_required
-from main.models import StaffInfo, StudentInfo
+from main.models import StaffInfo, StudentInfo, Classroom
 from main.src.anti_spoof_predict import AntiSpoofPredict
 
 color = (255, 0, 0)
@@ -46,7 +46,6 @@ nrof_train_images_per_class = 10
 @admin_required
 def admin_dashboard_view(request):
     return render(request, 'admin/admin_home.html')
-
 
 @admin_required
 def student_capture(request):
@@ -200,6 +199,39 @@ def admin_lecturer_management_view(request):
         'list_lecturers': page,
     }
     return render(request, 'admin/admin_lecturer_management.html', context)
+
+@admin_required
+def admin_schedule_management_view(request):
+    schedule = Classroom.objects.all()
+    schedule_per_page = 10
+    paginator = Paginator(schedule, schedule_per_page)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    context = {
+        'list_schedules': page,
+    }
+
+    return render(request, 'admin/admin_schedule_management.html',  context)
+
+def admin_schedule_add(request):
+    if request.method == 'POST':
+        id_classroom = request.POST['id_classroom']
+        name = request.POST['name']
+        begin_date = request.POST['begin_date']
+        end_date = request.POST['end_date']
+        day_of_week_begin = request.POST['day_of_week_begin']
+        begin_time = request.POST['begin_time']
+        end_time = request.POST['end_time']
+        schedule = Classroom(id_classroom=id_classroom,
+                              name=name,
+                              begin_date=begin_date, end_date=end_date,
+                              day_of_week_begin=day_of_week_begin,
+                              begin_time=begin_time,
+                              end_time=end_time)
+        schedule.save()
+        messages.success(request, 'Thêm Thời Khóa Biểu thành công.')
+        return redirect('admin_schedule_management')
+    return render(request, 'admin/modal-popup/popup_add_schedule.html')
 
 
 def capture(id, request):
