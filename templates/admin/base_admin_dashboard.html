@@ -328,6 +328,45 @@
         e.preventDefault();
         $('#addNewScheduleModal').modal('show')
     });
+
+    $("#editSchedule").click(function (e) {
+        e.preventDefault();
+        $('#editScheduleModal').modal('show')
+    });
+
+    $("#deleteSchedule").click(function (e) {
+    e.preventDefault();
+});
+</script>
+////Script về việc xóa và sửa TKB
+<script>
+    function confirmDelete(classroomId) {
+        var deleteUrl = "{% url 'admin_schedule_delete' '1' %}".replace('1', classroomId);
+        $('#confirmDeleteButton').attr('href', deleteUrl);
+        $('#confirmDeleteModal').modal('show');
+        $('#classroomIdToDelete').text(classroomId);
+    }
+
+    function editSchedule(classroomId) {
+        var id_classroom = classroomId
+        $.ajax({
+                type: "GET",
+                url: "{% url 'admin_schedule_get_info' '1' %}".replace('1', id_classroom),
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $('#id_classroom').val(data.id_classroom);
+                    $('#name').val(data.name);
+                    $('#begin_date').val(data.begin_date);
+                    $('#end_date').val(data.end_date);
+                    $('#day_of_week_begin').val(data.day_of_week_begin);
+                    $('#begin_time').val(data.begin_time);
+                    $('#end_time').val(data.end_time);
+                    $('#editScheduleModal').modal('show');
+                },
+            }
+        )
+    }
 </script>
 //Script về việc thêm một thời khóa biểu
 <script>
