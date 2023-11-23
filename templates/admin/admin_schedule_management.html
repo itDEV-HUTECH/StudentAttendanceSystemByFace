@@ -13,54 +13,46 @@
             <h3 class="card-title mb-0">Quản lý Thời Khóa Biểu</h3>
         </div>
         <div class="card-body">
-            <a href="#" class="btn btn-success mdi mdi-account-plus text-white"
-               id="addStudent">Thêm Lớp Học
-
+            <a href="{% url 'admin_schedule_add' %}" class="btn btn-success mdi mdi-account-plus text-white"
+               id="addSchedule">Thêm Thời Khóa Biểu
             </a>
         </div>
         <div class="table-responsive">
             <table class="table">
                 <thead>
-                <tr>
-                    <th>
-                        <label class="customcheckbox mb-3">
-                            <input type="checkbox" id="mainCheckbox"/>
-                            <span class="checkmark"></span>
-                        </label>
-                    </th>
-                    <th class="text-center" scope="col">Mã giảng viên</th>
-                    <th scope="col">Họ và tên</th>
-                    <th scope="col">Email</th>
-                    <th class="text-center" scope="col">Số điện thoại</th>
-                    <th scope="col">Địa chỉ</th>
-                    <th class="text-center" scope="col">Ngày sinh</th>
-                    <th class="text-center" scope="col">Thao tác</th>
-                </tr>
-                </thead>
-                <tbody class="customtable">
-                {% for lecturer in list_lecturers %}
                     <tr>
-                        <th>
-                            <label class="customcheckbox">
-                                <input type="checkbox" class="listCheckbox"/>
-                                <span class="checkmark"></span>
-                            </label>
-                        </th>
-                        <td class="text-center">{{ lecturer.id_staff }}</td>
-                        <td>{{ lecturer.staff_name }}</td>
-                        <td>{{ lecturer.email }}</td>
-                        <td class="text-center">{{ lecturer.phone }}</td>
-                        <td>{{ lecturer.address }}</td>
-                        <td class="text-center">{{ lecturer.birthday|date:"d/m/Y" }}</td>
+                        <th  scope="col">Mã Môn Học</th>
+                        <th  scope="col">Tên Môn Học</th>
+                        <th  scope="col">Ngày bắt đầu</th>
+                        <th  scope="col">Ngày kết thúc</th>
+                        <th  scope="col">Thứ</th>
+                        <th  scope="col">Tiết bắt đầu </th>
+                        <th  scope="col">Tiết kết thúc</th>
+                        <th  scope="col">Giảng viên</th>
+                        <th  scope="col">Chức năng</th>
+                    </tr>
+                </thead>
+
+                <tbody class="customtable">
+                {% for schedule in list_schedules %}
+                    <tr>
+                        <td class="text-center">{{ schedule.id_classroom }}</td>
+                        <td>{{ schedule.name }}</td>
+                        <td>{{ schedule.begin_date }}</td>
+                        <td>{{ schedule.end_date }}</td>
+                        <td class="text-center">{{ schedule.day_of_week_begin }}</td>
+                        <td>{{ schedule.begin_time }}</td>
+                        <td>{{ schedule.end_time }}</td>
+                        <td></td>
                         <td class="text-center">
-                            <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
-                               onclick="confirmDelete({{ lecturer.id_staff }})">Xóa</a>
+                            <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteSchedule"
+                               onclick="confirmDelete({{ schedule.id_classroom }})">Xóa</a>
                             <a href="#" class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
                         </td>
                     </tr>
                 {% empty %}
                     <tr class="text-center text-danger">
-                        <td colspan="10"><strong>Không tồn tại sinh viên nào trong cơ sở dữ liệu!</strong></td>
+                        <td colspan="10"><strong>Không tồn tại thời khóa biểu</strong></td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -68,39 +60,40 @@
         </div>
         <div class="pagination justify-content-center">
             <ul class="pagination">
-                {% if list_lecturers.has_previous %}
+                {% if list_schedules.has_previous %}
                     <li class="page-item">
                         <a class="page-link" href="?page=1">‹‹</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ list_lecturers.previous_page_number }}">‹</a>
+                        <a class="page-link" href="?page={{ list_schedules.previous_page_number }}">‹</a>
                     </li>
                 {% endif %}
 
-                {% for i in list_lecturers.paginator.page_range %}
-                    {% if list_lecturers.number == i %}
+                {% for i in list_schedules.paginator.page_range %}
+                    {% if list_schedules.number == i %}
                         <li class="page-item active">
                             <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                         </li>
-                    {% elif i > list_lecturers.number|add:'-3' and i < list_lecturers.number|add:'3' %}
+                    {% elif i > list_schedules.number|add:'-3' and i < list_schedules.number|add:'3' %}
                         <li class="page-item">
                             <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
 
-                {% if list_lecturers.has_next %}
+                {% if list_schedules.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ list_lecturers.next_page_number }}">›</a>
+                        <a class="page-link" href="?page={{ list_schedules.next_page_number }}">›</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ list_lecturers.paginator.num_pages }}">››</a>
+                        <a class="page-link" href="?page={{ list_schedules.paginator.num_pages }}">››</a>
                     </li>
                 {% endif %}
             </ul>
         </div>
         <div class="text-center">
-            <p>Trang {{ list_lecturers.number }} / {{ list_lecturers.paginator.num_pages }}</p>
+            <p>Trang {{ list_schedules.number }} / {{ list_schedules.paginator.num_pages }}</p>
         </div>
     </div>
+    {% include 'admin/modal-popup/popup_add_schedule.html' %}
 {% endblock %}
