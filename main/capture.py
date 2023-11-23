@@ -22,7 +22,7 @@ def capture(ID):
     image_count = 0
     max_images = 300  # Set the desired number of images to capture
     model_test = AntiSpoofPredict(device_id)
-    capture = cv2.VideoCapture(1)
+    capture = cv2.VideoCapture(0)
     output_dir = f"./main/data/test_images/{ID}"
     print(output_dir)
     os.makedirs(output_dir, exist_ok=True)
