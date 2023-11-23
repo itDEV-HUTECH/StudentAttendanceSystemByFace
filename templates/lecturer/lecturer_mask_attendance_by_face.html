@@ -8,18 +8,13 @@
 
 {% block content %}
     <style>
-        .container_video {
+.container_video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* This ensures the container takes the full height of the viewport */
+}
 
-        }
-
-        .img_video {
-            width: 1280px;
-            height: 960px;
-        }
-
-        .container_video.col-4 {
-            text-align: center;
-        }
 
         .container_video label {
             margin-bottom: 0px;
@@ -32,11 +27,11 @@
             <form method="post" action="{% url 'lecturer_mark_attendance_by_face' classroom.id_classroom %}">
                 {% csrf_token %}
                 <div class="container_video">
-                    <div class="row px-4">
+                    <div>
                         <h2 class="card-title mb-0"
                             style="padding: 20px; text-align:center">{{ classroom.name }}</h2>
-                        <img id="video-feed" style="width: 100%;"
-                             src="{% url 'live_video_feed2' classroom.id_classroom %}" alt="Live Video Feed"/>
+                 <img id="video-feed" style="width: 1024px; height: 768px;" src="/lecturer/live-video-feed2/1" alt="Live Video Feed">
+
                     </div>
                 </div>
             </form>
