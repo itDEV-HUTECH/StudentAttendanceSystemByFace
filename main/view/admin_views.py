@@ -234,7 +234,7 @@ def admin_lecturer_add(request):
 
 
 @admin_required
-def admin_lecturer_delete(request, id_staff):
+def admin_lecturer_delete(id_staff):
     StaffInfo.objects.filter(id_staff=id_staff).delete()
     return redirect('admin_lecturer_management')
     # return render(request, 'admin/admin_edit_student.html')
