@@ -6,10 +6,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" class="editStudentForm">
+                <form method="POST" class="editStudentForm" id="editStudentForm" action="">
                     {% csrf_token %}
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="id_student" class="col-sm-2 control-label col-form-label">Mã Sinh Viên:</label>
+                        <label for="id_student" class="col-sm-2 control-label col-form-label">Mã sinh viên</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="number" class="form-control" name="id_student" id="id_student" required>
@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="student_name" class="col-sm-2 control-label col-form-label">Tên Sinh Viên:</label>
+                        <label for="student_name" class="col-sm-2 control-label col-form-label">Tên sinh viên</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="student_name" id="student_name" required>
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="email" class="col-sm-2 control-label col-form-label">Email:</label>
+                        <label for="email" class="col-sm-2 control-label col-form-label">Email</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="email" id="email" required>
@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="phone" class="col-sm-2 control-label col-form-label">Số điện thoại:</label>
+                        <label for="phone" class="col-sm-2 control-label col-form-label">Số điện thoại</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="phone" id="phone" required>
@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="address" class="col-sm-2 control-label col-form-label">Địa chỉ:</label>
+                        <label for="address" class="col-sm-2 control-label col-form-label">Địa chỉ</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="address" id="address" required>
@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="birthday" class="col-sm-2 control-label col-form-label">Ngày sinh:</label>
+                        <label for="birthday" class="col-sm-2 control-label col-form-label">Ngày sinh</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" id="birthday" name="birthday"
@@ -68,7 +68,7 @@
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
                         <label for="PathImageFolder"
-                               class="col-sm-2 control-label col-form-label">PathImageFolder:</label>
+                               class="col-sm-2 control-label col-form-label">PathImageFolder</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="PathImageFolder" id="PathImageFolder"

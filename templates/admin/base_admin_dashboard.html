@@ -178,7 +178,7 @@
     });
 </script>
 <script>
-    function confirmDelete(studentId) {
+    function confirmDeleteStudent(studentId) {
         var deleteUrl = "{% url 'admin_student_delete' '1' %}".replace('1', studentId);
         $('#confirmDeleteButton').attr('href', deleteUrl);
         $('#confirmDeleteModal').modal('show');
@@ -187,24 +187,28 @@
 
     function editStudent(studentId) {
         var id_student = studentId
+        var editForm = $('#editStudentForm');
+        editForm.attr('action', "{% url 'admin_student_edit' 0 %}".replace('0', studentId));
+
         $.ajax({
                 type: "GET",
                 url: "{% url 'admin_student_get_info' '1' %}".replace('1', id_student),
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    $('#id_student').val(data.id_student);
-                    $('#student_name').val(data.student_name);
-                    $('#email').val(data.email);
-                    $('#phone').val(data.phone);
-                    $('#address').val(data.address);
-                    $('#birthday').val(data.birthday);
-                    $('#PathImageFolder').val(data.PathImageFolder);
+                    $('#id_student').val(data.student.id_student);
+                    $('#student_name').val(data.student.student_name);
+                    $('#email').val(data.student.email);
+                    $('#phone').val(data.student.phone);
+                    $('#address').val(data.student.address);
+                    $('#birthday').val(data.student.birthday);
+                    $('#PathImageFolder').val(data.student.PathImageFolder);
                     $('#editStudentModal').modal('show');
                 },
             }
         )
     }
+
     function editLecturer(staffId) {
         var id_staff = staffId
         $.ajax({
@@ -223,7 +227,7 @@
                 },
             }
         )
-        }
+    }
 </script>
 <script>
     let isChecking = false;
@@ -340,8 +344,6 @@
             });
     });
 </script>
-
-//Script về việc hiện modal
 <script>
     $("#addSchedule").click(function (e) {
         e.preventDefault();
@@ -357,7 +359,6 @@
         e.preventDefault();
     });
 </script>
-////Script về việc xóa và sửa TKB
 <script>
     function confirmDelete(classroomId) {
         var deleteUrl = "{% url 'admin_schedule_delete' '1' %}".replace('1', classroomId);
@@ -387,7 +388,6 @@
         )
     }
 </script>
-//Script về việc thêm một thời khóa biểu
 <script>
     let isChecking = false;
     let intervalId;
