@@ -7,31 +7,16 @@
 {% endblock %}
 
 {% block content %}
-    <style>
-.container_video {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* This ensures the container takes the full height of the viewport */
-}
-
-
-        .container_video label {
-            margin-bottom: 0px;
-            margin-top: 5px;
-        }
-
-    </style>
     <div class="card">
         <div class="table-responsive">
             <form method="post" action="{% url 'lecturer_mark_attendance_by_face' classroom.id_classroom %}">
                 {% csrf_token %}
-                <div class="container_video">
+                <div class="container_video text-center">
                     <div>
                         <h2 class="card-title mb-0"
                             style="padding: 20px; text-align:center">{{ classroom.name }}</h2>
-                 <img id="video-feed" style="width: 1024px; height: 768px;" src="/lecturer/live-video-feed2/1" alt="Live Video Feed">
-
+                        <img id="video-feed" style="width: 1024px; height: 768px;" src="/lecturer/live-video-feed2/1"
+                             alt="Live Video Feed">
                     </div>
                 </div>
             </form>

@@ -47,6 +47,7 @@ nrof_train_images_per_class = 10
 def admin_dashboard_view(request):
     return render(request, 'admin/admin_home.html')
 
+
 @admin_required
 def dashboard_add_news_view(request):
     return render(request, 'admin/admin_add_news.html')
@@ -205,6 +206,7 @@ def admin_lecturer_management_view(request):
     }
     return render(request, 'admin/admin_lecturer_management.html', context)
 
+
 @admin_required
 def admin_schedule_management_view(request):
     schedule = Classroom.objects.all()
@@ -216,8 +218,10 @@ def admin_schedule_management_view(request):
         'list_schedules': page,
     }
 
-    return render(request, 'admin/admin_schedule_management.html',  context)
+    return render(request, 'admin/admin_schedule_management.html', context)
 
+
+@admin_required
 def admin_schedule_add(request):
     if request.method == 'POST':
         id_classroom = request.POST['id_classroom']
@@ -228,15 +232,57 @@ def admin_schedule_add(request):
         begin_time = request.POST['begin_time']
         end_time = request.POST['end_time']
         schedule = Classroom(id_classroom=id_classroom,
-                              name=name,
-                              begin_date=begin_date, end_date=end_date,
-                              day_of_week_begin=day_of_week_begin,
-                              begin_time=begin_time,
-                              end_time=end_time)
+                             name=name,
+                             begin_date=begin_date, end_date=end_date,
+                             day_of_week_begin=day_of_week_begin,
+                             begin_time=begin_time,
+                             end_time=end_time)
         schedule.save()
         messages.success(request, 'Thêm Thời Khóa Biểu thành công.')
         return redirect('admin_schedule_management')
     return render(request, 'admin/modal-popup/popup_add_schedule.html')
+
+
+@admin_required
+def admin_schedule_edit(request, id_classroom):
+    schedule = Classroom.objects.get(id_classroom=id_classroom)
+    context = {'schedule': schedule}
+    if request.method == 'POST':
+        schedule.name = request.POST['name']
+        schedule.begin_date = request.POST['begin_date']
+        schedule.end_date = request.POST['end_date']
+        schedule.day_of_week_begin = request.POST['day_of_week_begin']
+        schedule.begin_time = request.POST['begin_time']
+        schedule.end_time = request.POST['end_time']
+        schedule.save()
+        messages.success(request, 'Thay đổi thông tin thành công.')
+        return redirect('admin_schedule_management')
+    # return render(request, 'admin/modal-popup/popup_edit_schedule.html', context)
+    return render(request, 'admin/admin_edit_schedule.html', context)
+
+
+@admin_required
+def admin_schedule_delete(request, id_classroom):
+    Classroom.objects.filter(id_classroom=id_classroom).delete()
+    return redirect('admin_schedule_management')
+
+
+@admin_required
+def admin_schedule_get_info(request, id_classroom):
+    try:
+        schedule = Classroom.objects.get(id_classroom=id_classroom)
+        schedule_data = {
+            'id_classroom': schedule.id_classroom,
+            'name': schedule.name,
+            'begin_date': schedule.begin_date,
+            'end_date': schedule.end_date,
+            'day_of_week_begin': schedule.day_of_week_begin,
+            'begin_time': schedule.begin_date,
+            'end_time': schedule.end_date,
+        }
+        return JsonResponse({'schedule': schedule_data})
+    except Classroom.DoesNotExist:
+        return JsonResponse({'error': 'Không tìm thấy lớp học'}, status=404)
 
 
 def capture(id, request):
