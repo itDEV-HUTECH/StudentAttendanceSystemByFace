@@ -17,7 +17,7 @@ from sklearn.svm import SVC
 
 from main import facenet
 from main.decorators import admin_required
-from main.models import StaffInfo, StudentInfo, Classroom
+from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom
 from main.src.anti_spoof_predict import AntiSpoofPredict
 
 color = (255, 0, 0)
@@ -205,6 +205,72 @@ def admin_lecturer_management_view(request):
         'list_lecturers': page,
     }
     return render(request, 'admin/admin_lecturer_management.html', context)
+
+
+@admin_required
+def admin_lecturer_add(request):
+    if request.method == 'POST':
+        id_staff = request.POST['id_staff']
+        staff_name = request.POST['staff_name']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        address = request.POST['address']
+        birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
+        password = make_password(request.POST['id_staff'])
+        lecturer = StaffInfo(id_staff=id_staff,
+                             staff_name=staff_name,
+                             email=email, phone=phone,
+                             address=address,
+                             birthday=birthday,
+                             password=password
+                             )
+        lecturer.save()
+        lecturer_role, created = Role.objects.get_or_create(name='Lecturer')
+        lecturer_role = StaffRole(staff=lecturer, role=lecturer_role)
+        messages.success(request, 'Thêm sinh viên thành công.')
+        lecturer_role.save()
+        return redirect('admin_lecturer_management')
+    return render(request, 'admin/admin_add_lecturer.html')
+
+
+@admin_required
+def admin_lecturer_delete(id_staff):
+    StaffInfo.objects.filter(id_staff=id_staff).delete()
+    return redirect('admin_lecturer_management')
+    # return render(request, 'admin/admin_edit_student.html')
+
+
+@admin_required
+def admin_lecturer_edit(request, id_staff):
+    Staff = StaffInfo.objects.get(id_staff=id_staff)
+    context = {'staff': Staff}
+    if request.method == 'POST':
+        Staff.staff_name = request.POST['staff_name']
+        Staff.email = request.POST['email']
+        Staff.phone = request.POST['phone']
+        Staff.address = request.POST['address']
+        Staff.birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
+        Staff.save()
+        messages.success(request, 'Thay đổi thông tin thành công.')
+        return redirect('admin_lecturer_management')
+    return render(request, 'admin/admin_edit_lecturer.html', context)
+
+
+@admin_required
+def admin_lecturer_get_info(request, id_staff):
+    try:
+        staff = StaffInfo.objects.get(id_staff=id_staff)
+        staff_data = {
+            'id_staff': staff.id_staff,
+            'staff_name': staff.staff_name,
+            'email': staff.email,
+            'phone': staff.phone,
+            'address': staff.address,
+            'birthday': staff.birthday.strftime('%d/%m/%Y'),
+        }
+        return JsonResponse({'staff': staff_data})
+    except StaffInfo.DoesNotExist:
+        return JsonResponse({'error': 'Không tìm thấy giảng viên'}, status=404)
 
 
 @admin_required

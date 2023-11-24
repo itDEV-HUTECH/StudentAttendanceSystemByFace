@@ -1,47 +1,75 @@
 [
 	{
-		"id_staff" : "111",
-		"staff_name" : "Giảng viên 1",
-		"email" : "gv1@gmail.com",
-		"phone" : "111",
-		"address" : "111",
-		"birthday" : "2000-01-02",
-		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+		"id_staff": "111",
+		"staff_name": "Giảng viên 1",
+		"email": "gv1@gmail.com",
+		"phone": "111",
+		"address": "111",
+		"birthday": "2000-01-02",
+		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
 	},
 	{
-		"id_staff" : "222",
-		"staff_name" : "Giảng viên 2",
-		"email" : "gv2@gmail.com",
-		"phone" : "222",
-		"address" : "222",
-		"birthday" : "2000-01-01",
-		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+		"id_staff": "222",
+		"staff_name": "Giảng viên 2",
+		"email": "gv2@gmail.com",
+		"phone": "222",
+		"address": "222",
+		"birthday": "2000-01-01",
+		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
 	},
 	{
-		"id_staff" : "333",
-		"staff_name" : "Nhân viên 3",
-		"email" : "nv3@gmail.com",
-		"phone" : "333",
-		"address" : "333",
-		"birthday" : "1990-01-01",
-		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+		"id_staff": "333",
+		"staff_name": "Nhân viên 3",
+		"email": "nv3@gmail.com",
+		"phone": "333",
+		"address": "333",
+		"birthday": "1990-01-01",
+		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
 	},
 	{
-		"id_staff" : "444",
-		"staff_name" : "Nhân viên 4",
-		"email" : "nv4@gmail.com",
-		"phone" : "444",
-		"address" : "444",
-		"birthday" : "1990-01-01",
-		"password" : "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+		"id_staff": "444",
+		"staff_name": "Nhân viên 4",
+		"email": "nv4@gmail.com",
+		"phone": "444",
+		"address": "444",
+		"birthday": "1990-01-01",
+		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
 	},
 	{
-		"id_staff" : "admin",
-		"staff_name" : "admin",
-		"email" : "admin@gmail.com",
-		"phone" : "555",
-		"address" : "555",
-		"birthday" : "1999-01-01",
-		"password" : "pbkdf2_sha256$600000$wM6h0bb5KVH63AcsrM3XWW$0A6WezDorkE+rY1jOwzXe1w0D89H7SeaB3Cno9yevak="
+		"id_staff": "admin",
+		"staff_name": "admin",
+		"email": "admin@gmail.com",
+		"phone": "555",
+		"address": "555",
+		"birthday": "1999-01-01",
+		"password": "pbkdf2_sha256$600000$wM6h0bb5KVH63AcsrM3XWW$0A6WezDorkE+rY1jOwzXe1w0D89H7SeaB3Cno9yevak="
+	},
+	{
+		"id_staff": "1111",
+		"staff_name": "Giảng viên 1",
+		"email": "gv11@gmail.com",
+		"phone": "111",
+		"address": "111",
+		"birthday": "2000-01-02",
+		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_staff": "2222",
+		"staff_name": "Giảng viên 2",
+		"email": "gv22@gmail.com",
+		"phone": "222",
+		"address": "222",
+		"birthday": "2000-01-01",
+		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+	},
+	{
+		"id_staff": "3333",
+		"staff_name": "Nhân viên 3",
+		"email": "nv33@gmail.com",
+		"phone": "333",
+		"address": "333",
+		"birthday": "1990-01-01",
+		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
 	}
+
 ]

@@ -205,6 +205,25 @@
             }
         )
     }
+    function editLecturer(staffId) {
+        var id_staff = staffId
+        $.ajax({
+                type: "GET",
+                url: "{% url 'admin_lecturer_get_info' '1' %}".replace('1', id_staff),
+                dataType: "json",
+                success: function (data1) {
+                    console.log(data1);
+                    $('#id_staff').val(data1.id_staff);
+                    $('#staff_name').val(data1.staff_name);
+                    $('#email').val(data1.email);
+                    $('#phone').val(data1.phone);
+                    $('#address').val(data1.address);
+                    $('#birthday').val(data1.birthday);
+
+                },
+            }
+        )
+        }
 </script>
 <script>
     let isChecking = false;
