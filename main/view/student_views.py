@@ -172,3 +172,37 @@ def student_checkpoint_view(request):
     }
 
     return render(request, 'student/student_checkpoint.html', context)
+
+
+@student_required
+def student_list_classroom_view(request):
+    id_student = request.session.get('id_student')
+    classroom_per_page = 5
+    page_number = request.GET.get('page')
+
+    student_classes = Classroom.objects.filter(
+        students__id_student=id_student,
+    ).order_by('day_of_week_begin', 'begin_time')
+
+    paginator = Paginator(student_classes, classroom_per_page)
+    page = paginator.get_page(page_number)
+
+    context = {'classrooms': page}
+
+    return render(request, 'student/student_list_classroom.html', context)
+
+
+@student_required
+def student_attendance_history_view(request, classroom_id):
+    id_student = request.session.get('id_student')
+    classroom = Classroom.objects.get(pk=classroom_id)
+    students_attendance = Attendance.objects.filter(
+        id_student=id_student,
+        id_classroom=classroom)
+
+    context = {
+        'students_attendance': students_attendance,
+        'classroom': classroom
+    }
+
+    return render(request, 'student/student_attendance_history.html', context)

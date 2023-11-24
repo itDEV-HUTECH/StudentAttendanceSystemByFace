@@ -1,0 +1,119 @@
+{% extends "admin/base_admin_dashboard.html" %}
+
+{% load static %}
+
+{% block css %}
+    <link href="{% static '' %}assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static '' %}assets/extra-libs/multicheck/multicheck.css"/>
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body 1">
+            <h3 class="card-title mb-0">Quản lý Thời Khóa Biểu</h3>
+        </div>
+        <div class="card-body">
+            <a href="{% url 'admin_schedule_add' %}" class="btn btn-success mdi mdi-account-plus text-white"
+               id="addSchedule">Thêm Thời Khóa Biểu
+            </a>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="text-center" scope="col">Mã Môn Học</th>
+                    <th scope="col">Tên Môn Học</th>
+                    <th class="text-center" scope="col">Ngày bắt đầu</th>
+                    <th class="text-center" scope="col">Ngày kết thúc</th>
+                    <th class="text-center" scope="col">Thứ</th>
+                    <th class="text-center" scope="col">Tiết bắt đầu</th>
+                    <th class="text-center" scope="col">Tiết kết thúc</th>
+                    <th class="text-center" scope="col">Giảng viên</th>
+                    <th class="text-center" scope="col">Chức năng</th>
+                </tr>
+                </thead>
+
+                <tbody class="customtable">
+                {% for schedule in list_schedules %}
+                    <tr>
+                        <td class="text-center">{{ schedule.id_classroom }}</td>
+                        <td>{{ schedule.name }}</td>
+                        <td class="text-center">{{ schedule.begin_date|date:"d/m/Y" }}</td>
+                        <td class="text-center">{{ schedule.end_date|date:"d/m/Y" }}</td>
+                        <td class="text-center">
+                            {% if schedule.day_of_week_begin == 7 %}
+                                Chủ Nhật
+                            {% elif schedule.day_of_week_begin == 1 %}
+                                Thứ Hai
+                            {% elif schedule.day_of_week_begin == 2 %}
+                                Thứ Ba
+                            {% elif schedule.day_of_week_begin == 3 %}
+                                Thứ Tư
+                            {% elif schedule.day_of_week_begin == 4 %}
+                                Thứ Năm
+                            {% elif schedule.day_of_week_begin == 5 %}
+                                Thứ Sáu
+                            {% elif schedule.day_of_week_begin == 6 %}
+                                Thứ Bảy
+                            {% endif %}
+                        </td>
+                        <td>{{ schedule.begin_time }}</td>
+                        <td>{{ schedule.end_time }}</td>
+                        <td>{{ schedule.id_lecturer.staff_name }}</td>
+                        <td class="text-center">
+                            <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteSchedule"
+                               onclick="confirmDelete({{ schedule.id_classroom }})">Xóa</a>
+                            <a href="{% url 'admin_schedule_edit' schedule.id_classroom %}"
+                               class="btn btn-primary btn-sm mdi mdi-account-edit" id="editSchedule"
+                               onclick="editSchedule({{ schedule.id_classroom }})">Sửa</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr class="text-center text-danger">
+                        <td colspan="10"><strong>Không tồn tại thời khóa biểu</strong></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination justify-content-center">
+            <ul class="pagination">
+                {% if list_schedules.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">‹‹</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ list_schedules.previous_page_number }}">‹</a>
+                    </li>
+                {% endif %}
+
+                {% for i in list_schedules.paginator.page_range %}
+                    {% if list_schedules.number == i %}
+                        <li class="page-item active">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% elif i > list_schedules.number|add:'-3' and i < list_schedules.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if list_schedules.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ list_schedules.next_page_number }}">›</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ list_schedules.paginator.num_pages }}">››</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="text-center">
+            <p>Trang {{ list_schedules.number }} / {{ list_schedules.paginator.num_pages }}</p>
+        </div>
+    </div>
+    {% include 'admin/modal-popup/popup_add_schedule.html' %}
+    {% include 'admin/modal-popup/popup_edit_schedule.html' %}
+    {% include 'admin/modal-popup/popup_delete_schedule.html' %}
+{% endblock %}

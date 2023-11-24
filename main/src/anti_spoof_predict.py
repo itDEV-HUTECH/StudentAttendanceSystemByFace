@@ -16,6 +16,15 @@ import torch.nn.functional as F
 from main.src.data_io import transform as trans
 from main.src.model_lib.MiniFASNet import MiniFASNetV1, MiniFASNetV2, MiniFASNetV1SE, MiniFASNetV2SE
 from main.src.utility import get_kernel, parse_model_name
+import warnings
+
+# ...
+
+# Trước khi gọi hàm có cảnh báo
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+
+
 
 MODEL_MAPPING = {
     'MiniFASNetV1': MiniFASNetV1,
@@ -89,5 +98,5 @@ class AntiSpoofPredict(Detection):
         self.model.eval()
         with torch.no_grad():
             result = self.model.forward(img)
-            result = F.softmax(result).cpu().numpy()
+            result = F.softmax(result, dim=1).cpu().numpy()
         return result

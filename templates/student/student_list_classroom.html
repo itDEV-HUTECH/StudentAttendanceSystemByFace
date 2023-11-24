@@ -1,4 +1,4 @@
-{% extends "lecturer/base_lecturer_dashboard.html" %}
+{% extends "student/base_student_dashboard.html" %}
 
 {% block content %}
     <div class="card">
@@ -10,8 +10,8 @@
             <tr>
                 <th class="text-center" scope="col">Thứ</th>
                 <th scope="col">Môn Học</th>
-                <th class="text-center" scope="col">Thời gian bắt đầu</th>
-                <th class="text-center" scope="col">Thời gian kết thúc</th>
+                <th class="text-center" scope="col">Ngày bắt đầu</th>
+                <th class="text-center" scope="col">Ngày gian kết thúc</th>
                 <th class="text-center" scope="col">Thao tác</th>
             </tr>
             </thead>
@@ -36,12 +36,12 @@
                         {% endif %}
                     </td>
                     <td>{{ classroom.name }}</td>
-                    <td class="text-center">{{ classroom.begin_time|time:"H:i" }}</td>
-                    <td class="text-center">{{ classroom.end_time|time:"H:i" }}</td>
+                    <td class="text-center">{{ classroom.begin_date|date:"d/m/Y" }}</td>
+                    <td class="text-center">{{ classroom.end_date|date:"d/m/Y" }}</td>
                     <td class="text-center">
-                        <a href="{% url 'lecturer_calculate_attendance_points' classroom.id_classroom %}"
-                           class="btn btn-info btn-sm mdi mdi-account-edit">
-                            <span>Xem danh sách</span>
+                        <a href="{% url 'student_attendance_history' classroom.id_classroom %}"
+                           class="btn btn-info btn-sm mdi mdi-information-outline">
+                            <span>Chi tiết</span>
                         </a>
                     </td>
                 </tr>

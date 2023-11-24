@@ -4,7 +4,6 @@ import pickle
 from datetime import datetime
 
 import cv2
-import facenet
 import numpy as np
 import tensorflow as tf
 from django.contrib import messages
@@ -18,7 +17,7 @@ from sklearn.svm import SVC
 
 from main import facenet
 from main.decorators import admin_required
-from main.models import StaffInfo, StudentInfo, StaffRole, Role
+from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom
 from main.src.anti_spoof_predict import AntiSpoofPredict
 
 color = (255, 0, 0)
@@ -47,6 +46,11 @@ nrof_train_images_per_class = 10
 @admin_required
 def admin_dashboard_view(request):
     return render(request, 'admin/admin_home.html')
+
+
+@admin_required
+def dashboard_add_news_view(request):
+    return render(request, 'admin/admin_add_news.html')
 
 
 @admin_required
@@ -167,13 +171,13 @@ def admin_student_edit(request, id_student):
 
 
 @admin_required
-def admin_student_delete(request, id_student):
+def admin_student_delete(id_student):
     StudentInfo.objects.filter(id_student=id_student).delete()
     return redirect('admin_student_management')
 
 
 @admin_required
-def admin_student_get_info(request, id_student):
+def admin_student_get_info(id_student):
     try:
         student = StudentInfo.objects.get(id_student=id_student)
         student_data = {
@@ -222,17 +226,20 @@ def admin_lecturer_add(request):
                              )
         lecturer.save()
         lecturer_role, created = Role.objects.get_or_create(name='Lecturer')
-        lecturer_role = StaffRole(staff=lecturer,role=lecturer_role)
+        lecturer_role = StaffRole(staff=lecturer, role=lecturer_role)
         messages.success(request, 'Thêm sinh viên thành công.')
         lecturer_role.save()
         return redirect('admin_lecturer_management')
     return render(request, 'admin/admin_add_lecturer.html')
+
 
 @admin_required
 def admin_lecturer_delete(request, id_staff):
     StaffInfo.objects.filter(id_staff=id_staff).delete()
     return redirect('admin_lecturer_management')
     # return render(request, 'admin/admin_edit_student.html')
+
+
 @admin_required
 def admin_lecturer_edit(request, id_staff):
     Staff = StaffInfo.objects.get(id_staff=id_staff)
@@ -247,6 +254,8 @@ def admin_lecturer_edit(request, id_staff):
         messages.success(request, 'Thay đổi thông tin thành công.')
         return redirect('admin_lecturer_management')
     return render(request, 'admin/admin_edit_lecturer.html', context)
+
+
 @admin_required
 def admin_lecturer_get_info(request, id_staff):
     try:
@@ -262,6 +271,84 @@ def admin_lecturer_get_info(request, id_staff):
         return JsonResponse({'staff': staff_data})
     except StaffInfo.DoesNotExist:
         return JsonResponse({'error': 'Không tìm thấy giảng viên'}, status=404)
+
+
+@admin_required
+def admin_schedule_management_view(request):
+    schedule = Classroom.objects.all()
+    schedule_per_page = 10
+    paginator = Paginator(schedule, schedule_per_page)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    context = {
+        'list_schedules': page,
+    }
+
+    return render(request, 'admin/admin_schedule_management.html', context)
+
+
+@admin_required
+def admin_schedule_add(request):
+    if request.method == 'POST':
+        id_classroom = request.POST['id_classroom']
+        name = request.POST['name']
+        begin_date = request.POST['begin_date']
+        end_date = request.POST['end_date']
+        day_of_week_begin = request.POST['day_of_week_begin']
+        begin_time = request.POST['begin_time']
+        end_time = request.POST['end_time']
+        schedule = Classroom(id_classroom=id_classroom,
+                             name=name,
+                             begin_date=begin_date, end_date=end_date,
+                             day_of_week_begin=day_of_week_begin,
+                             begin_time=begin_time,
+                             end_time=end_time)
+        schedule.save()
+        messages.success(request, 'Thêm Thời Khóa Biểu thành công.')
+        return redirect('admin_schedule_management')
+    return render(request, 'admin/modal-popup/popup_add_schedule.html')
+
+
+@admin_required
+def admin_schedule_edit(request, id_classroom):
+    schedule = Classroom.objects.get(id_classroom=id_classroom)
+    context = {'schedule': schedule}
+    if request.method == 'POST':
+        schedule.name = request.POST['name']
+        schedule.begin_date = request.POST['begin_date']
+        schedule.end_date = request.POST['end_date']
+        schedule.day_of_week_begin = request.POST['day_of_week_begin']
+        schedule.begin_time = request.POST['begin_time']
+        schedule.end_time = request.POST['end_time']
+        schedule.save()
+        messages.success(request, 'Thay đổi thông tin thành công.')
+        return redirect('admin_schedule_management')
+    # return render(request, 'admin/modal-popup/popup_edit_schedule.html', context)
+    return render(request, 'admin/admin_edit_schedule.html', context)
+
+
+@admin_required
+def admin_schedule_delete(request, id_classroom):
+    Classroom.objects.filter(id_classroom=id_classroom).delete()
+    return redirect('admin_schedule_management')
+
+
+@admin_required
+def admin_schedule_get_info(request, id_classroom):
+    try:
+        schedule = Classroom.objects.get(id_classroom=id_classroom)
+        schedule_data = {
+            'id_classroom': schedule.id_classroom,
+            'name': schedule.name,
+            'begin_date': schedule.begin_date,
+            'end_date': schedule.end_date,
+            'day_of_week_begin': schedule.day_of_week_begin,
+            'begin_time': schedule.begin_date,
+            'end_time': schedule.end_date,
+        }
+        return JsonResponse({'schedule': schedule_data})
+    except Classroom.DoesNotExist:
+        return JsonResponse({'error': 'Không tìm thấy lớp học'}, status=404)
 
 
 def capture(id, request):

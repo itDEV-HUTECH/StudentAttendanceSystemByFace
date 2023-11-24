@@ -5,7 +5,6 @@
 {% block css %}
     <link href="{% static '' %}assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{% static '' %}assets/extra-libs/multicheck/multicheck.css"/>
-
 {% endblock %}
 
 {% block content %}
@@ -17,11 +16,10 @@
             <a href="{% url 'admin_lecturer_add' %}" class="btn btn-success mdi mdi-account-plus text-white"
                id="addLecturer">Thêm giảng viên
             </a>
-
         </div>
         <div class="table-responsive">
             <table class="table">
-                <thead class="text-center">
+                <thead>
                 <tr>
                     <th>
                         <label class="customcheckbox mb-3">
@@ -29,50 +27,45 @@
                             <span class="checkmark"></span>
                         </label>
                     </th>
-                    <th scope="col">Mã giảng viên</th>
+                    <th class="text-center" scope="col">Mã giảng viên</th>
                     <th scope="col">Họ và tên</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Số điện thoại</th>
+                    <th class="text-center" scope="col">Số điện thoại</th>
                     <th scope="col">Địa chỉ</th>
-                    <th scope="col">Ngày sinh</th>
-                    <th scope="col">Thao tác</th>
+                    <th class="text-center" scope="col">Ngày sinh</th>
+                    <th class="text-center" scope="col">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
                 {% for lecturer in list_lecturers %}
-                    <tr class="text-center">
+                    <tr>
                         <th>
                             <label class="customcheckbox">
                                 <input type="checkbox" class="listCheckbox"/>
                                 <span class="checkmark"></span>
                             </label>
                         </th>
-                        <td>{{ lecturer.id_staff }}</td>
+                        <td class="text-center">{{ lecturer.id_staff }}</td>
                         <td>{{ lecturer.staff_name }}</td>
                         <td>{{ lecturer.email }}</td>
-                        <td>{{ lecturer.phone }}</td>
+                        <td class="text-center">{{ lecturer.phone }}</td>
                         <td>{{ lecturer.address }}</td>
-                        <td>{{ lecturer.birthday|date:"d/m/Y" }}</td>
-                        <td>
-
-
+                        <td class="text-center">{{ lecturer.birthday|date:"d/m/Y" }}</td>
+                        <td class="text-center">
                            <a href="{% url 'admin_lecturer_delete' lecturer.id_staff %}"
                                class="btn btn-danger btn-sm mdi mdi-delete"
                                onclick="confirmDelete({{ lecturer.id_staff }})">Xóa</a>
                             <a href="{% url 'admin_lecturer_edit' lecturer.id_staff %}"
                                class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
                         </td>
-
                     </tr>
                 {% empty %}
                     <tr class="text-center text-danger">
                         <td colspan="10"><strong>Không tồn tại giảng viên nào trong cơ sở dữ liệu!</strong></td>
                     </tr>
                 {% endfor %}
-
                 </tbody>
             </table>
-
         </div>
         <div class="pagination justify-content-center">
             <ul class="pagination">
@@ -111,6 +104,4 @@
             <p>Trang {{ list_lecturers.number }} / {{ list_lecturers.paginator.num_pages }}</p>
         </div>
     </div>
-
-
 {% endblock %}

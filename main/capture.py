@@ -12,7 +12,6 @@ max_images = 300
 device_id = 0
 
 capturing_done = False
-mtcnn = MTCNN()
 from src.anti_spoof_predict import AntiSpoofPredict
 
 max_images = 300
@@ -23,11 +22,10 @@ def capture(ID):
     image_count = 0
     max_images = 300  # Set the desired number of images to capture
     model_test = AntiSpoofPredict(device_id)
-    capture = cv2.VideoCapture(2)
+    capture = cv2.VideoCapture(0)
     output_dir = f"./main/data/test_images/{ID}"
     print(output_dir)
     os.makedirs(output_dir, exist_ok=True)
-
     captured_images = []  # List to store captured images
 
     while image_count < max_images:
@@ -64,6 +62,3 @@ def capture(ID):
     return captured_images, response_data
 
 
-captured_images, response_data = capture(222222)
-print(response_data)
-print(len(captured_images))

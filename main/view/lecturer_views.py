@@ -25,8 +25,7 @@ image_cropper = CropImage()
 model_dir = "main/resources/anti_spoof_models"
 device_id = 0
 
-model_dir = "main/resources/anti_spoof_models"
-device_id = 0
+
 
 for model_name in os.listdir(model_dir):
     h_input, w_input, model_type, scale = parse_model_name(model_name)
@@ -166,18 +165,17 @@ def lecturer_mark_attendance(request, classroom_id):
             attendance, created = Attendance.objects.get_or_create(
                 id_student=student_id,
                 id_classroom=classroom,
-                check_in_time__date=datetime.now().date(),
+                check_in_time__date=datetime.now(),
                 defaults={
                     'attendance_status': attendance_status,
                     'check_in_time': datetime.now()
                 }
             )
 
-            if not created:
-                if attendance_status != str(attendance.attendance_status):
-                    attendance.attendance_status = attendance_status
-                    attendance.check_in_time = datetime.now()
-                    attendance.save()
+            if not created and attendance_status != str(attendance.attendance_status):
+                attendance.attendance_status = attendance_status
+                attendance.check_in_time = datetime.now()
+                attendance.save()
 
         return redirect('lecturer_mark_attendance', classroom_id=classroom_id)
 
@@ -278,29 +276,6 @@ def lecturer_mark_attendance_by_face(request, classroom_id):
         check_in_time__date=datetime.now()
     )
 
-    if request.method == 'POST':
-        for student in students_in_class:
-            student_id = student.id_student
-            attendance_status = request.POST.get(f'attendance_status_{student_id.id_student}')
-
-            attendance, created = Attendance.objects.get_or_create(
-                id_student=student_id,
-                id_classroom=classroom,
-                check_in_time__date=datetime.now().date(),
-                defaults={
-                    'attendance_status': attendance_status,
-                    'check_in_time': datetime.now()
-                }
-            )
-
-            if not created:
-                if attendance_status != str(attendance.attendance_status):
-                    attendance.attendance_status = attendance_status
-                    attendance.check_in_time = datetime.now()
-                    attendance.save()
-
-        return redirect('lecturer_mark_attendance_by_face', classroom_id=classroom_id)
-
     context = {
         'students_in_class': students_in_class,
         'classroom': classroom,
@@ -311,19 +286,55 @@ def lecturer_mark_attendance_by_face(request, classroom_id):
 
 
 @lecturer_required
-def lecturer_attendance_history_view(request):
-    return render(request, 'lecturer/lecturer_attendance_history.html')
+def lecturer_history_list_classroom_view(request):
+    id_lecturer = request.session.get('id_staff')
+    classroom_per_page = 5
+    page_number = request.GET.get('page')
+
+    classrooms = Classroom.objects.filter(
+        id_lecturer__id_staff=id_lecturer
+    ).order_by('day_of_week_begin', 'begin_time')
+
+    paginator = Paginator(classrooms, classroom_per_page)
+    page = paginator.get_page(page_number)
+
+    context = {'classrooms': page}
+
+    return render(request, 'lecturer/lecturer_history_list_classroom.html', context)
+
+
+@lecturer_required
+def lecturer_attendance_history_view(request, classroom_id):
+    classroom = Classroom.objects.get(pk=classroom_id)
+    students_attendance = Attendance.objects.filter(id_classroom=classroom).order_by('id_student')
+
+    student_per_page = 5
+    page_number = request.GET.get('page')
+    pagniator = Paginator(students_attendance, student_per_page)
+    page = pagniator.get_page(page_number)
+
+    context = {
+        'students_attendance': page,
+        'classroom': classroom
+    }
+
+    return render(request, 'lecturer/lecturer_attendance_history.html', context)
 
 
 @lecturer_required
 def lecturer_list_classroom_view(request):
-    id_staff = request.session.get('id_staff')
+    id_lecturer = request.session.get('id_staff')
+    classroom_per_page = 5
+    page_number = request.GET.get('page')
 
     classrooms = Classroom.objects.filter(
-        id_lecturer__id_staff=id_staff
+        id_lecturer__id_staff=id_lecturer
     ).order_by('day_of_week_begin', 'begin_time')
 
-    context = {'classrooms': classrooms}
+    paginator = Paginator(classrooms, classroom_per_page)
+    page = paginator.get_page(page_number)
+
+    context = {'classrooms': page}
 
     return render(request, 'lecturer/lecturer_list_classroom.html', context)
 
