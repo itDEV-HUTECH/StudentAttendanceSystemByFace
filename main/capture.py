@@ -62,6 +62,3 @@ def capture(ID):
     return captured_images, response_data
 
 
-captured_images, response_data = capture(222222)
-print(response_data)
-print(len(captured_images))

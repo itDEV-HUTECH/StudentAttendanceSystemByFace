@@ -25,8 +25,7 @@ image_cropper = CropImage()
 model_dir = "main/resources/anti_spoof_models"
 device_id = 0
 
-model_dir = "main/resources/anti_spoof_models"
-device_id = 0
+
 
 for model_name in os.listdir(model_dir):
     h_input, w_input, model_type, scale = parse_model_name(model_name)
