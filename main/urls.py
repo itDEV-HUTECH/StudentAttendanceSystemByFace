@@ -30,7 +30,9 @@ urlpatterns = [
     path('admin/lecturer-management/add', admin_views.admin_lecturer_add, name='admin_lecturer_add'),
     path('admin/lecturer-management/delete/<int:id_staff>', admin_views.admin_lecturer_delete,
          name='admin_lecturer_delete'),
-
+    path('admin/lecturer-management/edit/<int:id_staff>', admin_views.admin_lecturer_edit, name='admin_lecturer_edit'),
+    path('admin/lecturer-management/get-info/<int:id_staff>', admin_views.admin_lecturer_get_info,
+         name='admin_lecturer_get_info'),
     # Lecturer
     path('admin/student-management/student_capture', admin_views.student_capture, name='student_capture'),
     path('admin/student-management/capture/cap', admin_views.capture, name='capture'),

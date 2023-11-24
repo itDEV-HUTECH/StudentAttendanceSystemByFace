@@ -225,18 +225,43 @@ def admin_lecturer_add(request):
         messages.success(request, 'Thêm sinh viên thành công.')
         # lecturer_role.save()
         return redirect('admin_lecturer_management')
-    return render(request, 'admin/modal-popup/popup_add_lecturer.html')
+    # return render(request, 'admin/modal-popup/popup_add_lecturer.html')
+    return render(request, 'admin/admin_add_lecturer.html')
 
-
-# def add_roleStaff (id_lecturer, role):
-#     rolestaff = StaffRole(staff=id_lecturer,
-#                       role=role)
-#     rolestaff.save()
 @admin_required
 def admin_lecturer_delete(request, id_staff):
     StaffInfo.objects.filter(id_staff=id_staff).delete()
     return redirect('admin_lecturer_management')
     # return render(request, 'admin/admin_edit_student.html')
+@admin_required
+def admin_lecturer_edit(request, id_staff):
+    Staff = StaffInfo.objects.get(id_staff=id_staff)
+    context = {'staff': Staff}
+    if request.method == 'POST':
+        Staff.staff_name = request.POST['staff_name']
+        Staff.email = request.POST['email']
+        Staff.phone = request.POST['phone']
+        Staff.address = request.POST['address']
+        Staff.birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
+        Staff.save()
+        messages.success(request, 'Thay đổi thông tin thành công.')
+        return redirect('admin_student_management')
+    return render(request, 'admin/admin_edit_lecturer.html', context)
+@admin_required
+def admin_lecturer_get_info(request, id_staff):
+    try:
+        staff = StaffInfo.objects.get(id_staff=id_staff)
+        staff_data = {
+            'id_staff': staff.id_staff,
+            'staff_name': staff.staff_name,
+            'email': staff.email,
+            'phone': staff.phone,
+            'address': staff.address,
+            'birthday': staff.birthday.strftime('%d/%m/%Y'),
+        }
+        return JsonResponse({'staff': staff_data})
+    except StaffInfo.DoesNotExist:
+        return JsonResponse({'error': 'Không tìm thấy giảng viên'}, status=404)
 
 
 def capture(id, request):
