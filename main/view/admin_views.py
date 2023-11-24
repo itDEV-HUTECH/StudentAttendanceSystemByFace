@@ -18,7 +18,7 @@ from sklearn.svm import SVC
 
 from main import facenet
 from main.decorators import admin_required
-from main.models import StaffInfo, StudentInfo, StaffRole
+from main.models import StaffInfo, StudentInfo, StaffRole, Role
 from main.src.anti_spoof_predict import AntiSpoofPredict
 
 color = (255, 0, 0)
@@ -221,11 +221,11 @@ def admin_lecturer_add(request):
                              password=password
                              )
         lecturer.save()
-        # lecturer_role = StaffRole(staff=id_staff,role=3)
+        lecturer_role, created = Role.objects.get_or_create(name='Lecturer')
+        lecturer_role = StaffRole(staff=lecturer,role=lecturer_role)
         messages.success(request, 'Thêm sinh viên thành công.')
-        # lecturer_role.save()
+        lecturer_role.save()
         return redirect('admin_lecturer_management')
-    # return render(request, 'admin/modal-popup/popup_add_lecturer.html')
     return render(request, 'admin/admin_add_lecturer.html')
 
 @admin_required
@@ -245,7 +245,7 @@ def admin_lecturer_edit(request, id_staff):
         Staff.birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
         Staff.save()
         messages.success(request, 'Thay đổi thông tin thành công.')
-        return redirect('admin_student_management')
+        return redirect('admin_lecturer_management')
     return render(request, 'admin/admin_edit_lecturer.html', context)
 @admin_required
 def admin_lecturer_get_info(request, id_staff):
