@@ -26,6 +26,7 @@ urlpatterns = [
          name='check_capture_status'),
     path('admin/student-management/live_video_feed/<int:id_student>', admin_views.live_video_feed,
          name='live_video_feed'),
+
     path('admin/lecturer-management', admin_views.admin_lecturer_management_view, name='admin_lecturer_management'),
     path('admin/lecturer-management/add', admin_views.admin_lecturer_add, name='admin_lecturer_add'),
     path('admin/lecturer-management/delete/<int:id_staff>', admin_views.admin_lecturer_delete,
@@ -34,9 +35,9 @@ urlpatterns = [
     path('admin/lecturer-management/get-info/<int:id_staff>', admin_views.admin_lecturer_get_info,
          name='admin_lecturer_get_info'),
 
-    # Lecturer
     path('admin/student-management/student_capture', admin_views.student_capture, name='student_capture'),
     path('admin/student-management/capture/cap', admin_views.capture, name='capture'),
+
     path('admin/schedule_management', admin_views.admin_schedule_management_view, name='admin_schedule_management'),
     path('admin/schedule_management/add', admin_views.admin_schedule_add, name='admin_schedule_add'),
     path('admin/schedule-management/delete/<int:id_classroom>', admin_views.admin_schedule_delete,
