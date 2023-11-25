@@ -296,12 +296,14 @@ def admin_schedule_add(request):
         day_of_week_begin = request.POST['day_of_week_begin']
         begin_time = request.POST['begin_time']
         end_time = request.POST['end_time']
+        id_lecturer= request.POST['id_lecturer']
         schedule = Classroom(id_classroom=id_classroom,
                              name=name,
                              begin_date=begin_date, end_date=end_date,
                              day_of_week_begin=day_of_week_begin,
                              begin_time=begin_time,
-                             end_time=end_time)
+                             end_time=end_time,
+                             id_lecturer= id_lecturer)
         schedule.save()
         messages.success(request, 'Thêm Thời Khóa Biểu thành công.')
         return redirect('admin_schedule_management')
@@ -319,6 +321,7 @@ def admin_schedule_edit(request, id_classroom):
         schedule.day_of_week_begin = request.POST['day_of_week_begin']
         schedule.begin_time = request.POST['begin_time']
         schedule.end_time = request.POST['end_time']
+        schedule.id_lecturer = request.POST['id_lecturer']
         schedule.save()
         messages.success(request, 'Thay đổi thông tin thành công.')
         return redirect('admin_schedule_management')
