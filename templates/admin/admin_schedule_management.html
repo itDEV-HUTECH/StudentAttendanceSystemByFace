@@ -57,9 +57,9 @@
                                 Thứ Bảy
                             {% endif %}
                         </td>
-                        <td>{{ schedule.begin_time }}</td>
-                        <td>{{ schedule.end_time }}</td>
-                        <td>{{ schedule.id_lecturer.staff_name }}</td>
+                        <td class="text-center">{{ schedule.begin_time|time:"H:i" }}</td>
+                        <td class="text-center">{{ schedule.end_time|time:"H:i" }}</td>
+                        <td class="text-center">{{ schedule.id_lecturer.staff_name }}</td>
                         <td class="text-center">
                             <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteSchedule"
                                onclick="confirmDelete({{ schedule.id_classroom }})">Xóa</a>
