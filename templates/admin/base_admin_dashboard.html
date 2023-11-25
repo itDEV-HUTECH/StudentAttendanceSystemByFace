@@ -172,7 +172,7 @@
 <script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="{% static '' %}assets/js/manage-student.js"></script>
 <script>
-    jQuery("#birthday").datepicker({
+    jQuery("#birthday, #begin_date, #end_date").datepicker({
         autoclose: true,
         todayHighlight: true,
     });
@@ -369,19 +369,22 @@
 
     function editSchedule(classroomId) {
         var id_classroom = classroomId
+        var editForm = $('#editScheduleForm');
+        editForm.attr('action', "{% url 'admin_schedule_edit' 0 %}".replace('0', id_classroom));
         $.ajax({
                 type: "GET",
                 url: "{% url 'admin_schedule_get_info' '1' %}".replace('1', id_classroom),
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    $('#id_classroom').val(data.id_classroom);
-                    $('#name').val(data.name);
-                    $('#begin_date').val(data.begin_date);
-                    $('#end_date').val(data.end_date);
-                    $('#day_of_week_begin').val(data.day_of_week_begin);
-                    $('#begin_time').val(data.begin_time);
-                    $('#end_time').val(data.end_time);
+                    $('#id_classroom').val(data.schedule.id_classroom);
+                    $('#name').val(data.schedule.name);
+                    $('#begin_date').val(data.schedule.begin_date);
+                    $('#end_date').val(data.schedule.end_date);
+                    $('#day_of_week_begin').val(data.schedule.day_of_week_begin);
+                    $('#begin_time').val(data.schedule.begin_time);
+                    $('#end_time').val(data.schedule.end_time);
+                    $('#lecturer_name').val(data.schedule.lecturer_name);
                     $('#editScheduleModal').modal('show');
                 },
             }
