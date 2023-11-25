@@ -316,8 +316,8 @@ def admin_schedule_edit(request, id_classroom):
     context = {'schedule': schedule}
     if request.method == 'POST':
         schedule.name = request.POST['name']
-        schedule.begin_date = request.POST['begin_date']
-        schedule.end_date = request.POST['end_date']
+        schedule.begin_date = datetime.strptime(request.POST['begin_date'], '%d/%m/%Y').date()
+        schedule.end_date = datetime.strptime(request.POST['end_date'], '%d/%m/%Y').date()
         schedule.day_of_week_begin = request.POST['day_of_week_begin']
         schedule.begin_time = request.POST['begin_time']
         schedule.end_time = request.POST['end_time']
@@ -325,8 +325,7 @@ def admin_schedule_edit(request, id_classroom):
         schedule.save()
         messages.success(request, 'Thay đổi thông tin thành công.')
         return redirect('admin_schedule_management')
-    # return render(request, 'admin/modal-popup/popup_edit_schedule.html', context)
-    return render(request, 'admin/admin_edit_schedule.html', context)
+    return render(request, 'admin/modal-popup/popup_edit_schedule.html', context)
 
 
 @admin_required
@@ -342,11 +341,12 @@ def admin_schedule_get_info(request, id_classroom):
         schedule_data = {
             'id_classroom': schedule.id_classroom,
             'name': schedule.name,
-            'begin_date': schedule.begin_date,
-            'end_date': schedule.end_date,
+            'begin_date': schedule.begin_date.strftime('%d/%m/%Y'),
+            'end_date': schedule.end_date.strftime('%d/%m/%Y'),
             'day_of_week_begin': schedule.day_of_week_begin,
-            'begin_time': schedule.begin_date,
-            'end_time': schedule.end_date,
+            'begin_time': schedule.begin_time,
+            'end_time': schedule.end_time,
+            'lecturer_name': schedule.id_lecturer.staff_name,
         }
         return JsonResponse({'schedule': schedule_data})
     except Classroom.DoesNotExist:

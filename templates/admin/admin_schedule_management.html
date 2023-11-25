@@ -63,11 +63,11 @@
                         <td class="text-center">
                             <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteSchedule"
                                onclick="confirmDelete({{ schedule.id_classroom }})">Xóa</a>
-                            <a href="{% url 'admin_schedule_edit' schedule.id_classroom %}"
-                               class="btn btn-primary btn-sm mdi mdi-account-edit" id="editSchedule"
+                            <a href="javascript:void(0)" class="btn btn-primary btn-sm mdi mdi-account-edit"
                                onclick="editSchedule({{ schedule.id_classroom }})">Sửa</a>
                         </td>
                     </tr>
+                    {% include 'admin/modal-popup/popup_edit_schedule.html' %}
                 {% empty %}
                     <tr class="text-center text-danger">
                         <td colspan="10"><strong>Không tồn tại thời khóa biểu</strong></td>
@@ -114,6 +114,5 @@
         </div>
     </div>
     {% include 'admin/modal-popup/popup_add_schedule.html' %}
-    {% include 'admin/modal-popup/popup_edit_schedule.html' %}
     {% include 'admin/modal-popup/popup_delete_schedule.html' %}
 {% endblock %}
