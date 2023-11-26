@@ -14,11 +14,8 @@
         </div>
         <div class="card-body">
             <a href="" class="btn btn-success mdi mdi-account-plus text-white"
-               id="addNotification">Thêm sinh viên
+               id="addNotification">Thêm thông báo
             </a>
-            <button type="button" class="btn btn-danger mdi mdi-account-plus text-white" id="train-button">Train
-            </button>
-            <div id="result"></div>
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -33,7 +30,7 @@
                     <th class="text-center" scope="col">Mã thông báo</th>
                     <th scope="col">Tiêu đề</th>
                     <th scope="col">Nội dung</th>
-                    <th class="text-center" scope="col">Thao tác</th>
+            <th class="text-center" scope="col" style="width: 200px;">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
@@ -49,8 +46,8 @@
                         <td>{{ blog_post.title}}</td>
                         <td>{{ blog_post.body|safe }}</td>
 
-                        <td class="text-center">
-                            <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
+                        <td class="text-center" style="width: 200px;">
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
                                onclick="confirmDeleteStudent({{ student.id_student }})">Xóa</a>
                             <a href="javascript:void(0)" class="btn btn-primary btn-sm mdi mdi-account-edit"
                                onclick="editStudent({{ student.id_student }})">Sửa</a>
