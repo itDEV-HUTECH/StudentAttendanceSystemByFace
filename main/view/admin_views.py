@@ -17,6 +17,7 @@ from sklearn.svm import SVC
 from django.urls import reverse
 from django.views.generic.edit import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import ListView
 
 from main.forms import BlogForm
 from main.models import BlogPost
@@ -49,19 +50,30 @@ nrof_train_images_per_class = 10
 
 # The rest of the code remains the same
 # Define the function to split the dataset
-class AddBlog(SuccessMessageMixin, CreateView):
+class AddBlog(SuccessMessageMixin, CreateView, ListView):
     form_class = BlogForm
     model = BlogPost
-    template_name = "admin/create_blog.html"
-    success_message = "Added Succesfully"
+    template_name = "admin/notification.html"
+    success_message = "Added Successfully"
+    context_object_name = 'blog_posts'  # Specify the context object name for the ListView
 
     def get_success_url(self):
-        return reverse('add_blogs')
+        return reverse('notification_view')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['blog_posts'] = BlogPost.objects.all()  # Add all blog posts to the context
+        return context
 
 @admin_required
 def admin_dashboard_view(request):
     blog_posts = BlogPost.objects.all()
     return render(request, 'admin/admin_home.html', {'blog_posts': blog_posts})
+
+@admin_required
+def notification_view(request):
+    blog_posts = BlogPost.objects.all()
+    return render(request, 'admin/notification.html', {'blog_posts': blog_posts})
 
 
 @admin_required
@@ -166,6 +178,10 @@ def admin_student_add(request):
         messages.success(request, 'Thêm sinh viên thành công.')
         return redirect('admin_student_management')
     return render(request, 'admin/modal-popup/popup_add_student.html')
+
+
+
+
 
 
 @admin_required

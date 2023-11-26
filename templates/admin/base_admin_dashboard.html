@@ -135,12 +135,7 @@
                                     <span class="hide-menu"> Admin </span>
                                 </a>
                             </li>
-                            <li class="sidebar-item">
-                                <a href="{% url 'add_blogs' %}" class="sidebar-link">
-                                    <i class="mdi mdi-account-edit"></i>
-                                    <span class="hide-menu"> Thông báo </span>
-                                </a>
-                            </li>
+
                         </ul>
                     </li>
                     <li class="sidebar-item">
@@ -178,6 +173,8 @@
 <script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="{% static '' %}assets/js/manage-student.js"></script>
 <script src="{% static '' %}assets/js/manage-schedule.js"></script>
+<script src="{% static '' %}assets/js/manage-notification.js"></script>
+
 <script>
     jQuery("#birthday, #begin_date, #end_date").datepicker({
         autoclose: true,
