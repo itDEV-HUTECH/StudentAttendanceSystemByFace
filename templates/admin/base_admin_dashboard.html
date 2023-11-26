@@ -171,6 +171,7 @@
 <script src="{% static '' %}assets/extra-libs/DataTables/datatables.min.js"></script>
 <script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="{% static '' %}assets/js/manage-student.js"></script>
+<script src="{% static '' %}assets/js/manage-schedule.js"></script>
 <script>
     jQuery("#birthday, #begin_date, #end_date").datepicker({
         autoclose: true,
@@ -179,15 +180,15 @@
 </script>
 <script>
     function confirmDeleteStudent(studentId) {
-        var deleteUrl = "{% url 'admin_student_delete' '1' %}".replace('1', studentId);
+        let deleteUrl = "{% url 'admin_student_delete' '1' %}".replace('1', studentId);
         $('#confirmDeleteButton').attr('href', deleteUrl);
         $('#confirmDeleteModal').modal('show');
         $('#studentIdToDelete').text(studentId);
     }
 
     function editStudent(studentId) {
-        var id_student = studentId
-        var editForm = $('#editStudentForm');
+        let id_student = studentId
+        let editForm = $('#editStudentForm');
         editForm.attr('action', "{% url 'admin_student_edit' 0 %}".replace('0', studentId));
 
         $.ajax({
@@ -210,7 +211,7 @@
     }
 
     function editLecturer(staffId) {
-        var id_staff = staffId
+        let id_staff = staffId
         $.ajax({
                 type: "GET",
                 url: "{% url 'admin_lecturer_get_info' '1' %}".replace('1', id_staff),
@@ -234,7 +235,7 @@
     let intervalId;
     document.getElementById("addStudentButton").addEventListener("click", function () {
         // Get the student ID from the input with the ID "id_student"
-        var studentId = document.getElementById("id_student").value;
+        let studentId = document.getElementById("id_student").value;
         const videoElement = document.getElementById('video-feed');
         const idStudentField = document.getElementById("id_student");
         const studentNameField = document.getElementById("student_name");
@@ -345,31 +346,16 @@
     });
 </script>
 <script>
-    $("#addSchedule").click(function (e) {
-        e.preventDefault();
-        $('#addNewScheduleModal').modal('show')
-    });
-
-    $("#editSchedule").click(function (e) {
-        e.preventDefault();
-        $('#editScheduleModal').modal('show')
-    });
-
-    $("#deleteSchedule").click(function (e) {
-        e.preventDefault();
-    });
-</script>
-<script>
-    function confirmDelete(classroomId) {
-        var deleteUrl = "{% url 'admin_schedule_delete' '1' %}".replace('1', classroomId);
+    function confirmDeleteClassroom(classroomId) {
+        let deleteUrl = "{% url 'admin_schedule_delete' '1' %}".replace('1', classroomId);
         $('#confirmDeleteButton').attr('href', deleteUrl);
         $('#confirmDeleteModal').modal('show');
         $('#classroomIdToDelete').text(classroomId);
     }
 
     function editSchedule(classroomId) {
-        var id_classroom = classroomId
-        var editForm = $('#editScheduleForm');
+        let id_classroom = classroomId
+        let editForm = $('#editScheduleForm');
         editForm.attr('action', "{% url 'admin_schedule_edit' 0 %}".replace('0', id_classroom));
         $.ajax({
                 type: "GET",
@@ -390,43 +376,6 @@
             }
         )
     }
-</script>
-<script>
-    document.getElementById("addScheduleButton").addEventListener("click", function () {
-
-        var id_classroom = document.getElementById("id_classroom").value;
-        var name = document.getElementById("name").value;
-        var begin_date = document.getElementById("begin_date").value;
-        var end_date = document.getElementById("end_date").value;
-        var day_of_week_begin = document.getElementById("day_of_week_begin").value;
-        var begin_time = document.getElementById("begin_time").value;
-        var end_time = document.getElementById("end_time").value;
-        var id_lecturer = document.getElementById("id_lecturer").value;
-
-
-        var data = {
-            'id_classroom': id_classroom,
-            'name': name,
-            'begin_date': begin_date,
-            'end_date': end_date,
-            'day_of_week_begin': day_of_week_begin,
-            'begin_time': begin_time,
-            'end_time': end_time,
-            'id_lecturer': id_lecturer,
-        };
-
-        $.ajax({
-            url: '{% url 'admin_schedule_add' %}',
-            type: 'POST',
-            data: data,
-            success: function (response) {
-                alert('Thêm Thời Khóa Biểu thành công.');
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                alert('Đã xảy ra lỗi: ' + errorThrown);
-            }
-        });
-    });
 </script>
 </body>
 
