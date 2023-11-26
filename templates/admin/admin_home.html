@@ -3,8 +3,14 @@
 {% block content %}
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title text-info"><strong>THÔNG BÁO</strong></h3>
+            <h3 class="card-title text-info"><strong>Thông báo</strong></h3>
+            {% for blog_post in blog_posts %}
+                <div>
+                    <h4>{{ blog_post.title }}</h4>
+                    <p>{{ blog_post.body|safe }}</p>
+                    <p>{{ blog_post.created_at }}</p>
+                </div>
+            {% endfor %}
         </div>
-
     </div>
 {% endblock %}
