@@ -5,10 +5,10 @@
                 <h5 class="modal-title">Thêm Thời Khóa Biểu</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            {% csrf_token %}
             <div class="modal-body">
                 <form id="addScheduleForm" method="POST" action="{% url 'admin_schedule_add' %}">
 
-                    {% csrf_token %}
                     <div class="mb-3 form-group row d-flex justify-content-center">
                         <label for="id_classroom" class="col-sm-2 control-label col-form-label">Mã Môn Học:</label>
                         <div class="col-sm-9">
@@ -31,7 +31,7 @@
                         <label for="begin_date" class="col-sm-2 control-label col-form-label">Ngày bắt đầu:</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="date" class="form-control" name="begin_date" id="begin_date" required>
+                                <input type="text" class="form-control" name="begin_date" id="begin_date" required>
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                         <label for="end_date" class="col-sm-2 control-label col-form-label">Ngày kết thúc:</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="date" class="form-control" name="end_date" id="end_date" required>
+                                <input type="text" class="form-control" name="end_date" id="end_date" required>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <label for="begin_time" class="col-sm-2 control-label col-form-label">Thời gian bắt đầu:</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="time" class="form-control" name="begin_time" id="begin_time" required>
+                                <input type="text" class="form-control" name="begin_time" id="begin_time" required>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                         <label for="end_time" class="col-sm-2 control-label col-form-label">Thời gian kết thúc:</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="time" class="form-control" name="end_time" id="end_time" required>
+                                <input type="text" class="form-control" name="end_time" id="end_time" required>
                             </div>
                         </div>
                     </div>
