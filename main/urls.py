@@ -1,15 +1,20 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path, include
 
 from main.view import admin_views
 from main.view import lecturer_views
 from main.view import student_views
 from . import views
+from main.view.admin_views  import AddBlog
 
 # Create your views here.
 urlpatterns = [
     path('', views.home, name='choose_login'),
     path('login', views.login_view, name='login'),
-
+    path('admin/create_blog', AddBlog.as_view(), name='add_blogs'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     # Admin
     path('admin/dashboard', admin_views.admin_dashboard_view, name='admin_dashboard'),
     path('admin/profile', admin_views.admin_profile_view, name='admin_profile'),
@@ -94,3 +99,7 @@ urlpatterns = [
 
     path('hashpassword', views.hash_password, name='hash_password'),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

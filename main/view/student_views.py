@@ -9,6 +9,7 @@ from django.shortcuts import redirect, render
 
 from main.decorators import student_required
 from main.models import StudentInfo, Classroom, Attendance
+from main.models import BlogPost
 
 
 def student_login_view(request):
@@ -32,7 +33,9 @@ def student_login_view(request):
 
 @student_required
 def student_dashboard_view(request):
-    return render(request, 'student/student_home.html')
+    blog_posts = BlogPost.objects.all()
+
+    return render(request, 'student/student_home.html', {'blog_posts': blog_posts})
 
 
 @student_required

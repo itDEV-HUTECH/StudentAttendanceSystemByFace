@@ -14,11 +14,18 @@ from django.http import JsonResponse
 from django.http import StreamingHttpResponse
 from django.shortcuts import render, redirect
 from sklearn.svm import SVC
+from django.urls import reverse
+from django.views.generic.edit import CreateView
+from django.contrib.messages.views import SuccessMessageMixin
+
+from main.forms import BlogForm
+from main.models import BlogPost
 
 from main import facenet
 from main.decorators import admin_required
 from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom
 from main.src.anti_spoof_predict import AntiSpoofPredict
+from main.models import BlogPost
 
 color = (255, 0, 0)
 thickness = 2
@@ -42,10 +49,19 @@ nrof_train_images_per_class = 10
 
 # The rest of the code remains the same
 # Define the function to split the dataset
+class AddBlog(SuccessMessageMixin, CreateView):
+    form_class = BlogForm
+    model = BlogPost
+    template_name = "admin/create_blog.html"
+    success_message = "Added Succesfully"
+
+    def get_success_url(self):
+        return reverse('add_blogs')
 
 @admin_required
 def admin_dashboard_view(request):
-    return render(request, 'admin/admin_home.html')
+    blog_posts = BlogPost.objects.all()
+    return render(request, 'admin/admin_home.html', {'blog_posts': blog_posts})
 
 
 @admin_required
@@ -358,7 +374,7 @@ def capture(id, request):
     color = (0, 0, 255)  # BGR color for drawing rectangles
     thickness = 2  # Thickness of the rectangle
     model_test = AntiSpoofPredict(device_id)  # Define the AntiSpoofPredict object (assumed to be a valid class)
-    capture = cv2.VideoCapture(0)  # Capture from camera at index 2 (can be adjusted)
+    capture = cv2.VideoCapture(1)  # Capture from camera at index 2 (can be adjusted)
     output_dir = f"./main/Dataset/FaceData/processed/{id}"
     os.makedirs(output_dir, exist_ok=True)
     while image_count < 300:
