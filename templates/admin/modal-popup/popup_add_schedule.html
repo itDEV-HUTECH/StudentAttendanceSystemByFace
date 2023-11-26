@@ -5,84 +5,102 @@
                 <h5 class="modal-title">Thêm Thời Khóa Biểu</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            {% csrf_token %}
             <div class="modal-body">
                 <form id="addScheduleForm" method="POST" action="{% url 'admin_schedule_add' %}">
-
+                    {% csrf_token %}
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="id_classroom" class="col-sm-2 control-label col-form-label">Mã Môn Học:</label>
+                        <label for="name" class="col-sm-3 control-label col-form-label">Tên lớp học</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="number" class="form-control" name="id_classroom" id="id_classroom" required>
+                                <input type="text" class="form-control" name="name" id="name"
+                                       placeholder="Nhập tên lớp học" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="name" class="col-sm-2 control-label col-form-label">Tên Môn Học:</label>
+                        <label for="begin_date" class="col-sm-3 control-label col-form-label">Ngày bắt đầu</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="name" id="name" required>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="begin_date" name="begin_date"
+                                           placeholder="dd/mm/yyyy"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text h-100"><i class="mdi mdi-calendar"></i></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="begin_date" class="col-sm-2 control-label col-form-label">Ngày bắt đầu:</label>
+                        <label for="end_date" class="col-sm-3 control-label col-form-label">Ngày kết thúc</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="begin_date" id="begin_date" required>
+                                <div class="input-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="end_date" name="end_date"
+                                               placeholder="dd/mm/yyyy"/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text h-100"><i class="mdi mdi-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="end_date" class="col-sm-2 control-label col-form-label">Ngày kết thúc:</label>
+                        <label for="day_of_week_begin" class="col-sm-3 control-label col-form-label">
+                            Ngày bắt đầu trong tuần
+                        </label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="end_date" id="end_date" required>
+                                <select class="form-select" name="day_of_week_begin" id="day_of_week_begin"
+                                        aria-label="Date of week begin">
+                                    <option value="1">Thứ 2</option>
+                                    <option value="2">Thứ 3</option>
+                                    <option value="3">Thứ 4</option>
+                                    <option value="4">Thứ 5</option>
+                                    <option value="5">Thứ 6</option>
+                                    <option value="6">Thứ 7</option>
+                                    <option value="7">Chủ nhật</option>
+                                </select>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="day_of_week_begin" class="col-sm-2 control-label col-form-label">Thứ:</label>
+                        <label for="begin_time" class="col-sm-3 control-label col-form-label">Thời gian bắt đầu</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="day_of_week_begin" id="day_of_week_begin" required>
+                                <input type="time" class="form-control" name="begin_time" id="begin_time" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="begin_time" class="col-sm-2 control-label col-form-label">Thời gian bắt đầu:</label>
+                        <label for="end_time" class="col-sm-3 control-label col-form-label">Thời gian kết thúc</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="begin_time" id="begin_time" required>
+                                <input type="time" class="form-control" name="end_time" id="end_time" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="end_time" class="col-sm-2 control-label col-form-label">Thời gian kết thúc:</label>
+                        <label for="end_time" class="col-sm-3 control-label col-form-label">Giảng viên</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="end_time" id="end_time" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="id_lecturer" class="col-sm-2 control-label col-form-label">Giảng viên:</label>
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="id_lecturer" id="id_lecturer" required>
+                                <input type="text" class="form-control" name="id_lecturer" id="id_lecturer"
+                                       placeholder="Nhập mã giảng viên giảng dạy" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-success text-white" id="addScheduleButton">Thêm</button>
+                        <button type="submit" class="btn btn-success text-white">Lưu</button>
                     </div>
                 </form>
             </div>

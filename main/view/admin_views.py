@@ -289,27 +289,23 @@ def admin_schedule_management_view(request):
 @admin_required
 def admin_schedule_add(request):
     if request.method == 'POST':
-        id_classroom = request.POST['id_classroom']
         name = request.POST['name']
         begin_date = datetime.strptime(request.POST['begin_date'], '%d/%m/%Y').date()
         end_date = datetime.strptime(request.POST['end_date'], '%d/%m/%Y').date()
         day_of_week_begin = request.POST['day_of_week_begin']
         begin_time = request.POST['begin_time']
         end_time = request.POST['end_time']
-        id_lecturer= request.POST['id_lecturer']
-
-        schedule = Classroom(id_classroom=id_classroom,
-                             name=name,
+        id_lecturer = request.POST['id_lecturer']
+        schedule = Classroom(name=name,
                              begin_date=begin_date, end_date=end_date,
                              day_of_week_begin=day_of_week_begin,
                              begin_time=begin_time,
                              end_time=end_time,
-                             id_lecturer= id_lecturer)
+                             id_lecturer_id=id_lecturer)
         schedule.save()
         messages.success(request, 'Thêm Thời Khóa Biểu thành công.')
         return redirect('admin_schedule_management')
     return render(request, 'admin/modal-popup/popup_add_schedule.html')
-
 
 
 @admin_required
