@@ -200,7 +200,7 @@ def admin_student_edit(request, id_student):
 
 
 @admin_required
-def admin_student_delete(id_student):
+def admin_student_delete(request, id_student):
     StudentInfo.objects.filter(id_student=id_student).delete()
     return redirect('admin_student_management')
 
@@ -263,7 +263,7 @@ def admin_lecturer_add(request):
 
 
 @admin_required
-def admin_lecturer_delete(id_staff):
+def admin_lecturer_delete(request, id_staff):
     StaffInfo.objects.filter(id_staff=id_staff).delete()
     return redirect('admin_lecturer_management')
     # return render(request, 'admin/admin_edit_student.html')

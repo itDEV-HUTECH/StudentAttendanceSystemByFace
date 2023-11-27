@@ -57,7 +57,7 @@
                         <td class="text-center">{{ student.birthday|date:"d/m/Y" }}</td>
                         <td class="text-center">{{ student.PathImageFolder }}</td>
                         <td class="text-center">
-                            <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
                                onclick="confirmDeleteStudent({{ student.id_student }})">Xóa</a>
                             <a href="javascript:void(0)" class="btn btn-primary btn-sm mdi mdi-account-edit"
                                onclick="editStudent({{ student.id_student }})">Sửa</a>
