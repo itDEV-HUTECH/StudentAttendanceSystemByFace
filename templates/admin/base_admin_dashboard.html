@@ -11,7 +11,6 @@
     <link href="{% static '' %}dist/css/style.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css"
           href="{% static '' %}assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
-    <link rel="stylesheet" type="text/css" href="{% static '' %}assets/libs/quill/dist/quill.snow.css"/>
     {% block css %}
     {% endblock %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -135,7 +134,7 @@
                                     <span class="hide-menu"> Admin </span>
                                 </a>
                             </li>
-                             <li class="sidebar-item">
+                            <li class="sidebar-item">
                                 <a href="{% url 'admin_notification_view' %}" class="sidebar-link">
                                     <i class="mdi mdi-account-edit"></i>
                                     <span class="hide-menu"> Thông báo </span>
