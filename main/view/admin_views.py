@@ -53,7 +53,7 @@ nrof_train_images_per_class = 10
 class AddBlog(SuccessMessageMixin, CreateView, ListView):
     form_class = BlogForm
     model = BlogPost
-    template_name = "admin/notification.html"
+    template_name = "admin/admin_management_notification.html"
     success_message = "Added Successfully"
     context_object_name = 'blog_posts'  # Specify the context object name for the ListView
 
@@ -73,9 +73,9 @@ def admin_dashboard_view(request):
 
 
 @admin_required
-def notification_view(request):
+def admin_notification_view(request):
     blog_posts = BlogPost.objects.all()
-    return render(request, 'admin/notification.html', {'blog_posts': blog_posts})
+    return render(request, 'admin/admin_management_notification.html', {'blog_posts': blog_posts})
 
 
 @admin_required
