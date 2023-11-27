@@ -1,0 +1,39 @@
+{% extends "admin/base_admin_dashboard.html" %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+
+            <div class="container">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- form -->
+            <div class="container mt-5">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}" class="text-dark">{{ field.label }}:</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <div class="justify-content-center">
+                        <input type="submit" class="btn btn-info btn-lg" value="Create"/>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

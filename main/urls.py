@@ -7,15 +7,15 @@ from main.view import admin_views
 from main.view import lecturer_views
 from main.view import student_views
 from . import views
-from main.view.admin_views  import AddBlog
+from main.view.admin_views import AddBlog
 
 # Create your views here.
 urlpatterns = [
     path('', views.home, name='choose_login'),
     path('login', views.login_view, name='login'),
-    path('admin/create_blog', AddBlog.as_view(), name='add_blogs'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     # Admin
+    path('admin/notification-management', AddBlog.as_view(), name='admin_notification_view'),
     path('admin/dashboard', admin_views.admin_dashboard_view, name='admin_dashboard'),
     path('admin/profile', admin_views.admin_profile_view, name='admin_profile'),
     path('admin/change-password', admin_views.admin_change_password_view, name='admin_change_password'),
@@ -100,6 +100,3 @@ urlpatterns = [
     path('hashpassword', views.hash_password, name='hash_password'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-if settings.DEBUG:
-    urlpatterns+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
