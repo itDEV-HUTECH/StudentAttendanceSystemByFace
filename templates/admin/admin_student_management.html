@@ -113,3 +113,129 @@
     {% include 'admin/modal-popup/popup_add_student.html' %}
     {% include 'admin/modal-popup/popup_delete_student.html' %}
 {% endblock %}
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+    let isChecking = false;
+    let intervalId;
+
+    const addStudentButton = document.getElementById("addStudentButton");
+
+    if (addStudentButton) {
+        addStudentButton.addEventListener("click", function (event) {
+            // Get the student ID from the input with the ID "id_student"
+            let studentId = document.getElementById("id_student").value;
+            const videoElement = document.getElementById('video-feed');
+            const idStudentField = document.getElementById("id_student");
+            const studentNameField = document.getElementById("student_name");
+            const emailField = document.getElementById("email");
+            const phoneField = document.getElementById("phone");
+            const addressField = document.getElementById("address");
+            const birthdayField = document.getElementById("birthday");
+            const pathImageFolderField = document.getElementById("PathImageFolder");
+
+            if (
+                idStudentField.value === "" ||
+                studentNameField.value === "" ||
+                emailField.value === "" ||
+                phoneField.value === "" ||
+                addressField.value === "" ||
+                birthdayField.value === "" ||
+                pathImageFolderField.value === ""
+            ) {
+                alert("Vui lòng điền đầy đủ thông tin.");
+                event.preventDefault(); // Ngăn chặn việc gửi form nếu dữ liệu không hợp lệ
+            } else {
+                videoElement.src = "/admin/student-management/live_video_feed/" + studentId;
+                if (isChecking) {
+                    // Nếu đang kiểm tra, dừng kiểm tra
+                    clearInterval(intervalId);
+                    isChecking = false;
+                    console.log("Dừng kiểm tra");
+                } else {
+                    intervalId = setInterval(() => {
+                        fetch("/admin/student-management/check_capture_status/")  // Thay đổi thành URL chính xác
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data);
+
+                                if (data.capture_status == 1) {
+                                    alert("Thành công");
+                                    const form = document.getElementById("addStudentForm");
+                                    form.submit();
+                                    clearInterval(intervalId);  // Dừng kiểm tra
+                                    isChecking = false;
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Lỗi:", error);
+                            });
+                    }, 1000);
+                    isChecking = true;
+                    console.log("Bắt đầu kiểm tra");
+                }
+            }
+        });
+    }
+
+    const idStudentField = document.getElementById("id_student");
+    const pathImageFolderField = document.getElementById("PathImageFolder");
+
+    if (idStudentField) {
+        // Thêm sự kiện onchange vào trường id_student
+        idStudentField.addEventListener("change", function () {
+            const studentId = idStudentField.value;
+            pathImageFolderField.value = "./main/Dataset/FaceData/processed/" + studentId;
+        });
+    }
+});
+</script>
+
+<script>
+    document.getElementById('train-button').addEventListener('click', function () {
+        let timerInterval
+        Swal.fire({
+            title: 'Thông báo!',
+            html: 'Quá trình training đang được diễn ra, vui lòng đợi !!!!',
+            timer: 20000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                }, 100)
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
+        }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+                console.log('I was closed by the timer')
+            }
+        })
+        fetch('/admin/student-management/train')
+            .then(response => response.json())
+            .then(data => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: data.resuil,
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+
+                // Làm mới trang sau khi thành công
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Có lỗi xảy ra trong quá trình thực hiện yêu cầu.'
+                });
+                console.error('Fetch Error:', error);
+            });
+    });
+</script>
