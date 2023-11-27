@@ -65,10 +65,12 @@ class AddBlog(SuccessMessageMixin, CreateView, ListView):
         context['blog_posts'] = BlogPost.objects.all()  # Add all blog posts to the context
         return context
 
+
 @admin_required
 def admin_dashboard_view(request):
     blog_posts = BlogPost.objects.all()
     return render(request, 'admin/admin_home.html', {'blog_posts': blog_posts})
+
 
 @admin_required
 def notification_view(request):
@@ -178,10 +180,6 @@ def admin_student_add(request):
         messages.success(request, 'Thêm sinh viên thành công.')
         return redirect('admin_student_management')
     return render(request, 'admin/modal-popup/popup_add_student.html')
-
-
-
-
 
 
 @admin_required
