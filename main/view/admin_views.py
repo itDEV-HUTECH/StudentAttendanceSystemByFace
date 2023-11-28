@@ -263,7 +263,7 @@ def admin_lecturer_add(request):
 
 
 @admin_required
-def admin_lecturer_delete(request,id_staff):
+def admin_lecturer_delete(request, id_staff):
     StaffInfo.objects.filter(id_staff=id_staff).delete()
     return redirect('admin_lecturer_management')
     # return render(request, 'admin/admin_edit_student.html')
@@ -349,7 +349,7 @@ def admin_schedule_edit(request, id_classroom):
         schedule.day_of_week_begin = request.POST['day_of_week_begin']
         schedule.begin_time = request.POST['begin_time']
         schedule.end_time = request.POST['end_time']
-        schedule.id_lecturer = request.POST['id_lecturer']
+        schedule.id_lecturer_id = request.POST['lecturer_name']
         schedule.save()
         messages.success(request, 'Thay đổi thông tin thành công.')
         return redirect('admin_schedule_management')
@@ -366,6 +366,10 @@ def admin_schedule_delete(request, id_classroom):
 def admin_schedule_get_info(request, id_classroom):
     try:
         schedule = Classroom.objects.get(id_classroom=id_classroom)
+        if schedule.id_lecturer is None:
+            lecturer_name = 'Hiện chưa có giảng viên phụ trách (Vui lòng thêm giảng viên)'
+        else:
+            lecturer_name = schedule.id_lecturer.staff_name
         schedule_data = {
             'id_classroom': schedule.id_classroom,
             'name': schedule.name,
@@ -374,11 +378,12 @@ def admin_schedule_get_info(request, id_classroom):
             'day_of_week_begin': schedule.day_of_week_begin,
             'begin_time': schedule.begin_time,
             'end_time': schedule.end_time,
-            'lecturer_name': schedule.id_lecturer.staff_name,
+            'lecturer_name': lecturer_name,
         }
         return JsonResponse({'schedule': schedule_data})
     except Classroom.DoesNotExist:
         return JsonResponse({'error': 'Không tìm thấy lớp học'}, status=404)
+
 
 @admin_required
 def admin_list_classroom_management_view(request):
