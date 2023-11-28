@@ -52,7 +52,8 @@ urlpatterns = [
     path('admin/schedule-management/get-info/<int:id_classroom>', admin_views.admin_schedule_get_info,
          name='admin_schedule_get_info'),
 
-    path('admin/studentclass_management', admin_views.admin_studentclass_management_view, name='admin_studentclass_management'),
+    path('admin/list_classroom_student_management', admin_views.admin_list_classroom_management_view, name='admin_list_classroom_management'),
+
     # Lecturer
     path('lecturer/dashboard', lecturer_views.lecturer_dashboard_view, name='lecturer_dashboard'),
     path('lecturer/schedule', lecturer_views.lecturer_schedule_view, name='lecturer_schedule'),
