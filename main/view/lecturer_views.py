@@ -18,6 +18,7 @@ from main.src.anti_spoof_predict import AntiSpoofPredict
 from main.src.generate_patches import CropImage
 from main.src.utility import parse_model_name
 from main.view.reg import *
+from main.models import BlogPost
 
 model_test = AntiSpoofPredict(0)
 image_cropper = CropImage()
@@ -25,15 +26,14 @@ image_cropper = CropImage()
 model_dir = "main/resources/anti_spoof_models"
 device_id = 0
 
-
-
 for model_name in os.listdir(model_dir):
     h_input, w_input, model_type, scale = parse_model_name(model_name)
 
 
 @lecturer_required
 def lecturer_dashboard_view(request):
-    return render(request, 'lecturer/lecturer_home.html')
+    blog_posts = BlogPost.objects.all()
+    return render(request, 'lecturer/lecturer_home.html', {'blog_posts': blog_posts})
 
 
 @lecturer_required
@@ -191,7 +191,7 @@ def lecturer_mark_attendance(request, classroom_id):
 def generate_frames(model_dir, device_id):
     model_test = AntiSpoofPredict(device_id)
     image_cropper = CropImage()
-    capture = cv2.VideoCapture(0)  # Change this to the desired camera index.
+    capture = cv2.VideoCapture(1)  # Change this to the desired camera index.
 
     while True:
         ret, frame = capture.read()

@@ -92,9 +92,7 @@ def draw_progress_bar(frame, progress, x, y, w, h):
 
 def main(id_subject):
     id_subject = id_subject
-    MINSIZE = 20
-    THRESHOLD = [0.6, 0.7, 0.7]
-    FACTOR = 0.709
+
     INPUT_IMAGE_SIZE = 160
     CLASSIFIER_PATH = 'main/Models/facemodel.pkl'
     FACENET_MODEL_PATH = 'main/Models/20180402-114759.pb'
@@ -111,7 +109,7 @@ def main(id_subject):
     phase_train_placeholder = graph.get_tensor_by_name("phase_train:0")
 
 
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
 
     global justscanned
     global pause_cnt

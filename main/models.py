@@ -1,5 +1,9 @@
 from django.db import models
 
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from ckeditor_uploader.fields import RichTextUploadingField
+
 
 # Create your models here.
 class StaffInfo(models.Model):
@@ -72,3 +76,11 @@ class Attendance(models.Model):
     id_classroom = models.ForeignKey('Classroom', on_delete=models.SET_NULL, null=True)
     id_student = models.ForeignKey('StudentInfo', on_delete=models.CASCADE)
 
+class BlogPost(models.Model):
+    title = models.CharField(
+        _("Blog Title"), max_length=250,
+        null=False, blank=False
+    )
+    body = RichTextUploadingField()
+    def __str__(self):
+        return self.title

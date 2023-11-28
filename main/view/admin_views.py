@@ -14,11 +14,19 @@ from django.http import JsonResponse
 from django.http import StreamingHttpResponse
 from django.shortcuts import render, redirect
 from sklearn.svm import SVC
+from django.urls import reverse
+from django.views.generic.edit import CreateView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import ListView
+
+from main.forms import BlogForm
+from main.models import BlogPost
 
 from main import facenet
 from main.decorators import admin_required
 from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom, StudentClassDetails
 from main.src.anti_spoof_predict import AntiSpoofPredict
+from main.models import BlogPost
 
 color = (255, 0, 0)
 thickness = 2
@@ -42,10 +50,32 @@ nrof_train_images_per_class = 10
 
 # The rest of the code remains the same
 # Define the function to split the dataset
+class AddBlog(SuccessMessageMixin, CreateView, ListView):
+    form_class = BlogForm
+    model = BlogPost
+    template_name = "admin/admin_management_notification.html"
+    success_message = "Added Successfully"
+    context_object_name = 'blog_posts'  # Specify the context object name for the ListView
+
+    def get_success_url(self):
+        return reverse('notification_view')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['blog_posts'] = BlogPost.objects.all()  # Add all blog posts to the context
+        return context
+
 
 @admin_required
 def admin_dashboard_view(request):
-    return render(request, 'admin/admin_home.html')
+    blog_posts = BlogPost.objects.all()
+    return render(request, 'admin/admin_home.html', {'blog_posts': blog_posts})
+
+
+@admin_required
+def admin_notification_view(request):
+    blog_posts = BlogPost.objects.all()
+    return render(request, 'admin/admin_management_notification.html', {'blog_posts': blog_posts})
 
 
 @admin_required
@@ -170,7 +200,7 @@ def admin_student_edit(request, id_student):
 
 
 @admin_required
-def admin_student_delete(request,id_student):
+def admin_student_delete(request, id_student):
     StudentInfo.objects.filter(id_student=id_student).delete()
     return redirect('admin_student_management')
 
