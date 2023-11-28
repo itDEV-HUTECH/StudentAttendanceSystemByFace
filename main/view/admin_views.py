@@ -387,21 +387,18 @@ def admin_schedule_get_info(request, id_classroom):
 
 @admin_required
 def admin_list_classroom_management_view(request):
-
     classroom_per_page = 5
     page_number = request.GET.get('page')
 
     classrooms = Classroom.objects.filter(
-        id_lecturer__id_staff=id_lecturer
-
-    ).order_by('day_of_week_begin', 'begin_time')
+        studentclassdetails__id_classroom__isnull=False).distinct().order_by('day_of_week_begin', 'begin_time')
 
     paginator = Paginator(classrooms, classroom_per_page)
     page = paginator.get_page(page_number)
 
     context = {'classrooms': page}
 
-    return render(request, 'lecturer/lecturer_list_classroom.html', context)
+    return render(request, 'admin/admin_list_classroom_student_view.html', context)
 
 
 def capture(id, request):
