@@ -96,10 +96,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'face_by_attendance',
-        'USER': 'root',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': 3306,
+        'USER': 'avnadmin',
+        'PASSWORD': 'AVNS_XP34HaAtcg6TSQkQ9_X',
+        'HOST': 'face-by-attendance-itdev-hutech.a.aivencloud.com',
+        'PORT': 23064,
     }
 }
 
