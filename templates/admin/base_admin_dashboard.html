@@ -176,101 +176,15 @@
 <script src="{% static '' %}assets/extra-libs/multicheck/jquery.multicheck.js"></script>
 <script src="{% static '' %}assets/extra-libs/DataTables/datatables.min.js"></script>
 <script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<script src="{% static '' %}assets/js/manage-student.js"></script>
-<script src="{% static '' %}assets/js/manage-schedule.js"></script>
 <script src="{% static '' %}assets/js/manage-notification.js"></script>
-
 <script>
     jQuery("#birthday, #begin_date, #end_date").datepicker({
         autoclose: true,
         todayHighlight: true,
     });
 </script>
-<script>
-    function confirmDeleteStudent(studentId) {
-        let deleteUrl = "{% url 'admin_student_delete' '1' %}".replace('1', studentId);
-        $('#confirmDeleteButton').attr('href', deleteUrl);
-        $('#confirmDeleteModal').modal('show');
-        $('#studentIdToDelete').text(studentId);
-    }
-
-    function editStudent(studentId) {
-        let id_student = studentId
-        let editForm = $('#editStudentForm');
-        editForm.attr('action', "{% url 'admin_student_edit' 0 %}".replace('0', studentId));
-
-        $.ajax({
-                type: "GET",
-                url: "{% url 'admin_student_get_info' '1' %}".replace('1', id_student),
-                dataType: "json",
-                success: function (data) {
-                    console.log(data);
-                    $('#id_student').val(data.student.id_student);
-                    $('#student_name').val(data.student.student_name);
-                    $('#email').val(data.student.email);
-                    $('#phone').val(data.student.phone);
-                    $('#address').val(data.student.address);
-                    $('#birthday').val(data.student.birthday);
-                    $('#PathImageFolder').val(data.student.PathImageFolder);
-                    $('#editStudentModal').modal('show');
-                },
-            }
-        )
-    }
-
-    function editLecturer(staffId) {
-        let id_staff = staffId
-        $.ajax({
-                type: "GET",
-                url: "{% url 'admin_lecturer_get_info' '1' %}".replace('1', id_staff),
-                dataType: "json",
-                success: function (data1) {
-                    console.log(data1);
-                    $('#id_staff').val(data1.id_staff);
-                    $('#staff_name').val(data1.staff_name);
-                    $('#email').val(data1.email);
-                    $('#phone').val(data1.phone);
-                    $('#address').val(data1.address);
-                    $('#birthday').val(data1.birthday);
-
-                },
-            }
-        )
-    }
-</script>
-
-<script>
-    function confirmDeleteClassroom(classroomId) {
-        let deleteUrl = "{% url 'admin_schedule_delete' '1' %}".replace('1', classroomId);
-        $('#confirmDeleteButton').attr('href', deleteUrl);
-        $('#confirmDeleteModal').modal('show');
-        $('#classroomIdToDelete').text(classroomId);
-    }
-
-    function editSchedule(classroomId) {
-        let id_classroom = classroomId
-        let editForm = $('#editScheduleForm');
-        editForm.attr('action', "{% url 'admin_schedule_edit' 0 %}".replace('0', id_classroom));
-        $.ajax({
-                type: "GET",
-                url: "{% url 'admin_schedule_get_info' '1' %}".replace('1', id_classroom),
-                dataType: "json",
-                success: function (data) {
-                    console.log(data);
-                    $('#id_classroom').val(data.schedule.id_classroom);
-                    $('#name').val(data.schedule.name);
-                    $('#begin_date').val(data.schedule.begin_date);
-                    $('#end_date').val(data.schedule.end_date);
-                    $('#day_of_week_begin').val(data.schedule.day_of_week_begin);
-                    $('#begin_time').val(data.schedule.begin_time);
-                    $('#end_time').val(data.schedule.end_time);
-                    $('#lecturer_name').val(data.schedule.lecturer_name);
-                    $('#editScheduleModal').modal('show');
-                },
-            }
-        )
-    }
-</script>
+{% block js %}
+{% endblock %}
 </body>
 
 </html>

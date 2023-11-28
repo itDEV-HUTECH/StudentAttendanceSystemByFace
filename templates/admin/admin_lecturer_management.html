@@ -52,13 +52,14 @@
                         <td>{{ lecturer.address }}</td>
                         <td class="text-center">{{ lecturer.birthday|date:"d/m/Y" }}</td>
                         <td class="text-center">
-                           <a href="{% url 'admin_lecturer_delete' lecturer.id_staff %}"
+                            <a href="#" id="deleteLecturer"
                                class="btn btn-danger btn-sm mdi mdi-delete"
-                               onclick="confirmDelete({{ lecturer.id_staff }})">Xóa</a>
+                               onclick="confirmDeleteLecturer({{ lecturer.id_staff }})">Xóa</a>
                             <a href="{% url 'admin_lecturer_edit' lecturer.id_staff %}"
                                class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
                         </td>
                     </tr>
+                    {% include 'admin/modal-popup/popup_delete_lecturer.html' %}
                 {% empty %}
                     <tr class="text-center text-danger">
                         <td colspan="10"><strong>Không tồn tại giảng viên nào trong cơ sở dữ liệu!</strong></td>
@@ -104,4 +105,39 @@
             <p>Trang {{ list_lecturers.number }} / {{ list_lecturers.paginator.num_pages }}</p>
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        function confirmDeleteLecturer(lecturerId) {
+            let deleteUrl = "{% url 'admin_schedule_delete' '1' %}".replace('1', lecturerId);
+            $('#confirmDeleteButton').attr('href', deleteUrl);
+            $('#confirmDeleteModal').modal('show');
+            $('#lecturerIdToDelete').text(lecturerId);
+        }
+
+        function editSchedule(classroomId) {
+            let id_classroom = classroomId
+            let editForm = $('#editScheduleForm');
+            editForm.attr('action', "{% url 'admin_schedule_edit' 0 %}".replace('0', id_classroom));
+            $.ajax({
+                    type: "GET",
+                    url: "{% url 'admin_schedule_get_info' '1' %}".replace('1', id_classroom),
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        $('#id_classroom').val(data.schedule.id_classroom);
+                        $('#name').val(data.schedule.name);
+                        $('#begin_date').val(data.schedule.begin_date);
+                        $('#end_date').val(data.schedule.end_date);
+                        $('#day_of_week_begin').val(data.schedule.day_of_week_begin);
+                        $('#begin_time').val(data.schedule.begin_time);
+                        $('#end_time').val(data.schedule.end_time);
+                        $('#lecturer_name').val(data.schedule.lecturer_name);
+                        $('#editScheduleModal').modal('show');
+                    },
+                }
+            )
+        }
+    </script>
 {% endblock %}

@@ -63,7 +63,7 @@
                         <td class="text-center">
                             <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteSchedule"
                                onclick="confirmDeleteClassroom({{ schedule.id_classroom }})">Xóa</a>
-                            <a href="javascript:void(0)" class="btn btn-primary btn-sm mdi mdi-account-edit"
+                            <a href="#" class="btn btn-primary btn-sm mdi mdi-account-edit"
                                onclick="editSchedule({{ schedule.id_classroom }})">Sửa</a>
                         </td>
                     </tr>
@@ -115,4 +115,40 @@
     </div>
     {% include 'admin/modal-popup/popup_add_schedule.html' %}
     {% include 'admin/modal-popup/popup_delete_schedule.html' %}
+{% endblock %}
+
+{% block js %}
+    <script src="{% static '' %}assets/js/manage-schedule.js"></script>
+    <script>
+        function confirmDeleteClassroom(classroomId) {
+            let deleteUrl = "{% url 'admin_schedule_delete' '1' %}".replace('1', classroomId);
+            $('#confirmDeleteButton').attr('href', deleteUrl);
+            $('#confirmDeleteModal').modal('show');
+            $('#classroomIdToDelete').text(classroomId);
+        }
+
+        function editSchedule(classroomId) {
+            let id_classroom = classroomId
+            let editForm = $('#editScheduleForm');
+            editForm.attr('action', "{% url 'admin_schedule_edit' '0' %}".replace('0', id_classroom));
+            $.ajax({
+                    type: "GET",
+                    url: "{% url 'admin_schedule_get_info' '1' %}".replace('1', id_classroom),
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        $('#id_classroom').val(data.schedule.id_classroom);
+                        $('#name').val(data.schedule.name);
+                        $('#begin_date').val(data.schedule.begin_date);
+                        $('#end_date').val(data.schedule.end_date);
+                        $('#day_of_week_begin').val(data.schedule.day_of_week_begin);
+                        $('#begin_time').val(data.schedule.begin_time);
+                        $('#end_time').val(data.schedule.end_time);
+                        $('#lecturer_name').val(data.schedule.lecturer_name);
+                        $('#editScheduleModal').modal('show');
+                    },
+                }
+            )
+        }
+    </script>
 {% endblock %}
