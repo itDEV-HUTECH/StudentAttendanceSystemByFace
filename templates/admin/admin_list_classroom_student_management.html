@@ -12,10 +12,12 @@
         <div class="card-body">
             <h3 class="card-title mb-0">Danh sách lớp học</h3>
         </div>
-        <div class="table-responsive">
+
+
         <table class="table">
             <thead>
             <tr>
+
                 <th class="text-center" scope="col">Thứ</th>
                 <th scope="col">Môn Học</th>
                 <th class="text-center" scope="col">Giảng viên</th>
@@ -67,7 +69,7 @@
             {% endfor %}
             </tbody>
         </table>
-        </div>
+
         <div class="pagination justify-content-center">
             <ul class="pagination">
                 {% if classrooms.has_previous %}

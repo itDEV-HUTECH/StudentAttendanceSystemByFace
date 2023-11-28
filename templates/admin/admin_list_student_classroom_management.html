@@ -22,12 +22,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>
-                        <label class="customcheckbox mb-3">
-                            <input type="checkbox" id="mainCheckbox"/>
-                            <span class="checkmark"></span>
-                        </label>
-                    </th>
+
                     <th class="text-center" scope="col">MSSV</th>
                     <th scope="col">Họ và tên</th>
                     <th scope="col">Email</th>
@@ -41,12 +36,7 @@
                 <tbody class="customtable">
                 {% for student in students_in_class %}
                     <tr>
-                        <th>
-                            <label class="customcheckbox">
-                                <input type="checkbox" class="listCheckbox"/>
-                                <span class="checkmark"></span>
-                            </label>
-                        </th>
+
                         <td class="text-center">{{ student.id_student.id_student}}</td>
                         <td>{{ student.id_student.student_name }}</td>
                         <td>{{ student.id_student.email }}</td>
