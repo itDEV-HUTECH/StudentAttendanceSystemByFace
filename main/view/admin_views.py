@@ -17,7 +17,7 @@ from sklearn.svm import SVC
 
 from main import facenet
 from main.decorators import admin_required
-from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom
+from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom, StudentClassDetails
 from main.src.anti_spoof_predict import AntiSpoofPredict
 
 color = (255, 0, 0)
@@ -170,7 +170,7 @@ def admin_student_edit(request, id_student):
 
 
 @admin_required
-def admin_student_delete(id_student):
+def admin_student_delete(request,id_student):
     StudentInfo.objects.filter(id_student=id_student).delete()
     return redirect('admin_student_management')
 
@@ -233,7 +233,7 @@ def admin_lecturer_add(request):
 
 
 @admin_required
-def admin_lecturer_delete(id_staff):
+def admin_lecturer_delete(request,id_staff):
     StaffInfo.objects.filter(id_staff=id_staff).delete()
     return redirect('admin_lecturer_management')
     # return render(request, 'admin/admin_edit_student.html')
@@ -349,6 +349,19 @@ def admin_schedule_get_info(request, id_classroom):
         return JsonResponse({'schedule': schedule_data})
     except Classroom.DoesNotExist:
         return JsonResponse({'error': 'Không tìm thấy lớp học'}, status=404)
+
+@admin_required
+def admin_studentclass_management_view(request):
+    studentclass = StudentClassDetails.objects.all()
+    studentclass_per_page = 10
+    paginator = Paginator(studentclass, studentclass_per_page)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    context = {
+        'list_studentclass': page,
+    }
+
+    return render(request, 'admin/admin_studentclass_management.html', context)
 
 
 def capture(id, request):

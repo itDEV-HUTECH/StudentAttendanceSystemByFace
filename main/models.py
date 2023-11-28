@@ -71,3 +71,4 @@ class Attendance(models.Model):
     attendance_status = models.IntegerField()
     id_classroom = models.ForeignKey('Classroom', on_delete=models.SET_NULL, null=True)
     id_student = models.ForeignKey('StudentInfo', on_delete=models.CASCADE)
+

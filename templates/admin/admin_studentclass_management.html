@@ -10,18 +10,18 @@
 {% block content %}
     <div class="card">
         <div class="card-body 1">
-            <h3 class="card-title mb-0">Quản lý Thời Khóa Biểu</h3>
+            <h3 class="card-title mb-0">Quản lý lớp học</h3>
         </div>
         <div class="card-body">
-            <a href="{% url 'admin_schedule_add' %}" class="btn btn-success mdi mdi-account-plus text-white"
-               id="addSchedule">Thêm Thời Khóa Biểu
+            <a href="{#}" class="btn btn-success mdi mdi-account-plus text-white"
+               id="addStudentclass">Đăng ký môn học
             </a>
         </div>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                 <tr>
-                    <th class="text-center" scope="col">Mã Môn Học</th>
+                    <th class="text-center" scope="col">Tên sinh viên</th>
                     <th scope="col">Tên Môn Học</th>
                     <th class="text-center" scope="col">Ngày bắt đầu</th>
                     <th class="text-center" scope="col">Ngày kết thúc</th>
@@ -34,40 +34,40 @@
                 </thead>
 
                 <tbody class="customtable">
-                {% for studentClass in list_schedules %}
+                {% for studentclass in list_studentclass %}
                     <tr>
-                        <td class="text-center">{{ schedule.id_classroom }}</td>
-                        <td>{{ schedule.name }}</td>
-                        <td class="text-center">{{ schedule.begin_date|date:"d/m/Y" }}</td>
-                        <td class="text-center">{{ schedule.end_date|date:"d/m/Y" }}</td>
+                        <td class="text-center">{{ studentclass.id_student.student_name }}</td>
+                        <td>{{ studentclass.id_classroom.name }}</td>
+                        <td class="text-center">{{ studentclass.id_classroom.begin_date|date:"d/m/Y" }}</td>
+                        <td class="text-center">{{ studentclass.id_classroom.end_date|date:"d/m/Y" }}</td>
                         <td class="text-center">
-                            {% if schedule.day_of_week_begin == 7 %}
+                            {% if studentclass.id_classroom.day_of_week_begin == 7 %}
                                 Chủ Nhật
-                            {% elif schedule.day_of_week_begin == 1 %}
+                            {% elif studentclass.id_classroom.day_of_week_begin == 1 %}
                                 Thứ Hai
-                            {% elif schedule.day_of_week_begin == 2 %}
+                            {% elif studentclass.id_classroom.day_of_week_begin == 2 %}
                                 Thứ Ba
-                            {% elif schedule.day_of_week_begin == 3 %}
+                            {% elif studentclass.id_classroom.day_of_week_begin == 3 %}
                                 Thứ Tư
-                            {% elif schedule.day_of_week_begin == 4 %}
+                            {% elif studentclass.id_classroom.day_of_week_begin == 4 %}
                                 Thứ Năm
-                            {% elif schedule.day_of_week_begin == 5 %}
+                            {% elif studentclass.id_classroom.day_of_week_begin == 5 %}
                                 Thứ Sáu
-                            {% elif schedule.day_of_week_begin == 6 %}
+                            {% elif studentclass.id_classroom.day_of_week_begin == 6 %}
                                 Thứ Bảy
                             {% endif %}
                         </td>
-                        <td class="text-center">{{ schedule.begin_time|time:"H:i" }}</td>
-                        <td class="text-center">{{ schedule.end_time|time:"H:i" }}</td>
-                        <td class="text-center">{{ schedule.id_lecturer.staff_name }}</td>
+                        <td class="text-center">{{ studentclass.id_classroom.begin_time|time:"H:i" }}</td>
+                        <td class="text-center">{{ studentclass.id_classroom.end_time|time:"H:i" }}</td>
+                        <td class="text-center">{{ studentclass.id_classroom.id_lecturer.staff_name }}</td>
                         <td class="text-center">
-                            <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteSchedule"
-                               onclick="confirmDeleteClassroom({{ schedule.id_classroom }})">Xóa</a>
-                            <a href="javascript:void(0)" class="btn btn-primary btn-sm mdi mdi-account-edit"
-                               onclick="editSchedule({{ schedule.id_classroom }})">Sửa</a>
+<!--                            <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteSchedule"-->
+<!--                               onclick="confirmDeleteClassroom({{ schedule.id_classroom }})">Xóa</a>-->
+<!--                            <a href="javascript:void(0)" class="btn btn-primary btn-sm mdi mdi-account-edit"-->
+<!--                               onclick="editSchedule({{ schedule.id_classroom }})">Sửa</a>-->
                         </td>
                     </tr>
-                    {% include 'admin/modal-popup/popup_edit_schedule.html' %}
+<!--                    {% include 'admin/modal-popup/popup_edit_schedule.html' %}-->
                 {% empty %}
                     <tr class="text-center text-danger">
                         <td colspan="10"><strong>Không tồn tại thời khóa biểu</strong></td>
@@ -78,41 +78,41 @@
         </div>
         <div class="pagination justify-content-center">
             <ul class="pagination">
-                {% if list_schedules.has_previous %}
+                {% if list_studentclass.has_previous %}
                     <li class="page-item">
                         <a class="page-link" href="?page=1">‹‹</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ list_schedules.previous_page_number }}">‹</a>
+                        <a class="page-link" href="?page={{ list_studentclass.previous_page_number }}">‹</a>
                     </li>
                 {% endif %}
 
-                {% for i in list_schedules.paginator.page_range %}
-                    {% if list_schedules.number == i %}
+                {% for i in list_studentclass.paginator.page_range %}
+                    {% if list_studentclass.number == i %}
                         <li class="page-item active">
                             <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                         </li>
-                    {% elif i > list_schedules.number|add:'-3' and i < list_schedules.number|add:'3' %}
+                    {% elif i > list_studentclass.number|add:'-3' and i < list_studentclass.number|add:'3' %}
                         <li class="page-item">
                             <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
 
-                {% if list_schedules.has_next %}
+                {% if list_studentclass.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ list_schedules.next_page_number }}">›</a>
+                        <a class="page-link" href="?page={{ list_studentclass.next_page_number }}">›</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ list_schedules.paginator.num_pages }}">››</a>
+                        <a class="page-link" href="?page={{ list_studentclass.paginator.num_pages }}">››</a>
                     </li>
                 {% endif %}
             </ul>
         </div>
         <div class="text-center">
-            <p>Trang {{ list_schedules.number }} / {{ list_schedules.paginator.num_pages }}</p>
+            <p>Trang {{ list_studentclass.number }} / {{ list_studentclass.paginator.num_pages }}</p>
         </div>
     </div>
-    {% include 'admin/modal-popup/popup_add_schedule.html' %}
-    {% include 'admin/modal-popup/popup_delete_schedule.html' %}
+<!--    {% include 'admin/modal-popup/popup_add_schedule.html' %}-->
+<!--    {% include 'admin/modal-popup/popup_delete_schedule.html' %}-->
 {% endblock %}
