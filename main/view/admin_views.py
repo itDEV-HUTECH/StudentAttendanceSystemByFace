@@ -24,7 +24,7 @@ from main.models import BlogPost
 
 from main import facenet
 from main.decorators import admin_required
-from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom
+from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom, StudentClassDetails
 from main.src.anti_spoof_predict import AntiSpoofPredict
 from main.models import BlogPost
 
@@ -263,7 +263,7 @@ def admin_lecturer_add(request):
 
 
 @admin_required
-def admin_lecturer_delete(request, id_staff):
+def admin_lecturer_delete(request,id_staff):
     StaffInfo.objects.filter(id_staff=id_staff).delete()
     return redirect('admin_lecturer_management')
     # return render(request, 'admin/admin_edit_student.html')
@@ -380,6 +380,19 @@ def admin_schedule_get_info(request, id_classroom):
     except Classroom.DoesNotExist:
         return JsonResponse({'error': 'Không tìm thấy lớp học'}, status=404)
 
+@admin_required
+def admin_studentclass_management_view(request):
+    studentclass = StudentClassDetails.objects.all()
+    studentclass_per_page = 10
+    paginator = Paginator(studentclass, studentclass_per_page)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    context = {
+        'list_studentclass': page,
+    }
+
+    return render(request, 'admin/admin_studentclass_management.html', context)
+
 
 def capture(id, request):
     global CAPTURE_STATUS
@@ -388,7 +401,7 @@ def capture(id, request):
     color = (0, 0, 255)  # BGR color for drawing rectangles
     thickness = 2  # Thickness of the rectangle
     model_test = AntiSpoofPredict(device_id)  # Define the AntiSpoofPredict object (assumed to be a valid class)
-    capture = cv2.VideoCapture(1)  # Capture from camera at index 2 (can be adjusted)
+    capture = cv2.VideoCapture(0)  # Capture from camera at index 2 (can be adjusted)
     output_dir = f"./main/Dataset/FaceData/processed/{id}"
     os.makedirs(output_dir, exist_ok=True)
     while image_count < 300:
