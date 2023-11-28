@@ -110,16 +110,16 @@
 {% block js %}
     <script>
         function confirmDeleteLecturer(lecturerId) {
-            let deleteUrl = "{% url 'admin_schedule_delete' '1' %}".replace('1', lecturerId);
+            let deleteUrl = "{% url 'admin_lecturer_delete' '1' %}".replace('1', lecturerId);
             $('#confirmDeleteButton').attr('href', deleteUrl);
             $('#confirmDeleteModal').modal('show');
             $('#lecturerIdToDelete').text(lecturerId);
         }
 
-        function editSchedule(classroomId) {
+        function editLecturer(classroomId) {
             let id_classroom = classroomId
             let editForm = $('#editScheduleForm');
-            editForm.attr('action', "{% url 'admin_schedule_edit' 0 %}".replace('0', id_classroom));
+            editForm.attr('action', "{% url 'admin_lecturer_edit' '0' %}".replace('0', id_classroom));
             $.ajax({
                     type: "GET",
                     url: "{% url 'admin_schedule_get_info' '1' %}".replace('1', id_classroom),
