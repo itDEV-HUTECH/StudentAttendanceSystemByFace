@@ -12,6 +12,7 @@
         <div class="card-body">
             <h3 class="card-title mb-0">Danh sách lớp học</h3>
         </div>
+        <div class="table-responsive">
         <table class="table">
             <thead>
             <tr>
@@ -25,7 +26,7 @@
                 <th class="text-center" scope="col">Thao tác</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="customtable">
             {% for classroom in classrooms %}
                 <tr>
                     <td class="text-center">
@@ -52,7 +53,7 @@
                     <td class="text-center">{{ classroom.begin_time|time:"H:i" }}</td>
                     <td class="text-center">{{ classroom.end_time|time:"H:i" }}</td>
                     <td class="text-center">
-                        <a href="#"
+                        <a href="{% url 'admin_list_student_classroom' classroom.id_classroom %}"
                            class="btn btn-info btn-sm mdi mdi-account-edit">
                             <span>Xem danh sách</span>
                         </a>
@@ -66,6 +67,7 @@
             {% endfor %}
             </tbody>
         </table>
+        </div>
         <div class="pagination justify-content-center">
             <ul class="pagination">
                 {% if classrooms.has_previous %}
