@@ -11,7 +11,7 @@
     <div class="card">
         <div class="card-body">
             <h3 class="card-title mb-3">Danh sách thông báo</h3>
-            <a href="" class="btn btn-success mdi mdi-account-plus text-white"
+            <a href="#" class="btn btn-success mdi mdi-account-plus text-white"
                id="addNotification">Thêm thông báo
             </a>
         </div>
@@ -70,6 +70,7 @@
 {% endblock %}
 
 {% block js %}
+    <script src="{% static '' %}assets/js/manage-notification.js"></script>
     <script>
         function confirmDeleteNotification(blog_postID) {
             let deleteUrl = "{% url 'admin_notification_delete' '1' %}".replace('1', blog_postID);

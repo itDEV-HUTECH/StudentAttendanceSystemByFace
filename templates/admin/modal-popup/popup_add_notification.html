@@ -6,11 +6,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
                 {% block content %}
                     <div class="card">
                         <div class="card-body">
-
                             <div class="container">
                                 {% if messages %}
                                     {% for message in messages %}
@@ -24,23 +22,20 @@
                                     {% endfor %}
                                 {% endif %}
                             </div>
-                            <div class="container mt-5">
-                                <form method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    {{ form.media }}
-                                    {% for field in form %}
-                                        <div class="form-group">
-                                            <label for="{{ field.id_for_label }}"
-                                                   class="text-dark">{{ field.label }}:</label>
-                                            {{ field }}
-                                        </div>
-                                    {% endfor %}
-                                    <div class="justify-content-center">
-                                        <input type="submit" class="btn btn-info btn-lg" value="Create"/>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.media }}
+                                {% for field in form %}
+                                    <div class="form-group">
+                                        <label for="{{ field.id_for_label }}"
+                                               class="text-dark">{{ field.label }}:</label>
+                                        {{ field }}
                                     </div>
-                                </form>
-                            </div>
-
+                                {% endfor %}
+                                <div class="justify-content-center">
+                                    <input type="submit" class="btn btn-info btn-lg" value="Create"/>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 {% endblock %}
