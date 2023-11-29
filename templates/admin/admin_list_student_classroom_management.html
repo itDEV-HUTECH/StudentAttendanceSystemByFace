@@ -10,37 +10,63 @@
 {% block content %}
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title mb-3">Danh sách sinh viên</h3>
-            <a href="" class="btn btn-success mdi mdi-account-plus text-white"
-               id="addStudentClass">Thêm sinh viên
-            </a>
+            <h3 class="card-title mb-0">Danh sách sinh viên</h3>
+        </div>
+        <div class="card-body">
+            {% csrf_token %}
+            <form id="addStudentIntoClassroomForm" method="POST" action="{% url 'add_student_into_classroom' %}">
+                <div class= " col-6 mb-3 form-group row d-flex justify-content-center">
+                    <label for="id_classroom" class="col-sm-3 control-label col-form-label">Nhập ID lớp học:</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input type="text" id="id_classroom" name="id_classroom">
+                        </div>
+                    </div>
+                    <label for="file_path" class="col-sm-3 control-label col-form-label">Chọn file:</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input type="file" id="file_path" name="file_path">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="addStudents()" class="col-2 btn btn-success mdi mdi-account-plus text-white">Thêm sinh viên</button>
+            </form>
+            <div id="result"></div>
         </div>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                 <tr>
+
                     <th class="text-center" scope="col">MSSV</th>
                     <th scope="col">Họ và tên</th>
                     <th scope="col">Email</th>
                     <th class="text-center" scope="col">Số điện thoại</th>
                     <th scope="col">Địa chỉ</th>
                     <th class="text-center" scope="col">Ngày sinh</th>
+                    <th class="text-center" scope="col">Đường dẫn ảnh</th>
                     <th class="text-center" scope="col">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
                 {% for student in students_in_class %}
                     <tr>
-                        <td class="text-center">{{ student.id_student.id_student }}</td>
+
+                        <td class="text-center">{{ student.id_student.id_student}}</td>
                         <td>{{ student.id_student.student_name }}</td>
                         <td>{{ student.id_student.email }}</td>
                         <td class="text-center">{{ student.id_student.phone }}</td>
                         <td>{{ student.id_student.address }}</td>
                         <td class="text-center">{{ student.id_student.birthday|date:"d/m/Y" }}</td>
+                        <td class="text-center">{{ student.id_student.PathImageFolder }}</td>
                         <td class="text-center">
-                            <a href="#" class="btn btn-danger btn-sm mdi mdi-delete">Xóa</a>
+                            <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
+                               onclick="confirmDeleteStudent({{ student.id_student }})">Xóa</a>
+                            <a href="#" class="btn btn-primary btn-sm mdi mdi-account-edit"
+                               onclick="editStudent({{ student.id_student }})">Sửa</a>
                         </td>
                     </tr>
+<!--                    {% include 'admin/modal-popup/popup_edit_student.html' %}-->
                 {% empty %}
                     <tr class="text-center text-danger">
                         <td colspan="10"><strong>Không tồn tại sinh viên nào trong cơ sở dữ liệu!</strong></td>
@@ -86,4 +112,19 @@
             <p>Trang {{ students_in_class.number }} / {{ students_in_class.paginator.num_pages }}</p>
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+    function addStudents() {
+        var file_path = document.getElementById('file_path');
+        if (file_path.files.length > 0) {
+            // Lấy đường dẫn của tệp tin
+            var filePath = file_path.value;
+            console.log("Đường dẫn tệp tin: " + filePath);
+        } else {
+            alert("Vui lòng chọn một tệp tin.");
+        }
+    }
+    </script>
 {% endblock %}
