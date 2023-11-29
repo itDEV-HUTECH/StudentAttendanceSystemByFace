@@ -10,48 +10,40 @@
 {% block content %}
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title mb-0">Danh sách sinh viên</h3>
-        </div>
-        <div class="card-body">
+            <h3 class="card-title mb-3">Danh sách sinh viên</h3>
             <a href="" class="btn btn-success mdi mdi-account-plus text-white"
                id="addStudentClass">Thêm sinh viên
             </a>
-            <div id="result"></div>
         </div>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                 <tr>
-
                     <th class="text-center" scope="col">MSSV</th>
                     <th scope="col">Họ và tên</th>
                     <th scope="col">Email</th>
                     <th class="text-center" scope="col">Số điện thoại</th>
                     <th scope="col">Địa chỉ</th>
                     <th class="text-center" scope="col">Ngày sinh</th>
-                    <th class="text-center" scope="col">Đường dẫn ảnh</th>
                     <th class="text-center" scope="col">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
                 {% for student in students_in_class %}
                     <tr>
-
-                        <td class="text-center">{{ student.id_student.id_student}}</td>
+                        <td class="text-center">{{ student.id_student.id_student }}</td>
                         <td>{{ student.id_student.student_name }}</td>
                         <td>{{ student.id_student.email }}</td>
                         <td class="text-center">{{ student.id_student.phone }}</td>
                         <td>{{ student.id_student.address }}</td>
                         <td class="text-center">{{ student.id_student.birthday|date:"d/m/Y" }}</td>
-                        <td class="text-center">{{ student.id_student.PathImageFolder }}</td>
                         <td class="text-center">
                             <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
-                               onclick="confirmDeleteStudentInClass({{ student.id_student.id_student }}, {{ student.id_classroom.id_classroom }})">Xóa</a>
+                               onclick="confirmDeleteStudent({{ student.id_student }})">Xóa</a>
                             <a href="#" class="btn btn-primary btn-sm mdi mdi-account-edit"
                                onclick="editStudent({{ student.id_student }})">Sửa</a>
                         </td>
                     </tr>
-<!--                    {% include 'admin/modal-popup/popup_edit_student.html' %}-->
                 {% empty %}
                     <tr class="text-center text-danger">
                         <td colspan="10"><strong>Không tồn tại sinh viên nào trong cơ sở dữ liệu!</strong></td>

@@ -1,0 +1,31 @@
+{% extends "admin/base_admin_dashboard.html" %}
+
+{% block content %}
+    <div class="card">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ edit_form.media }}
+            {% for field in edit_form %}
+                <div class="mt-2 form-group row d-flex justify-content-center">
+                    <label for="{{ field.id_for_label }}"
+                           class="col-sm-2 control-label col-form-label">{{ field.label }}:</label>
+                    <div class="col-sm-9">
+                        {{ field }}
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="footer text-center">
+                <input type="submit" class="btn btn-success text-white" value="Cập nhật"/>
+            </div>
+        </form>
+
+        <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+        <script>
+            // Initialize CKEditor and set the initial content
+            CKEDITOR.replace('id_body_edit', {
+                // Set the initial content from the model instance
+                initialData: '{{ blog_post_instance.body|escapejs }}'
+            });
+        </script>
+    </div>
+{% endblock %}

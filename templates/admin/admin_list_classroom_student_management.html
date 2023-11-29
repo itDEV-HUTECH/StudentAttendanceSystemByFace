@@ -12,17 +12,9 @@
         <div class="card-body">
             <h3 class="card-title mb-0">Danh sách lớp học</h3>
         </div>
-        <div class="card-body">
-            <a href="" class="btn btn-success mdi mdi-account-plus text-white"
-               id="addClassStudent">Đăng ký lớp học
-            </a>
-            <div id="result"></div>
-        </div>
-        <div class="table-responsive">
         <table class="table">
             <thead>
             <tr>
-
                 <th class="text-center" scope="col">Thứ</th>
                 <th scope="col">Môn Học</th>
                 <th class="text-center" scope="col">Giảng viên</th>
@@ -60,7 +52,7 @@
                     <td class="text-center">{{ classroom.begin_time|time:"H:i" }}</td>
                     <td class="text-center">{{ classroom.end_time|time:"H:i" }}</td>
                     <td class="text-center">
-                        <a href="{% url 'admin_list_student_classroom' classroom.id_classroom %}"
+                        <a href="{% url 'admin_list_student_in_classroom' classroom.id_classroom %}"
                            class="btn btn-info btn-sm mdi mdi-account-edit">
                             <span>Xem danh sách</span>
                         </a>

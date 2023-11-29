@@ -12,14 +12,14 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.http import StreamingHttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from sklearn.svm import SVC
 from django.urls import reverse
 from django.views.generic.edit import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView
 
-from main.forms import BlogForm
+from main.forms import BlogForm, EditBlogForm
 from main.models import BlogPost
 
 from main import facenet
@@ -27,6 +27,7 @@ from main.decorators import admin_required
 from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom, StudentClassDetails
 from main.src.anti_spoof_predict import AntiSpoofPredict
 from main.models import BlogPost
+from django.views import View
 
 color = (255, 0, 0)
 thickness = 2
@@ -53,29 +54,58 @@ nrof_train_images_per_class = 10
 class AddBlog(SuccessMessageMixin, CreateView, ListView):
     form_class = BlogForm
     model = BlogPost
-    template_name = "admin/admin_management_notification.html"
+    template_name = "admin/admin_notification_management.html"
     success_message = "Added Successfully"
-    context_object_name = 'blog_posts'  # Specify the context object name for the ListView
+    context_object_name = 'blog_posts'
 
     def get_success_url(self):
-        return reverse('notification_view')
+        return reverse('admin_notification_view')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['blog_posts'] = BlogPost.objects.all()  # Add all blog posts to the context
+        context['blog_posts'] = BlogPost.objects.all()
+        context['edit_form'] = EditBlogForm()
         return context
+
+
+class BlogPostDeleteView(View):
+    def get(self, request, pk, *args, **kwargs):
+        blog_post = get_object_or_404(BlogPost, id=pk)
+        blog_post.delete()
+        return redirect('admin_notification_view')
+
+
+class EditBlogView(View):
+    template_name = 'admin/admin_edit_notification.html'
+
+    def get(self, request, blog_post_id):
+        blog_post_instance = get_object_or_404(BlogPost, id=blog_post_id)
+        edit_form = EditBlogForm(instance=blog_post_instance)
+        return render(request, self.template_name, {'edit_form': edit_form})
+
+    def post(self, request, blog_post_id):
+        blog_post_instance = get_object_or_404(BlogPost, id=blog_post_id)
+        edit_form = EditBlogForm(request.POST, instance=blog_post_instance)
+        if edit_form.is_valid():
+            edit_form.save()
+            # Redirect to a success page or another URL
+            return redirect('admin_notification_view')  # Replace with your actual success URL name
+        else:
+            # Form is not valid, handle accordingly
+            return render(request, self.template_name, {'edit_form': edit_form})
 
 
 @admin_required
 def admin_dashboard_view(request):
     blog_posts = BlogPost.objects.all()
+
     return render(request, 'admin/admin_home.html', {'blog_posts': blog_posts})
 
 
 @admin_required
 def admin_notification_view(request):
     blog_posts = BlogPost.objects.all()
-    return render(request, 'admin/admin_management_notification.html', {'blog_posts': blog_posts})
+    return render(request, 'admin/admin_notification_management.html', {'blog_posts': blog_posts})
 
 
 @admin_required
@@ -387,9 +417,9 @@ def admin_schedule_get_info(request, id_classroom):
 
 @admin_required
 def admin_list_classroom_student_view(request):
-    classroom_per_page = 5
+    classroom_per_page = 10
     page_number = request.GET.get('page')
-    list_classrooms = Classroom.objects.filter(studentclassdetails__id_classroom__isnull=False).distinct().order_by('day_of_week_begin', 'begin_time')
+    list_classrooms = Classroom.objects.all()
 
     paginator = Paginator(list_classrooms, classroom_per_page)
     page = paginator.get_page(page_number)
@@ -398,16 +428,18 @@ def admin_list_classroom_student_view(request):
 
     return render(request, 'admin/admin_list_classroom_student_management.html', context)
 
+
 @admin_required
-def admin_list_student_classroom_view (request, classroom_id):
+def admin_list_student_in_classroom_view(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
     students_in_class = StudentClassDetails.objects.filter(id_classroom=classroom)
-    student_per_page = 5
+    student_per_page = 10
     page_number = request.GET.get('page')
     paginator = Paginator(students_in_class, student_per_page)
     page = paginator.get_page(page_number)
-    context = {'students_in_class':page}
+    context = {'students_in_class': page}
     return render(request, 'admin/admin_list_student_classroom_management.html', context)
+
 
 @admin_required
 def admin_list_student_class_delete(request, id_student, id_classroom):
