@@ -43,19 +43,18 @@ urlpatterns = [
     path('admin/student-management/student_capture', admin_views.student_capture, name='student_capture'),
     path('admin/student-management/capture/cap', admin_views.capture, name='capture'),
 
-    path('admin/schedule_management', admin_views.admin_schedule_management_view, name='admin_schedule_management'),
-    path('admin/schedule_management/add', admin_views.admin_schedule_add, name='admin_schedule_add'),
+    path('admin/schedule-management', admin_views.admin_schedule_management_view, name='admin_schedule_management'),
+    path('admin/schedule-management/add', admin_views.admin_schedule_add, name='admin_schedule_add'),
     path('admin/schedule-management/delete/<int:id_classroom>', admin_views.admin_schedule_delete,
          name='admin_schedule_delete'),
     path('admin/schedule-management/edit/<int:id_classroom>', admin_views.admin_schedule_edit,
          name='admin_schedule_edit'),
     path('admin/schedule-management/get-info/<int:id_classroom>', admin_views.admin_schedule_get_info,
          name='admin_schedule_get_info'),
-
-    path('admin/list_classroom_student_management', admin_views.admin_list_classroom_student_view, name='admin_list_classroom_student'),
-    path('admin/list_student_class_management/<int:classroom_id>',
-         admin_views.admin_list_student_classroom_view,
-         name='admin_list_student_classroom'),
+    path('admin/list-classroom-student-management', admin_views.admin_list_classroom_student_view,
+         name='admin_list_classroom_student'),
+    path('admin/list-student-in-class-management/<int:classroom_id>', admin_views.admin_list_student_in_classroom_view,
+         name='admin_list_student_in_classroom_view'),
 
     # Lecturer
     path('lecturer/dashboard', lecturer_views.lecturer_dashboard_view, name='lecturer_dashboard'),

@@ -10,9 +10,7 @@
 {% block content %}
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title mb-0">Danh sách sinh viên</h3>
-        </div>
-        <div class="card-body">
+            <h3 class="card-title mb-3">Danh sách thông báo</h3>
             <a href="" class="btn btn-success mdi mdi-account-plus text-white"
                id="addNotification">Thêm thông báo
             </a>
@@ -30,12 +28,12 @@
                     <th class="text-center" scope="col">Mã thông báo</th>
                     <th scope="col">Tiêu đề</th>
                     <th scope="col">Nội dung</th>
-            <th class="text-center" scope="col" style="width: 200px;">Thao tác</th>
+                    <th class="text-center" scope="col" style="width: 200px;">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
-                        {% for blog_post in blog_posts %}
-                        <tr>
+                {% for blog_post in blog_posts %}
+                    <tr>
                         <th>
                             <label class="customcheckbox">
                                 <input type="checkbox" class="listCheckbox"/>
@@ -43,7 +41,7 @@
                             </label>
                         </th>
                         <td class="text-center">{{ blog_post.id }}</td>
-                        <td>{{ blog_post.title}}</td>
+                        <td>{{ blog_post.title }}</td>
                         <td>{{ blog_post.body|safe }}</td>
 
                         <td class="text-center" style="width: 200px;">

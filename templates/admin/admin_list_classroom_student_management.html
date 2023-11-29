@@ -12,18 +12,9 @@
         <div class="card-body">
             <h3 class="card-title mb-0">Danh sách lớp học</h3>
         </div>
-        <div class="card-body">
-            <a href="" class="btn btn-success mdi mdi-account-plus text-white"
-               id="addClassStudent">Đăng ký lớp học
-            </a>
-            <div id="result"></div>
-        </div>
-
-
         <table class="table">
             <thead>
             <tr>
-
                 <th class="text-center" scope="col">Thứ</th>
                 <th scope="col">Môn Học</th>
                 <th class="text-center" scope="col">Giảng viên</th>
@@ -57,7 +48,7 @@
                     <td>{{ classroom.name }}</td>
                     <td class="text-center">{{ classroom.id_lecturer.staff_name }}</td>
                     <td class="text-center">{{ classroom.begin_date|date:"d/m/Y" }}</td>
-                    <td class="text-center">{{ classroom.end_date|date:"d/m/Y" }}</td>69+
+                    <td class="text-center">{{ classroom.end_date|date:"d/m/Y" }}</td>
                     <td class="text-center">{{ classroom.begin_time|time:"H:i" }}</td>
                     <td class="text-center">{{ classroom.end_time|time:"H:i" }}</td>
                     <td class="text-center">
