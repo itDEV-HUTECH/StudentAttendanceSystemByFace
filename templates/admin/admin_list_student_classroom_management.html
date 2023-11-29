@@ -39,9 +39,8 @@
                         <td class="text-center">{{ student.id_student.birthday|date:"d/m/Y" }}</td>
                         <td class="text-center">
                             <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
-                               onclick="confirmDeleteStudent({{ student.id_student }})">Xóa</a>
-                            <a href="#" class="btn btn-primary btn-sm mdi mdi-account-edit"
-                               onclick="editStudent({{ student.id_student }})">Sửa</a>
+                               onclick="confirmDeleteStudentInClass({{ student.id_student.id_student }},{{student.id_classroom.id_classroom}})">Xóa</a>
+
                         </td>
                     </tr>
                 {% empty %}
@@ -89,7 +88,7 @@
             <p>Trang {{ students_in_class.number }} / {{ students_in_class.paginator.num_pages }}</p>
         </div>
     </div>
-<!--    {% include 'admin/modal-popup/popup_add_student.html' %}-->
+
     {% include 'admin/modal-popup/popup_delete_student_in_class.html' %}
 {% endblock %}
 
@@ -97,7 +96,7 @@
     <script src="{% static '' %}assets/js/manage-student.js"></script>
     <script>
         function confirmDeleteStudentInClass(studentId,classroomId) {
-            let deleteUrl = "{% url 'admin_list_student_class_delete' id_student=1 id_classroom=2 %}".replace('1', studentId).replace('2', classroomId);;
+            let deleteUrl = "{% url 'admin_list_student_in_class_delete' id_student=1 id_classroom=2 %}".replace('1', studentId).replace('2', classroomId);;
             $('#confirmDeleteButton').attr('href', deleteUrl);
             $('#confirmDeleteModal').modal('show');
             $('#studentIdToDelete').text(studentId);

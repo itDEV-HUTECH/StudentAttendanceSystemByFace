@@ -59,8 +59,8 @@ urlpatterns = [
          name='admin_list_classroom_student'),
     path('admin/list-student-in-class-management/<int:classroom_id>', admin_views.admin_list_student_in_classroom_view,
          name='admin_list_student_in_classroom'),
-    path('admin/list_student_class_management/delete/<int:classroom_id>/<int:id_student>', admin_views.admin_list_student_class_delete,
-         name='admin_list_student_class_delete'),
+    path('admin/list-student-in-class-management/delete/<int:id_classroom>/<int:id_student>', admin_views.admin_list_student_in_class_delete,
+         name='admin_list_student_in_class_delete'),
     # Lecturer
     path('lecturer/dashboard', lecturer_views.lecturer_dashboard_view, name='lecturer_dashboard'),
     path('lecturer/schedule', lecturer_views.lecturer_schedule_view, name='lecturer_schedule'),

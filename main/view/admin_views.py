@@ -442,9 +442,9 @@ def admin_list_student_in_classroom_view(request, classroom_id):
 
 
 @admin_required
-def admin_list_student_class_delete(request, id_student, id_classroom):
+def admin_list_student_in_class_delete(request, id_student, id_classroom):
     StudentClassDetails.objects.filter(id_student_id=id_student).delete()
-    return redirect('admin_list_student_classroom' ,id_classroom )
+    return redirect('admin_list_student_in_classroom' ,id_classroom )
 
 
 def capture(id, request):
