@@ -443,7 +443,7 @@ def admin_list_student_in_classroom_view(request, classroom_id):
 
 @admin_required
 def admin_list_student_in_class_delete(request, id_student, id_classroom):
-    StudentClassDetails.objects.filter(id_student_id=id_student).delete()
+    StudentClassDetails.objects.filter(id_student_id=id_student , id_classroom_id=id_classroom).delete()
     return redirect('admin_list_student_in_classroom' ,id_classroom )
 
 
