@@ -18,8 +18,7 @@
             </a>
             <div id="result"></div>
         </div>
-
-
+        <div class="table-responsive">
         <table class="table">
             <thead>
             <tr>
@@ -57,7 +56,7 @@
                     <td>{{ classroom.name }}</td>
                     <td class="text-center">{{ classroom.id_lecturer.staff_name }}</td>
                     <td class="text-center">{{ classroom.begin_date|date:"d/m/Y" }}</td>
-                    <td class="text-center">{{ classroom.end_date|date:"d/m/Y" }}</td>69+
+                    <td class="text-center">{{ classroom.end_date|date:"d/m/Y" }}</td>
                     <td class="text-center">{{ classroom.begin_time|time:"H:i" }}</td>
                     <td class="text-center">{{ classroom.end_time|time:"H:i" }}</td>
                     <td class="text-center">

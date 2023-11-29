@@ -389,8 +389,7 @@ def admin_schedule_get_info(request, id_classroom):
 def admin_list_classroom_student_view(request):
     classroom_per_page = 5
     page_number = request.GET.get('page')
-    list_classrooms = Classroom.objects.filter(
-        studentclassdetails__id_classroom__isnull=False).distinct().order_by('day_of_week_begin', 'begin_time')
+    list_classrooms = Classroom.objects.filter(studentclassdetails__id_classroom__isnull=False).distinct().order_by('day_of_week_begin', 'begin_time')
 
     paginator = Paginator(list_classrooms, classroom_per_page)
     page = paginator.get_page(page_number)
