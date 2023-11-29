@@ -76,11 +76,23 @@ class Attendance(models.Model):
     id_classroom = models.ForeignKey('Classroom', on_delete=models.SET_NULL, null=True)
     id_student = models.ForeignKey('StudentInfo', on_delete=models.CASCADE)
 
+
 class BlogPost(models.Model):
+    TYPE_CHOICES = [
+        ('SV', _('Student')),
+        ('GV', _('Teacher')),
+        ('ALL', _('All')),
+    ]
+
     title = models.CharField(
         _("Blog Title"), max_length=250,
         null=False, blank=False
     )
     body = RichTextUploadingField()
+    type = models.CharField(
+        _("Type"), max_length=3,
+        choices=TYPE_CHOICES, default='ALL'
+    )
+
     def __str__(self):
         return self.title
