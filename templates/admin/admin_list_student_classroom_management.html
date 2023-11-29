@@ -14,6 +14,13 @@
             <a href="" class="btn btn-success mdi mdi-account-plus text-white"
                id="addStudentClass">Thêm sinh viên
             </a>
+        {% for student in students_in_class %}
+            {% if forloop.first %}
+                <a href="#" class="btn btn-success mdi mdi-account-plus text-white" id="deleteAllStudent"
+                onclick="confirmDeleteAllStudentInClass({{student.id_classroom.id_classroom}})">Xóa tất cả sinh viên</a>
+            {% endif %}
+        {% endfor %}
+
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -90,6 +97,7 @@
     </div>
 
     {% include 'admin/modal-popup/popup_delete_student_in_class.html' %}
+    {% include 'admin/modal-popup/popup_delete_all_student_in_class.html' %}
 {% endblock %}
 
 {% block js %}
@@ -100,6 +108,11 @@
             $('#confirmDeleteButton').attr('href', deleteUrl);
             $('#confirmDeleteModal').modal('show');
             $('#studentIdToDelete').text(studentId);
+        }
+        function confirmDeleteAllStudentInClass(classroomId) {
+            let deleteUrl = "{% url 'admin_list_student_in_class_delete_all' id_classroom=2 %}".replace('2', classroomId);;
+            $('#confirmDeleteAllButton').attr('href', deleteUrl);
+            $('#confirmDeleteAllModal').modal('show');
         }
 
     </script>

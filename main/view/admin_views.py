@@ -447,6 +447,12 @@ def admin_list_student_in_class_delete(request, id_student, id_classroom):
     return redirect('admin_list_student_in_classroom' ,id_classroom )
 
 
+@admin_required
+def admin_list_student_in_class_delete_all(request, id_classroom):
+    StudentClassDetails.objects.filter(id_classroom_id=id_classroom).delete()
+    return redirect('admin_list_student_in_classroom' ,id_classroom )
+
+
 def capture(id, request):
     global CAPTURE_STATUS
     CAPTURE_STATUS = 0  # Sử dụng 'global' ở đầu hàm để thông báo rằng bạn muốn sử dụng biến toàn cục
