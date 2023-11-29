@@ -409,6 +409,12 @@ def admin_list_student_classroom_view (request, classroom_id):
     context = {'students_in_class':page}
     return render(request, 'admin/admin_list_student_classroom_management.html', context)
 
+@admin_required
+def admin_list_student_class_delete(request, id_student, id_classroom):
+    StudentClassDetails.objects.filter(id_student_id=id_student).delete()
+    return redirect('admin_list_student_classroom' ,id_classroom )
+
+
 def capture(id, request):
     global CAPTURE_STATUS
     CAPTURE_STATUS = 0  # Sử dụng 'global' ở đầu hàm để thông báo rằng bạn muốn sử dụng biến toàn cục
