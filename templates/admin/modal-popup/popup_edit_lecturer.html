@@ -1,19 +1,19 @@
-<div id="addNewLecturerModal" class="modal fade" role="dialog">
+<div id="editLecturerModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Thêm giảng viên</h5>
+                <h5 class="modal-title">Chỉnh sửa thông tin sinh viên</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" class="addLecturerForm" id="addLecturerForm"
-                      action="{% url 'admin_lecturer_add' %}">
+                <form method="POST" class="editLecturerForm" id="editLecturerForm" action="">
                     {% csrf_token %}
                     <div class="mb-3 form-group row d-flex justify-content-center">
                         <label for="id_lecturer" class="col-sm-3 control-label col-form-label">Mã giảng viên</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="id_lecturer" id="id_lecturer" required>
+                                <input type="text" class="form-control" name="id_lecturer" id="id_lecturer" required
+                                       readonly>
                             </div>
                         </div>
                     </div>
