@@ -1,5 +1,7 @@
-<div class="container mt-5">
-    <form method="post" enctype="multipart/form-data">
+{% extends "admin/base_admin_dashboard.html" %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ edit_form.media }}
         {% for field in edit_form %}
@@ -12,7 +14,6 @@
             <input type="submit" class="btn btn-info btn-lg" value="Update" />
         </div>
     </form>
-</div>
 
 <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 <script>
@@ -22,3 +23,5 @@
         initialData: '{{ blog_post_instance.body|escapejs }}'
     });
 </script>
+
+{% endblock %}
