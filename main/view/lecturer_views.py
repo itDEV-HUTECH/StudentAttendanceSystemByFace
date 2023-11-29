@@ -32,7 +32,7 @@ for model_name in os.listdir(model_dir):
 
 @lecturer_required
 def lecturer_dashboard_view(request):
-    blog_posts = BlogPost.objects.all()
+    blog_posts = BlogPost.objects.filter(type__in=["ALL", "GV"])
     return render(request, 'lecturer/lecturer_home.html', {'blog_posts': blog_posts})
 
 

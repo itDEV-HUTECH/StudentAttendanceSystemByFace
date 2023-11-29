@@ -123,15 +123,15 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{% url 'admin_schedule_management' %}" class="sidebar-link">
-                                    <i class="mdi mdi-account-edit"></i>
-                                    <span class="hide-menu"> Thời khóa biểu </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
                                 <a href="{% url 'admin_change_password' %}" class="sidebar-link">
                                     <i class="mdi mdi-account-edit"></i>
                                     <span class="hide-menu"> Admin </span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{% url 'admin_schedule_management' %}" class="sidebar-link">
+                                    <i class="mdi mdi-account-edit"></i>
+                                    <span class="hide-menu"> Thời khóa biểu </span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
@@ -140,15 +140,13 @@
                                     <span class="hide-menu"> Thông báo </span>
                                 </a>
                             </li>
-
+                            <li class="sidebar-item">
+                                <a href="{% url 'admin_list_classroom_student' %}" class="sidebar-link">
+                                    <i class="mdi mdi-account-edit"></i>
+                                    <span class="hide-menu"> Quản lý lớp học </span>
+                                </a>
+                            </li>
                         </ul>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                           href="{% url 'admin_list_classroom_student' %}" aria-expanded="false">
-                            <i class="mdi mdi-folder"></i>
-                            <span class="hide-menu">Quản lý lớp học</span>
-                        </a>
                     </li>
                 </ul>
             </nav>
@@ -176,7 +174,6 @@
 <script src="{% static '' %}assets/extra-libs/multicheck/jquery.multicheck.js"></script>
 <script src="{% static '' %}assets/extra-libs/DataTables/datatables.min.js"></script>
 <script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<script src="{% static '' %}assets/js/manage-notification.js"></script>
 <script>
     jQuery("#birthday, #begin_date, #end_date").datepicker({
         autoclose: true,
