@@ -9,3 +9,11 @@ class BlogForm(forms.ModelForm):
     class Meta:
         model = BlogPost
         fields = '__all__'
+
+
+class EditBlogForm(forms.ModelForm):
+    body = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = BlogPost
+        fields = '__all__'

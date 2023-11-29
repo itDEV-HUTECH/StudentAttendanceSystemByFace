@@ -25,10 +25,11 @@
                             <span class="checkmark"></span>
                         </label>
                     </th>
-                    <th class="text-center" scope="col">Mã thông báo</th>
+                    <th class="text-center" scope="col">Mã TB</th>
                     <th scope="col">Tiêu đề</th>
                     <th scope="col">Nội dung</th>
-                    <th class="text-center" scope="col" style="width: 200px;">Thao tác</th>
+                    <th scope="col" style="width: 150px">Loại thông báo</th>
+                    <th class="text-center" scope="col" style="width: 200px">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
@@ -43,19 +44,20 @@
                         <td class="text-center">{{ blog_post.id }}</td>
                         <td>{{ blog_post.title }}</td>
                         <td>{{ blog_post.body|safe }}</td>
+                        <td style="width: 150px;">{{ blog_post.type }}</td>
 
                         <td class="text-center" style="width: 200px;">
                             <a href="javascript:void(0)" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
-                               onclick="confirmDeleteStudent({{ student.id_student }})">Xóa</a>
-                            <a href="javascript:void(0)" class="btn btn-primary btn-sm mdi mdi-account-edit"
-                               onclick="editStudent({{ student.id_student }})">Sửa</a>
+                               onclick="confirmDeleteNotification({{ blog_post.id }})">Xóa</a>
+                            <a href="{% url 'edit_blog' blog_post_id=blog_post.id %}"
+                               class="btn btn-primary btn-sm mdi mdi-account-edit">
+                                Sửa
+                            </a>
                         </td>
                     </tr>
-                    {% include 'admin/modal-popup/popup_edit_student.html' %}
-
                 {% empty %}
                     <tr class="text-center text-danger">
-                        <td colspan="10"><strong>Không tồn tại sinh viên nào trong cơ sở dữ liệu!</strong></td>
+                        <td colspan="10"><strong>Không tồn tại bản ghi thông báo nào trong cơ sở dữ liệu!</strong></td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -64,5 +66,16 @@
 
     </div>
     {% include 'admin/modal-popup/popup_add_notification.html' %}
+    {% include 'admin/modal-popup/popup_delete_notification.html' %}
+{% endblock %}
 
+{% block js %}
+    <script>
+        function confirmDeleteNotification(blog_postID) {
+            let deleteUrl = "{% url 'admin_notification_delete' '1' %}".replace('1', blog_postID);
+            $('#confirmDeleteButton').attr('href', deleteUrl);
+            $('#notificationDeleteModal').modal('show');
+            $('#blog_postID').text(blog_postID);
+        }
+    </script>
 {% endblock %}

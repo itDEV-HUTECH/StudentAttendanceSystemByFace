@@ -7,7 +7,7 @@ from main.view import admin_views
 from main.view import lecturer_views
 from main.view import student_views
 from . import views
-from main.view.admin_views import AddBlog
+from main.view.admin_views import AddBlog, EditBlogView, BlogPostDeleteView
 
 # Create your views here.
 urlpatterns = [
@@ -16,6 +16,10 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     # Admin
     path('admin/notification-management', AddBlog.as_view(), name='admin_notification_view'),
+    path('admin/notification-management/edit/<int:blog_post_id>/', EditBlogView.as_view(), name='edit_blog'),
+    path('admin/notification-management/delete/<int:pk>/', BlogPostDeleteView.as_view(),
+         name='admin_notification_delete'),
+
     path('admin/dashboard', admin_views.admin_dashboard_view, name='admin_dashboard'),
     path('admin/profile', admin_views.admin_profile_view, name='admin_profile'),
     path('admin/change-password', admin_views.admin_change_password_view, name='admin_change_password'),
@@ -54,7 +58,7 @@ urlpatterns = [
     path('admin/list-classroom-student-management', admin_views.admin_list_classroom_student_view,
          name='admin_list_classroom_student'),
     path('admin/list-student-in-class-management/<int:classroom_id>', admin_views.admin_list_student_in_classroom_view,
-         name='admin_list_student_in_classroom_view'),
+         name='admin_list_student_in_classroom'),
 
     # Lecturer
     path('lecturer/dashboard', lecturer_views.lecturer_dashboard_view, name='lecturer_dashboard'),
