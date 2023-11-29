@@ -270,7 +270,18 @@
             }
         )
     }
+
 </script>
+
+<script>
+    function confirmDeleteNotification(blog_postID) {
+        let deleteUrl = "{% url 'admin_notification_delete' '1' %}".replace('1', blog_postID);
+        $('#confirmDeleteButton').attr('href', deleteUrl);
+        $('#notificationDeleteModal').modal('show');
+        $('#blog_postID').text(blog_postID);
+    }
+</script>
+
 </body>
 
 </html>

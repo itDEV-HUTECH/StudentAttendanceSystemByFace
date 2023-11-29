@@ -33,7 +33,7 @@ def student_login_view(request):
 
 @student_required
 def student_dashboard_view(request):
-    blog_posts = BlogPost.objects.all()
+    blog_posts = BlogPost.objects.filter(type__in=["ALL", "SV"])
 
     return render(request, 'student/student_home.html', {'blog_posts': blog_posts})
 
