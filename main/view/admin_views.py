@@ -386,18 +386,29 @@ def admin_schedule_get_info(request, id_classroom):
 
 
 @admin_required
-def admin_studentclass_management_view(request):
-    studentclass = StudentClassDetails.objects.all()
-    studentclass_per_page = 10
-    paginator = Paginator(studentclass, studentclass_per_page)
+def admin_list_classroom_student_view(request):
+    classroom_per_page = 5
     page_number = request.GET.get('page')
+    list_classrooms = Classroom.objects.filter(
+        studentclassdetails__id_classroom__isnull=False).distinct().order_by('day_of_week_begin', 'begin_time')
+
+    paginator = Paginator(list_classrooms, classroom_per_page)
     page = paginator.get_page(page_number)
-    context = {
-        'list_studentclass': page,
-    }
 
-    return render(request, 'admin/admin_studentclass_management.html', context)
+    context = {'list_classrooms': page}
 
+    return render(request, 'admin/admin_list_classroom_student_management.html', context)
+
+@admin_required
+def admin_list_student_classroom_view (request, classroom_id):
+    classroom = Classroom.objects.get(pk=classroom_id)
+    students_in_class = StudentClassDetails.objects.filter(id_classroom=classroom)
+    student_per_page = 5
+    page_number = request.GET.get('page')
+    paginator = Paginator(students_in_class, student_per_page)
+    page = paginator.get_page(page_number)
+    context = {'students_in_class':page}
+    return render(request, 'admin/admin_list_student_classroom_management.html', context)
 
 def capture(id, request):
     global CAPTURE_STATUS
