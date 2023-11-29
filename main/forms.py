@@ -4,7 +4,10 @@ from .models import BlogPost
 
 
 class BlogForm(forms.ModelForm):
-    body = forms.CharField(widget=CKEditorUploadingWidget())
+    title = forms.CharField(label='Tiêu đề', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    body = forms.CharField(label='Nội dung', widget=CKEditorUploadingWidget())
+    type = forms.ChoiceField(label='Hiển thị cho', choices=BlogPost.TYPE_CHOICES,
+                             widget=forms.Select(attrs={'class': 'form-select'}))
 
     class Meta:
         model = BlogPost
@@ -12,7 +15,10 @@ class BlogForm(forms.ModelForm):
 
 
 class EditBlogForm(forms.ModelForm):
-    body = forms.CharField(widget=CKEditorUploadingWidget())
+    title = forms.CharField(label='Tiêu đề', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    body = forms.CharField(label='Nội dung', widget=CKEditorUploadingWidget())
+    type = forms.ChoiceField(label='Hiển thị cho', choices=BlogPost.TYPE_CHOICES,
+                             widget=forms.Select(attrs={'class': 'form-select'}))
 
     class Meta:
         model = BlogPost
