@@ -50,14 +50,13 @@
                         <td>{{ lecturer.address }}</td>
                         <td class="text-center">{{ lecturer.birthday|date:"d/m/Y" }}</td>
                         <td class="text-center">
-                            <a href="#" id="deleteLecturer"
-                               class="btn btn-danger btn-sm mdi mdi-delete"
+                            <a href="#" id="deleteLecturer" class="btn btn-danger btn-sm mdi mdi-delete"
                                onclick="confirmDeleteLecturer({{ lecturer.id_staff }})">Xóa</a>
-                            <a href="{% url 'admin_lecturer_edit' lecturer.id_staff %}"
-                               class="btn btn-primary btn-sm mdi mdi-account-edit">Sửa</a>
+                            <a href="#" id="editLecturer" class="btn btn-primary btn-sm mdi mdi-account-edit"
+                               onclick="editLecturer({{ lecturer.id_staff }})">Sửa</a>
                         </td>
                     </tr>
-                    {% include 'admin/modal-popup/popup_delete_lecturer.html' %}
+                    {% include 'admin/modal-popup/popup_edit_lecturer.html' %}
                 {% empty %}
                     <tr class="text-center text-danger">
                         <td colspan="10"><strong>Không tồn tại giảng viên nào trong cơ sở dữ liệu!</strong></td>
@@ -103,9 +102,12 @@
             <p>Trang {{ list_lecturers.number }} / {{ list_lecturers.paginator.num_pages }}</p>
         </div>
     </div>
+    {% include 'admin/modal-popup/popup_add_lecturer.html' %}
+    {% include 'admin/modal-popup/popup_delete_lecturer.html' %}
 {% endblock %}
 
 {% block js %}
+    <script src="{% static '' %}assets/js/manage-lecturer.js"></script>
     <script>
         function confirmDeleteLecturer(lecturerId) {
             let deleteUrl = "{% url 'admin_lecturer_delete' '1' %}".replace('1', lecturerId);
@@ -114,25 +116,23 @@
             $('#lecturerIdToDelete').text(lecturerId);
         }
 
-        function editLecturer(classroomId) {
-            let id_classroom = classroomId
-            let editForm = $('#editScheduleForm');
-            editForm.attr('action', "{% url 'admin_lecturer_edit' '0' %}".replace('0', id_classroom));
+        function editLecturer(lecturerId) {
+            let id_lecturer = lecturerId
+            let editForm = $('#editLecturerForm');
+            editForm.attr('action', "{% url 'admin_lecturer_edit' '0' %}".replace('0', id_lecturer));
             $.ajax({
                     type: "GET",
-                    url: "{% url 'admin_schedule_get_info' '1' %}".replace('1', id_classroom),
+                    url: "{% url 'admin_lecturer_get_info' '1' %}".replace('1', id_lecturer),
                     dataType: "json",
                     success: function (data) {
                         console.log(data);
-                        $('#id_classroom').val(data.schedule.id_classroom);
-                        $('#name').val(data.schedule.name);
-                        $('#begin_date').val(data.schedule.begin_date);
-                        $('#end_date').val(data.schedule.end_date);
-                        $('#day_of_week_begin').val(data.schedule.day_of_week_begin);
-                        $('#begin_time').val(data.schedule.begin_time);
-                        $('#end_time').val(data.schedule.end_time);
-                        $('#lecturer_name').val(data.schedule.lecturer_name);
-                        $('#editScheduleModal').modal('show');
+                        $('#id_lecturer').val(data.lecturer.id_staff);
+                        $('#lecture_name').val(data.lecturer.staff_name);
+                        $('#email').val(data.lecturer.email);
+                        $('#phone').val(data.lecturer.phone);
+                        $('#address').val(data.lecturer.address);
+                        $('#birthday').val(data.lecturer.birthday);
+                        $('#editLecturerModal').modal('show');
                     },
                 }
             )

@@ -1,11 +1,6 @@
-$("#addSchedule").click(function (e) {
+$("#addLecturer").click(function (e) {
     e.preventDefault();
-    $('#addNewScheduleModal').modal('show')
-});
-
-$("#editSchedule").click(function (e) {
-    e.preventDefault();
-    $('#editScheduleModal').modal('show')
+    $('#addNewLecturerModal').modal('show')
 });
 
 $("#deleteLecturer").click(function (e) {
