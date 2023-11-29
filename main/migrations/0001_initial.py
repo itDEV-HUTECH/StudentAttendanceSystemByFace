@@ -93,4 +93,5 @@ class Migration(migrations.Migration):
                 ('id_student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.studentinfo')),
             ],
         ),
+
     ]

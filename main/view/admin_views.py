@@ -24,7 +24,7 @@ from main.models import BlogPost
 
 from main import facenet
 from main.decorators import admin_required
-from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom
+from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom, StudentClassDetails
 from main.src.anti_spoof_predict import AntiSpoofPredict
 from main.models import BlogPost
 
@@ -349,7 +349,7 @@ def admin_schedule_edit(request, id_classroom):
         schedule.day_of_week_begin = request.POST['day_of_week_begin']
         schedule.begin_time = request.POST['begin_time']
         schedule.end_time = request.POST['end_time']
-        schedule.id_lecturer = request.POST['id_lecturer']
+        schedule.id_lecturer_id = request.POST['lecturer_name']
         schedule.save()
         messages.success(request, 'Thay đổi thông tin thành công.')
         return redirect('admin_schedule_management')
@@ -366,6 +366,10 @@ def admin_schedule_delete(request, id_classroom):
 def admin_schedule_get_info(request, id_classroom):
     try:
         schedule = Classroom.objects.get(id_classroom=id_classroom)
+        if schedule.id_lecturer is None:
+            lecturer_name = 'Hiện chưa có giảng viên phụ trách (Vui lòng thêm giảng viên)'
+        else:
+            lecturer_name = schedule.id_lecturer.staff_name
         schedule_data = {
             'id_classroom': schedule.id_classroom,
             'name': schedule.name,
@@ -374,11 +378,25 @@ def admin_schedule_get_info(request, id_classroom):
             'day_of_week_begin': schedule.day_of_week_begin,
             'begin_time': schedule.begin_time,
             'end_time': schedule.end_time,
-            'lecturer_name': schedule.id_lecturer.staff_name,
+            'lecturer_name': lecturer_name,
         }
         return JsonResponse({'schedule': schedule_data})
     except Classroom.DoesNotExist:
         return JsonResponse({'error': 'Không tìm thấy lớp học'}, status=404)
+
+
+@admin_required
+def admin_studentclass_management_view(request):
+    studentclass = StudentClassDetails.objects.all()
+    studentclass_per_page = 10
+    paginator = Paginator(studentclass, studentclass_per_page)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    context = {
+        'list_studentclass': page,
+    }
+
+    return render(request, 'admin/admin_studentclass_management.html', context)
 
 
 def capture(id, request):
@@ -388,7 +406,7 @@ def capture(id, request):
     color = (0, 0, 255)  # BGR color for drawing rectangles
     thickness = 2  # Thickness of the rectangle
     model_test = AntiSpoofPredict(device_id)  # Define the AntiSpoofPredict object (assumed to be a valid class)
-    capture = cv2.VideoCapture(1)  # Capture from camera at index 2 (can be adjusted)
+    capture = cv2.VideoCapture(0)  # Capture from camera at index 2 (can be adjusted)
     output_dir = f"./main/Dataset/FaceData/processed/{id}"
     os.makedirs(output_dir, exist_ok=True)
     while image_count < 300:
