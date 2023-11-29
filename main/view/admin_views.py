@@ -2,6 +2,7 @@ import math
 import os
 import pickle
 from datetime import datetime
+import openpyxl
 
 import cv2
 import numpy as np
@@ -398,6 +399,20 @@ def admin_studentclass_management_view(request):
 
     return render(request, 'admin/admin_studentclass_management.html', context)
 
+@admin_required
+def add_student_into_classroom(request, list_id_student):
+    if request.method == 'POST':
+        classroom_id = request.POST.get('classroom_id')
+        student_id = request.POST.get('student_id')
+
+@admin_required
+def process_file(request):
+    file_path = request.Post['file_path']
+    workbook = openpyxl.load_workbook(file_path)
+    sheet = workbook.active
+    list_id_student = [row[0].value for row in sheet.iter_rows(min_row=2, max_col=1)]
+    add_student_into_classroom(list_id_student)
+    return render(request, 'admin/admin_studentclass_management.html')
 
 def capture(id, request):
     global CAPTURE_STATUS
