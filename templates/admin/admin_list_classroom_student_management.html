@@ -12,6 +12,12 @@
         <div class="card-body">
             <h3 class="card-title mb-0">Danh sách lớp học</h3>
         </div>
+        <div class="card-body">
+            <a href="" class="btn btn-success mdi mdi-account-plus text-white"
+               id="addClassStudent">Đăng ký lớp học
+            </a>
+            <div id="result"></div>
+        </div>
 
 
         <table class="table">
@@ -29,7 +35,7 @@
             </tr>
             </thead>
             <tbody class="customtable">
-            {% for classroom in classrooms %}
+            {% for classroom in list_classrooms %}
                 <tr>
                     <td class="text-center">
                         {% if classroom.day_of_week_begin == 7 %}
@@ -72,39 +78,39 @@
 
         <div class="pagination justify-content-center">
             <ul class="pagination">
-                {% if classrooms.has_previous %}
+                {% if list_classrooms.has_previous %}
                     <li class="page-item">
                         <a class="page-link" href="?page=1">‹‹</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ classrooms.previous_page_number }}">‹</a>
+                        <a class="page-link" href="?page={{ list_classrooms.previous_page_number }}">‹</a>
                     </li>
                 {% endif %}
 
-                {% for i in classrooms.paginator.page_range %}
-                    {% if classrooms.number == i %}
+                {% for i in list_classrooms.paginator.page_range %}
+                    {% if list_classrooms.number == i %}
                         <li class="page-item active">
                             <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                         </li>
-                    {% elif i > classrooms.number|add:'-3' and i < classrooms.number|add:'3' %}
+                    {% elif i > list_classrooms.number|add:'-3' and i < list_classrooms.number|add:'3' %}
                         <li class="page-item">
                             <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
 
-                {% if classrooms.has_next %}
+                {% if list_classrooms.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ classrooms.next_page_number }}">›</a>
+                        <a class="page-link" href="?page={{ list_classrooms.next_page_number }}">›</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ classrooms.paginator.num_pages }}">››</a>
+                        <a class="page-link" href="?page={{ list_classrooms.paginator.num_pages }}">››</a>
                     </li>
                 {% endif %}
             </ul>
         </div>
         <div class="text-center">
-            <p>Trang {{ classrooms.number }} / {{ classrooms.paginator.num_pages }}</p>
+            <p>Trang {{ list_classrooms.number }} / {{ list_classrooms.paginator.num_pages }}</p>
         </div>
     </div>
 {% endblock %}
