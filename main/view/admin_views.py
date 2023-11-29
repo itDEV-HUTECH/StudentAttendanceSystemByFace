@@ -19,7 +19,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView
 
-from main.forms import BlogForm,EditBlogForm
+from main.forms import BlogForm, EditBlogForm
 from main.models import BlogPost
 
 from main import facenet
@@ -66,11 +66,14 @@ class AddBlog(SuccessMessageMixin, CreateView, ListView):
         context['blog_posts'] = BlogPost.objects.all()
         context['edit_form'] = EditBlogForm()
         return context
+
+
 class BlogPostDeleteView(View):
     def get(self, request, pk, *args, **kwargs):
         blog_post = get_object_or_404(BlogPost, id=pk)
         blog_post.delete()
         return redirect('admin_notification_view')
+
 
 class EditBlogView(View):
     template_name = 'admin/admin_edit_notification.html'
@@ -90,6 +93,8 @@ class EditBlogView(View):
         else:
             # Form is not valid, handle accordingly
             return render(request, self.template_name, {'edit_form': edit_form})
+
+
 @admin_required
 def admin_dashboard_view(request):
     blog_posts = BlogPost.objects.all()

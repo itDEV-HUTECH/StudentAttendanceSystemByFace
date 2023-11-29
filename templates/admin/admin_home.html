@@ -3,9 +3,8 @@
 {% block content %}
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title text-info"><strong>THÔNG BÁO</strong></h3>
-                        <hr>
-
+            <h2 class="card-title text-info"><strong>THÔNG BÁO</strong></h2>
+            <hr>
             {% for blog_post in blog_posts %}
                 <div>
                     <h3 class="text-danger">{{ blog_post.title }}</h3>

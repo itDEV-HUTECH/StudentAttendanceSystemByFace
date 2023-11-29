@@ -79,9 +79,9 @@ class Attendance(models.Model):
 
 class BlogPost(models.Model):
     TYPE_CHOICES = [
-        ('SV', _('Student')),
-        ('GV', _('Teacher')),
-        ('ALL', _('All')),
+        ('SV', _('Sinh viên')),
+        ('GV', _('Giảng viên')),
+        ('ALL', _('Tất cả')),
     ]
 
     title = models.CharField(
@@ -90,7 +90,7 @@ class BlogPost(models.Model):
     )
     body = RichTextUploadingField()
     type = models.CharField(
-        _("Type"), max_length=3,
+        _("Type"), max_length=15,
         choices=TYPE_CHOICES, default='ALL'
     )
 
