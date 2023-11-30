@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
 from django.core.paginator import Paginator
-from django.db.models import Count
+from django.db.models import Count , Q
 from django.http import JsonResponse
 from django.http import StreamingHttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -428,14 +428,14 @@ def admin_schedule_get_info(request, id_classroom):
 def admin_list_classroom_student_view(request):
     classroom_per_page = 10
     page_number = request.GET.get('page')
-    # list_classrooms = Classroom.objects.all()
-    list_classrooms = Classroom.objects.annotate(student_count=Count('studentclassdetails__id_student'))
-
+    # list_classrooms = Classroom.objects.annotate(student_count=Count('studentclassdetails__id_student'))
+    search_query = request.GET.get('q', '')
+    list_classrooms = Classroom.objects.filter(
+        Q(id_classroom__icontains=search_query) | Q(name__icontains=search_query)
+    ).annotate(student_count=Count('studentclassdetails__id_student'))
     paginator = Paginator(list_classrooms, classroom_per_page)
     page = paginator.get_page(page_number)
-
-    context = {'list_classrooms': page}
-
+    context = {'list_classrooms': page,'search_query': search_query}
     return render(request, 'admin/admin_list_classroom_student_management.html', context)
 
 
