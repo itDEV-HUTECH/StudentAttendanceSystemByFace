@@ -444,7 +444,7 @@ def admin_list_student_in_classroom_view(request, classroom_id):
 @admin_required
 def add_student_into_classroom(request):
     if request.method == 'POST':
-        file_path = request.Post['file_path']
+        file_path = request.FILES.get('file_path')
         id_classroom = request.POST.get('id_classroom')
 
         try:
