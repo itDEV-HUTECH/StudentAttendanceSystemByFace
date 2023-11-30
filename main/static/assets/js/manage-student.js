@@ -1,8 +1,9 @@
-$("#deleteStudent").click(function (e) {
+$("#deleteStudent").click(function(e) {
     e.preventDefault();
 });
 
-$("#addStudent").click(function (e) {
+$("#addStudent").click(function(e) {
     e.preventDefault();
     $('#addNewStudentModal').modal('show')
 });
+

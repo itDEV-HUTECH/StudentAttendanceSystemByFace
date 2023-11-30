@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=250, verbose_name='Blog Title')),
                 ('body', ckeditor_uploader.fields.RichTextUploadingField()),
-                ('type', models.CharField(choices=[('SV', 'Student'), ('GV', 'Teacher'), ('ALL', 'All')], default='ALL', max_length=3, verbose_name='Type')),
+                ('type', models.CharField(choices=[('SV', 'Student'), ('GV', 'Teacher'), ('ALL', 'All')], default='ALL',max_length=3, verbose_name='Type')),
             ],
         ),
         migrations.CreateModel(

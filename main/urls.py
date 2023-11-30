@@ -28,6 +28,8 @@ urlpatterns = [
     path('admin/student-management/delete/<int:id_student>', admin_views.admin_student_delete,
          name='admin_student_delete'),
     path('admin/student-management/edit/<int:id_student>', admin_views.admin_student_edit, name='admin_student_edit'),
+    path('admin/student-management/student_capture/<int:id_student>', admin_views.admin_student_capture, name='admin_student_capture'),
+
     path('admin/student-management/get-info/<int:id_student>', admin_views.admin_student_get_info,
          name='admin_student_get_info'),
     path('admin/student-management/train', admin_views.train, name='train'),
@@ -44,7 +46,6 @@ urlpatterns = [
     path('admin/lecturer-management/get-info/<int:id_staff>', admin_views.admin_lecturer_get_info,
          name='admin_lecturer_get_info'),
 
-    path('admin/student-management/student_capture', admin_views.student_capture, name='student_capture'),
     path('admin/student-management/capture/cap', admin_views.capture, name='capture'),
 
     path('admin/schedule-management', admin_views.admin_schedule_management_view, name='admin_schedule_management'),
@@ -61,6 +62,10 @@ urlpatterns = [
          name='admin_list_student_in_classroom'),
     path('admin/list-student-in-class-management', admin_views.add_student_into_classroom,
          name='add_student_into_classroom'),
+    path('admin/list-student-in-class-management/delete/<int:id_classroom>/<int:id_student>', admin_views.admin_list_student_in_class_delete,
+         name='admin_list_student_in_class_delete'),
+    path('admin/list-student-in-class-management/delete-all/<int:id_classroom>', admin_views.admin_list_student_in_class_delete_all,
+         name='admin_list_student_in_class_delete_all'),
 
     # Lecturer
     path('lecturer/dashboard', lecturer_views.lecturer_dashboard_view, name='lecturer_dashboard'),

@@ -109,7 +109,7 @@ def main(id_subject):
     phase_train_placeholder = graph.get_tensor_by_name("phase_train:0")
 
 
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
 
     global justscanned
     global pause_cnt
