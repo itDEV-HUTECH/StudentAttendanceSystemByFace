@@ -448,18 +448,16 @@ def admin_list_student_in_classroom_view(request, classroom_id):
     page_number = request.GET.get('page')
     paginator = Paginator(students_in_class, student_per_page)
     page = paginator.get_page(page_number)
-    context = {'students_in_class': page}
+    context = {'students_in_class': page, 'classroom_id': classroom_id,}
     return render(request, 'admin/admin_list_student_classroom_management.html', context)
 
 
 @admin_required
-def add_student_into_classroom(request):
+def admin_list_student_in_class_add_list(request,classroom_id):
     if request.method == 'POST':
         file_path = request.POST.get('file_path')
-        id_classroom = request.POST.get('id_classroom')
-
         try:
-            classroom = Classroom.objects.get(id_classroom=id_classroom)
+            classroom = Classroom.objects.get(id_classroom=classroom_id)
         except Classroom.DoesNotExist:
             return render(request, 'error/error_template.html', {'error_message': 'Lớp học không tồn tại.'})
 
@@ -478,14 +476,14 @@ def add_student_into_classroom(request):
                 if not StudentClassDetails.objects.filter(id_classroom=classroom, id_student=student).exists():
                     student_class_detail = StudentClassDetails(id_classroom=classroom, id_student=student)
                     student_class_detail.save()
-
+        return redirect('admin_list_student_in_classroom', classroom_id)
     return render(request, 'admin/admin_list_student_classroom_management.html')
 
 
 @admin_required
 def admin_list_student_in_class_add(request,classroom_id):
     if request.method == 'POST':
-        id_student = request.POST['id_student']
+        id_student = request.POST.get('id_student')
         if StudentClassDetails.objects.filter(id_classroom_id=classroom_id, id_student_id=id_student).exists():
             messages.warning(request, 'Sinh viên đã tồn tại trong lớp học.')
         else:

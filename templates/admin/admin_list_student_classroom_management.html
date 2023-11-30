@@ -16,31 +16,16 @@
                     <a href="#" class="btn btn-success mdi mdi-account-plus text-white" id="deleteAllStudent"
                        onclick="confirmDeleteAllStudentInClass({{ student.id_classroom.id_classroom }})">Xóa tất cả sinh viên
                     </a>
-                    <a href="{% url 'admin_list_student_in_class_add' classroom_id=student.id_classroom.id_classroom%}" class="btn btn-success mdi mdi-account-plus text-white"
-                       id="addStudentInClass" >Thêm sinh viên
-                    </a>
                 {% endif %}
             {% endfor %}
-            <form id="addStudentIntoClassroomForm" method="POST" action="{% url 'add_student_into_classroom' %}">
-                {% csrf_token %}
-                <div class=" col-6 mb-3 form-group row d-flex justify-content-center">
-                    <label for="id_classroom" class="col-sm-3 control-label col-form-label">Nhập ID lớp học:</label>
-                    <div class="col-sm-9">
-                        <div class="input-group">
-                            <input type="text" id="id_classroom" name="id_classroom">
-                        </div>
-                    </div>
-                    <label for="file_path" class="col-sm-3 control-label col-form-label">Chọn file:</label>
-                    <div class="col-sm-9">
-                        <div class="input-group">
-                            <input type="file" id="file_path" name="file_path">
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" onclick="addStudents()"
-                        class="col-2 btn btn-success mdi mdi-account-plus text-white">Thêm danh sách sinh viên
-                </button>
-            </form>
+            <a href="{% url 'admin_list_student_in_class_add' classroom_id=classroom_id %}"
+               class="btn btn-success mdi mdi-account-plus text-white"
+               id="addStudentInClass" >Thêm sinh viên
+            </a>
+            <a  href="{% url 'admin_list_student_in_class_add_list' classroom_id=classroom_id %}"
+                id="addListStudentInClass"
+                class="btn btn-success mdi mdi-account-plus text-white">Thêm danh sách sinh viên
+            </a>
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -122,6 +107,7 @@
     {% include 'admin/modal-popup/popup_delete_student_in_class.html' %}
     {% include 'admin/modal-popup/popup_delete_all_student_in_class.html' %}
     {% include 'admin/modal-popup/popup_add_student_in_class.html' %}
+    {% include 'admin/modal-popup/popup_add_list_students_in_class.html' %}
 {% endblock %}
 
 {% block js %}

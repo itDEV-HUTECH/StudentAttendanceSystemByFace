@@ -6,9 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {% for student in students_in_class %}
-                    {% if forloop.first %}
-                <form id="addNewStudentInClassForm" method="POST" action="{% url 'admin_list_student_in_class_add' classroom_id=student.id_classroom.id_classroom %}">
+                <form id="addNewStudentInClassForm" method="POST" action="{% url 'admin_list_student_in_class_add' classroom_id=classroom_id %}">
                     {% csrf_token %}
                     <div class="mb-3 form-group row d-flex justify-content-center">
                         <label for="id_student" class="col-sm-3 control-label col-form-label">Tên lớp học</label>
@@ -24,8 +22,6 @@
                         <button type="submit" class="btn btn-success text-white">Thêm</button>
                     </div>
                 </form>
-                {% endif %}
-            {% endfor %}
             </div>
         </div>
     </div>
