@@ -249,16 +249,10 @@ def generate_frames(model_dir, device_id):
     cv2.destroyAllWindows()
 
 
-@gzip.gzip_page
-def live_video_feed(request):
-    model_dir = "main/resources/anti_spoof_models"
-    device_id = 0
-    return StreamingHttpResponse(generate_frames(model_dir, device_id),
-                                 content_type="multipart/x-mixed-replace;boundary=frame")
-
 
 @gzip.gzip_page
 def live_video_feed2(request, classroom_id):
+    print(classroom_id)
     return StreamingHttpResponse(main(classroom_id),
                                  content_type="multipart/x-mixed-replace; boundary=frame")
 
