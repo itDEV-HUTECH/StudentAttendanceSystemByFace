@@ -486,10 +486,13 @@ def add_student_into_classroom(request):
 def admin_list_student_in_class_add(request,classroom_id):
     if request.method == 'POST':
         id_student = request.POST['id_student']
-        student_in_class = StudentClassDetails(id_classroom_id=classroom_id,
+        if StudentClassDetails.objects.filter(id_classroom_id=classroom_id, id_student_id=id_student).exists():
+            messages.warning(request, 'Sinh viên đã tồn tại trong lớp học.')
+        else:
+            student_in_class = StudentClassDetails(id_classroom_id=classroom_id,
                                                id_student_id=id_student)
-        student_in_class.save()
-        messages.success(request, 'Thêm sinh viên vào lớp học thành công.')
+            student_in_class.save()
+            messages.success(request, 'Thêm sinh viên vào lớp học thành công.')
         return redirect('admin_list_student_in_classroom', classroom_id)
     return render(request, 'admin/modal-popup/popup_add_student_in_class.html')
 
