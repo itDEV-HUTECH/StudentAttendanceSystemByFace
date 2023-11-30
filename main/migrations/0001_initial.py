@@ -14,6 +14,28 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='BlogPost',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=250, verbose_name='Blog Title')),
+                ('body', ckeditor_uploader.fields.RichTextUploadingField()),
+                ('type', models.CharField(choices=[('SV', 'Student'), ('GV', 'Teacher'), ('ALL', 'All')], default='ALL',
+                                          max_length=3, verbose_name='Type')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Classroom',
+            fields=[
+                ('id_classroom', models.BigAutoField(primary_key=True, serialize=False)),
+                ('name', models.TextField()),
+                ('begin_date', models.DateField()),
+                ('end_date', models.DateField()),
+                ('day_of_week_begin', models.IntegerField()),
+                ('begin_time', models.TimeField()),
+                ('end_time', models.TimeField()),
+            ],
+        ),
+        migrations.CreateModel(
             name='Role',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
