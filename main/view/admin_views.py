@@ -175,6 +175,8 @@ def admin_student_add(request):
         phone = request.POST['phone']
         address = request.POST['address']
         birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
+        print(request.POST['student_name_edit'])
+
         PathImageFolder = request.POST['PathImageFolder']
         password = make_password(request.POST['id_student'])
         student = StudentInfo(id_student=id_student,
@@ -201,6 +203,7 @@ def admin_student_edit(request, id_student):
         student.address = request.POST['address_edit']
         student.birthday = datetime.strptime(request.POST['birthday_edit'], '%d/%m/%Y').date()
         student.PathImageFolder = request.POST['PathImageFolder_edit']
+        print(request.POST['student_name_edit'])
         student.save()
         messages.success(request, 'Thay đổi thông tin thành công.')
         return redirect('admin_student_management')
