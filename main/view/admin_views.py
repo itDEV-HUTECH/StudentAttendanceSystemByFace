@@ -112,13 +112,6 @@ def admin_notification_view(request):
 
 
 @admin_required
-def dashboard_add_news_view(request):
-    return render(request, 'admin/admin_add_news.html')
-
-
-
-
-@admin_required
 def admin_profile_view(request):
     id_admin = request.session['id_staff']
     admin = StaffInfo.objects.get(id_staff=id_admin)
@@ -212,6 +205,8 @@ def admin_student_edit(request, id_student):
         messages.success(request, 'Thay đổi thông tin thành công.')
         return redirect('admin_student_management')
     return render(request, 'admin/modal-popup/popup_edit_student.html', context)
+
+
 @admin_required
 def admin_student_capture(request, id_student):
     student = StudentInfo.objects.get(id_student=id_student)
@@ -246,6 +241,7 @@ def admin_student_delete(request, id_student):
         print(f"Folder '{folder_path}' does not exist.")
 
     return redirect('admin_student_management')
+
 
 @admin_required
 def admin_student_get_info(request, id_student):
@@ -439,6 +435,7 @@ def admin_list_classroom_student_view(request):
 
     return render(request, 'admin/admin_list_classroom_student_management.html', context)
 
+
 @admin_required
 def admin_list_student_in_classroom_view(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
@@ -450,10 +447,11 @@ def admin_list_student_in_classroom_view(request, classroom_id):
     context = {'students_in_class': page}
     return render(request, 'admin/admin_list_student_classroom_management.html', context)
 
+
 @admin_required
 def add_student_into_classroom(request):
     if request.method == 'POST':
-        file_path = request.FILES.get('file_path')
+        file_path = request.POST.get('file_path')
         id_classroom = request.POST.get('id_classroom')
 
         try:
@@ -479,16 +477,17 @@ def add_student_into_classroom(request):
 
     return render(request, 'admin/admin_list_student_classroom_management.html')
 
+
 @admin_required
 def admin_list_student_in_class_delete(request, id_student, id_classroom):
-    StudentClassDetails.objects.filter(id_student_id=id_student , id_classroom_id=id_classroom).delete()
-    return redirect('admin_list_student_in_classroom' ,id_classroom )
+    StudentClassDetails.objects.filter(id_student_id=id_student, id_classroom_id=id_classroom).delete()
+    return redirect('admin_list_student_in_classroom', id_classroom)
 
 
 @admin_required
 def admin_list_student_in_class_delete_all(request, id_classroom):
     StudentClassDetails.objects.filter(id_classroom_id=id_classroom).delete()
-    return redirect('admin_list_student_in_classroom' ,id_classroom )
+    return redirect('admin_list_student_in_classroom', id_classroom)
 
 
 def capture(id, request):
