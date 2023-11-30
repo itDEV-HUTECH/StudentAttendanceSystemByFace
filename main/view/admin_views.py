@@ -430,7 +430,6 @@ def admin_schedule_get_info(request, id_classroom):
 def admin_list_classroom_student_view(request):
     classroom_per_page = 10
     page_number = request.GET.get('page')
-    # list_classrooms = Classroom.objects.annotate(student_count=Count('studentclassdetails__id_student'))
     search_query = request.GET.get('q', '')
     list_classrooms = Classroom.objects.filter(
         Q(id_classroom__icontains=search_query) | Q(name__icontains=search_query)
@@ -482,6 +481,17 @@ def add_student_into_classroom(request):
 
     return render(request, 'admin/admin_list_student_classroom_management.html')
 
+
+@admin_required
+def admin_list_student_in_class_add(request,classroom_id):
+    if request.method == 'POST':
+        id_student = request.POST['id_student']
+        student_in_class = StudentClassDetails(id_classroom_id=classroom_id,
+                                               id_student_id=id_student)
+        student_in_class.save()
+        messages.success(request, 'Thêm sinh viên vào lớp học thành công.')
+        return redirect('admin_list_student_in_classroom', classroom_id)
+    return render(request, 'admin/modal-popup/popup_add_student_in_class.html')
 
 @admin_required
 def admin_list_student_in_class_delete(request, id_student, id_classroom):
