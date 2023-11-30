@@ -60,10 +60,13 @@ urlpatterns = [
          name='admin_list_classroom_student'),
     path('admin/list-student-in-class-management/<int:classroom_id>', admin_views.admin_list_student_in_classroom_view,
          name='admin_list_student_in_classroom'),
+    path('admin/list-student-in-class-management', admin_views.add_student_into_classroom,
+         name='add_student_into_classroom'),
     path('admin/list-student-in-class-management/delete/<int:id_classroom>/<int:id_student>', admin_views.admin_list_student_in_class_delete,
          name='admin_list_student_in_class_delete'),
     path('admin/list-student-in-class-management/delete-all/<int:id_classroom>', admin_views.admin_list_student_in_class_delete_all,
          name='admin_list_student_in_class_delete_all'),
+
     # Lecturer
     path('lecturer/dashboard', lecturer_views.lecturer_dashboard_view, name='lecturer_dashboard'),
     path('lecturer/schedule', lecturer_views.lecturer_schedule_view, name='lecturer_schedule'),
@@ -76,7 +79,6 @@ urlpatterns = [
          name='lecturer_mark_attendance_by_face'),
     path('lecturer/attendance-history', lecturer_views.lecturer_attendance_history_view,
          name='lecturer_attendance_history'),
-    path('lecturer/live-video-feed', lecturer_views.live_video_feed, name='live_video_feed'),
     path('lecturer/live-video-feed2/<int:classroom_id>', lecturer_views.live_video_feed2, name='live_video_feed2'),
     path('lecturer/list-classroom', lecturer_views.lecturer_list_classroom_view,
          name='lecturer_list_classroom'),

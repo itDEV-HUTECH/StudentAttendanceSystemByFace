@@ -2,6 +2,7 @@ import math
 import os
 import pickle
 from datetime import datetime
+import openpyxl
 
 import cv2
 import numpy as np
@@ -11,6 +12,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
 from django.core.paginator import Paginator
 from django.db.models import Count , Q
+from django.db import transaction
 from django.http import JsonResponse
 from django.http import StreamingHttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -29,6 +31,7 @@ from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom, Stud
 from main.src.anti_spoof_predict import AntiSpoofPredict
 from main.models import BlogPost
 from django.views import View
+from django.shortcuts import render, redirect
 
 color = (255, 0, 0)
 thickness = 2
@@ -110,13 +113,6 @@ def admin_notification_view(request):
 
 
 @admin_required
-def dashboard_add_news_view(request):
-    return render(request, 'admin/admin_add_news.html')
-
-
-
-
-@admin_required
 def admin_profile_view(request):
     id_admin = request.session['id_staff']
     admin = StaffInfo.objects.get(id_staff=id_admin)
@@ -180,6 +176,8 @@ def admin_student_add(request):
         phone = request.POST['phone']
         address = request.POST['address']
         birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
+        print(request.POST['student_name_edit'])
+
         PathImageFolder = request.POST['PathImageFolder']
         password = make_password(request.POST['id_student'])
         student = StudentInfo(id_student=id_student,
@@ -206,10 +204,13 @@ def admin_student_edit(request, id_student):
         student.address = request.POST['address_edit']
         student.birthday = datetime.strptime(request.POST['birthday_edit'], '%d/%m/%Y').date()
         student.PathImageFolder = request.POST['PathImageFolder_edit']
+        print(request.POST['student_name_edit'])
         student.save()
         messages.success(request, 'Thay đổi thông tin thành công.')
         return redirect('admin_student_management')
     return render(request, 'admin/modal-popup/popup_edit_student.html', context)
+
+
 @admin_required
 def admin_student_capture(request, id_student):
     student = StudentInfo.objects.get(id_student=id_student)
@@ -244,6 +245,7 @@ def admin_student_delete(request, id_student):
         print(f"Folder '{folder_path}' does not exist.")
 
     return redirect('admin_student_management')
+
 
 @admin_required
 def admin_student_get_info(request, id_student):
@@ -452,15 +454,45 @@ def admin_list_student_in_classroom_view(request, classroom_id):
 
 
 @admin_required
+def add_student_into_classroom(request):
+    if request.method == 'POST':
+        file_path = request.POST.get('file_path')
+        id_classroom = request.POST.get('id_classroom')
+
+        try:
+            classroom = Classroom.objects.get(id_classroom=id_classroom)
+        except Classroom.DoesNotExist:
+            return render(request, 'error/error_template.html', {'error_message': 'Lớp học không tồn tại.'})
+
+        workbook = openpyxl.load_workbook(file_path)
+        sheet = workbook.active
+        list_id_student = [row[0].value for row in sheet.iter_rows(min_row=2, max_col=1)]
+
+        with transaction.atomic():
+            for id_student in list_id_student:
+                try:
+                    student = StudentInfo.objects.get(id_student=id_student)
+                except StudentInfo.DoesNotExist:
+                    student = StudentInfo(id_student=id_student)
+                    student.save()
+
+                if not StudentClassDetails.objects.filter(id_classroom=classroom, id_student=student).exists():
+                    student_class_detail = StudentClassDetails(id_classroom=classroom, id_student=student)
+                    student_class_detail.save()
+
+    return render(request, 'admin/admin_list_student_classroom_management.html')
+
+
+@admin_required
 def admin_list_student_in_class_delete(request, id_student, id_classroom):
-    StudentClassDetails.objects.filter(id_student_id=id_student , id_classroom_id=id_classroom).delete()
-    return redirect('admin_list_student_in_classroom' ,id_classroom )
+    StudentClassDetails.objects.filter(id_student_id=id_student, id_classroom_id=id_classroom).delete()
+    return redirect('admin_list_student_in_classroom', id_classroom)
 
 
 @admin_required
 def admin_list_student_in_class_delete_all(request, id_classroom):
     StudentClassDetails.objects.filter(id_classroom_id=id_classroom).delete()
-    return redirect('admin_list_student_in_classroom' ,id_classroom )
+    return redirect('admin_list_student_in_classroom', id_classroom)
 
 
 def capture(id, request):
