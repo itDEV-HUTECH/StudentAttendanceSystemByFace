@@ -13,8 +13,9 @@
             <h3 class="card-title mb-0">Danh sách sinh viên</h3>
         </div>
         <div class="card-body">
-            {% csrf_token %}
+
             <form id="addStudentIntoClassroomForm" method="POST" action="{% url 'add_student_into_classroom' %}">
+                {% csrf_token %}
                 <div class= " col-6 mb-3 form-group row d-flex justify-content-center">
                     <label for="id_classroom" class="col-sm-3 control-label col-form-label">Nhập ID lớp học:</label>
                     <div class="col-sm-9">
@@ -29,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" onclick="addStudents()" class="col-2 btn btn-success mdi mdi-account-plus text-white">Thêm sinh viên</button>
+                <button type="submit" onclick="addStudents()" class="col-2 btn btn-success mdi mdi-account-plus text-white">Thêm sinh viên</button>
             </form>
             <div id="result"></div>
         </div>
