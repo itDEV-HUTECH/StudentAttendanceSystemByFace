@@ -20,7 +20,24 @@
                 onclick="confirmDeleteAllStudentInClass({{student.id_classroom.id_classroom}})">Xóa tất cả sinh viên</a>
             {% endif %}
         {% endfor %}
-
+            <form id="addStudentIntoClassroomForm" method="POST" action="{% url 'add_student_into_classroom' %}">
+                {% csrf_token %}
+                <div class= " col-6 mb-3 form-group row d-flex justify-content-center">
+                    <label for="id_classroom" class="col-sm-3 control-label col-form-label">Nhập ID lớp học:</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input type="text" id="id_classroom" name="id_classroom">
+                        </div>
+                    </div>
+                    <label for="file_path" class="col-sm-3 control-label col-form-label">Chọn file:</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input type="file" id="file_path" name="file_path">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" onclick="addStudents()" class="col-2 btn btn-success mdi mdi-account-plus text-white">Thêm sinh viên</button>
+            </form>
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -32,24 +49,30 @@
                     <th class="text-center" scope="col">Số điện thoại</th>
                     <th scope="col">Địa chỉ</th>
                     <th class="text-center" scope="col">Ngày sinh</th>
+                    <th class="text-center" scope="col">Đường dẫn ảnh</th>
                     <th class="text-center" scope="col">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody class="customtable">
                 {% for student in students_in_class %}
                     <tr>
-                        <td class="text-center">{{ student.id_student.id_student }}</td>
+
+                        <td class="text-center">{{ student.id_student.id_student}}</td>
                         <td>{{ student.id_student.student_name }}</td>
                         <td>{{ student.id_student.email }}</td>
                         <td class="text-center">{{ student.id_student.phone }}</td>
                         <td>{{ student.id_student.address }}</td>
                         <td class="text-center">{{ student.id_student.birthday|date:"d/m/Y" }}</td>
+                        <td class="text-center">{{ student.id_student.PathImageFolder }}</td>
                         <td class="text-center">
                             <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
                                onclick="confirmDeleteStudentInClass({{ student.id_student.id_student }},{{student.id_classroom.id_classroom}})">Xóa</a>
 
+                            <a href="#" class="btn btn-primary btn-sm mdi mdi-account-edit"
+                               onclick="editStudent({{ student.id_student }})">Sửa</a>
                         </td>
                     </tr>
+
                 {% empty %}
                     <tr class="text-center text-danger">
                         <td colspan="10"><strong>Không tồn tại sinh viên nào trong cơ sở dữ liệu!</strong></td>
@@ -115,5 +138,20 @@
             $('#confirmDeleteAllModal').modal('show');
         }
 
+    </script>
+{% endblock %}
+
+{% block js %}
+    <script>
+    function addStudents() {
+        var file_path = document.getElementById('file_path');
+        if (file_path.files.length > 0) {
+            // Lấy đường dẫn của tệp tin
+            var filePath = file_path.value;
+            console.log("Đường dẫn tệp tin: " + filePath);
+        } else {
+            alert("Vui lòng chọn một tệp tin.");
+        }
+    }
     </script>
 {% endblock %}

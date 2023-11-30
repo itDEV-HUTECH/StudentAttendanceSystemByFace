@@ -2,6 +2,7 @@ import math
 import os
 import pickle
 from datetime import datetime
+import openpyxl
 
 import cv2
 import numpy as np
@@ -10,6 +11,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
 from django.core.paginator import Paginator
+from django.db import transaction
 from django.http import JsonResponse
 from django.http import StreamingHttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -28,6 +30,7 @@ from main.models import StaffInfo, StudentInfo, StaffRole, Role, Classroom, Stud
 from main.src.anti_spoof_predict import AntiSpoofPredict
 from main.models import BlogPost
 from django.views import View
+from django.shortcuts import render, redirect
 
 color = (255, 0, 0)
 thickness = 2
@@ -436,7 +439,6 @@ def admin_list_classroom_student_view(request):
 
     return render(request, 'admin/admin_list_classroom_student_management.html', context)
 
-
 @admin_required
 def admin_list_student_in_classroom_view(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
@@ -448,6 +450,34 @@ def admin_list_student_in_classroom_view(request, classroom_id):
     context = {'students_in_class': page}
     return render(request, 'admin/admin_list_student_classroom_management.html', context)
 
+@admin_required
+def add_student_into_classroom(request):
+    if request.method == 'POST':
+        file_path = request.FILES.get('file_path')
+        id_classroom = request.POST.get('id_classroom')
+
+        try:
+            classroom = Classroom.objects.get(id_classroom=id_classroom)
+        except Classroom.DoesNotExist:
+            return render(request, 'error/error_template.html', {'error_message': 'Lớp học không tồn tại.'})
+
+        workbook = openpyxl.load_workbook(file_path)
+        sheet = workbook.active
+        list_id_student = [row[0].value for row in sheet.iter_rows(min_row=2, max_col=1)]
+
+        with transaction.atomic():
+            for id_student in list_id_student:
+                try:
+                    student = StudentInfo.objects.get(id_student=id_student)
+                except StudentInfo.DoesNotExist:
+                    student = StudentInfo(id_student=id_student)
+                    student.save()
+
+                if not StudentClassDetails.objects.filter(id_classroom=classroom, id_student=student).exists():
+                    student_class_detail = StudentClassDetails(id_classroom=classroom, id_student=student)
+                    student_class_detail.save()
+
+    return render(request, 'admin/admin_list_student_classroom_management.html')
 
 @admin_required
 def admin_list_student_in_class_delete(request, id_student, id_classroom):
