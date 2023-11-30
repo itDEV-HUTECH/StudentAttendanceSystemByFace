@@ -9,55 +9,55 @@
                 <form method="POST" class="editStudentForm" id="editStudentForm" action="">
                     {% csrf_token %}
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="id_student" class="col-sm-2 control-label col-form-label">Mã sinh viên</label>
+                        <label for="id_student_edit" class="col-sm-2 control-label col-form-label">Mã sinh viên</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="number" class="form-control" name="id_student" id="id_student" required>
+                                <input type="number" class="form-control" name="id_student_edit" id="id_student_edit" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="student_name" class="col-sm-2 control-label col-form-label">Tên sinh viên</label>
+                        <label for="student_name_edit" class="col-sm-2 control-label col-form-label">Tên sinh viên</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="student_name" id="student_name" required>
+                                <input type="text" class="form-control" name="student_name_edit" id="student_name_edit" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="email" class="col-sm-2 control-label col-form-label">Email</label>
+                        <label for="email_edit" class="col-sm-2 control-label col-form-label">Email</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="email" id="email" required>
+                                <input type="text" class="form-control" name="email_edit" id="email_edit" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="phone" class="col-sm-2 control-label col-form-label">Số điện thoại</label>
+                        <label for="phone_edit" class="col-sm-2 control-label col-form-label">Số điện thoại</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="phone" id="phone" required>
+                                <input type="text" class="form-control" name="phone_edit" id="phone_edit" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="address" class="col-sm-2 control-label col-form-label">Địa chỉ</label>
+                        <label for="address_edit" class="col-sm-2 control-label col-form-label">Địa chỉ</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="address" id="address" required>
+                                <input type="text" class="form-control" name="address_edit" id="address_edit" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="birthday" class="col-sm-2 control-label col-form-label">Ngày sinh</label>
+                        <label for="birthday_edit" class="col-sm-2 control-label col-form-label">Ngày sinh</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" id="birthday" name="birthday"
+                                <input type="text" class="form-control" id="birthday_edit" name="birthday_edit"
                                        placeholder="dd/mm/yyyy"/>
                                 <div class="input-group-append">
                                     <span class="input-group-text h-100"><i class="mdi mdi-calendar"></i></span>
@@ -67,17 +67,17 @@
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="PathImageFolder"
+                        <label for="PathImageFolder_edit"
                                class="col-sm-2 control-label col-form-label">PathImageFolder</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="PathImageFolder" id="PathImageFolder"
+                                <input type="text" class="form-control" name="PathImageFolder_edit" id="PathImageFolder_edit"
                                        required readonly>
                             </div>
                         </div>
                     </div>
 
-                    <img id="video-feed" style="width:100%"
+                    <img id="video-feed_edit" style="width:100%"
                          src="https://www.womanthology.co.uk/wp-content/uploads/2017/06/facescan.gif"
                          alt="Live Video Feed"/>
 
