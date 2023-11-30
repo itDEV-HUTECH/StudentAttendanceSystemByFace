@@ -20,12 +20,10 @@ import warnings
 with warnings.catch_warnings():
     warnings.simplefilter("ignore")
 
-
-
-
 model_test = AntiSpoofPredict(0)
 image_cropper = CropImage()
 model_dir = "main/resources/anti_spoof_models"
+
 
 # Function to draw a progress bar
 
@@ -107,7 +105,6 @@ def main(id_subject):
     images_placeholder = graph.get_tensor_by_name("input:0")
     embeddings = graph.get_tensor_by_name("embeddings:0")
     phase_train_placeholder = graph.get_tensor_by_name("phase_train:0")
-
 
     cap = cv2.VideoCapture(0)
 
@@ -226,11 +223,8 @@ def main(id_subject):
                         frame,
                         result_text,
                         (image_bbox[0], image_bbox[1]),
-                        cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, color,thickness=1,
-                                        lineType=2)
-
-
-
+                        cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, color, thickness=1,
+                        lineType=2)
 
         ret, buffer = cv2.imencode('.jpg', frame)
         frame = buffer.tobytes()
