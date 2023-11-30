@@ -113,24 +113,6 @@ def dashboard_add_news_view(request):
     return render(request, 'admin/admin_add_news.html')
 
 
-@admin_required
-def student_capture(request):
-    if request.method == 'POST':
-        id_student = request.POST.get('id_student')
-        student_name = request.POST.get('student_name')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
-        address = request.POST.get('address')
-        birthday = request.POST.get('birthday')
-        PathImageFolder = request.POST.get('PathImageFolder')
-
-        # Process the data and save it to the database
-
-        # Return a response, e.g., a success message
-        return JsonResponse({'message': 'Student added successfully'})
-
-    # Handle other HTTP methods if necessary
-    return JsonResponse({'error': 'Invalid request method'})
 
 
 @admin_required
@@ -217,23 +199,50 @@ def admin_student_edit(request, id_student):
     student = StudentInfo.objects.get(id_student=id_student)
     context = {'student': student}
     if request.method == 'POST':
-        student.student_name = request.POST['student_name']
-        student.email = request.POST['email']
-        student.phone = request.POST['phone']
-        student.address = request.POST['address']
-        student.birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
-        student.PathImageFolder = request.POST['PathImageFolder']
+        student.student_name = request.POST['student_name_edit']
+        student.email = request.POST['email_edit']
+        student.phone = request.POST['phone_edit']
+        student.address = request.POST['address_edit']
+        student.birthday = datetime.strptime(request.POST['birthday_edit'], '%d/%m/%Y').date()
+        student.PathImageFolder = request.POST['PathImageFolder_edit']
         student.save()
         messages.success(request, 'Thay đổi thông tin thành công.')
         return redirect('admin_student_management')
     return render(request, 'admin/modal-popup/popup_edit_student.html', context)
+@admin_required
+def admin_student_capture(request, id_student):
+    student = StudentInfo.objects.get(id_student=id_student)
+    context = {'student': student}
+    if request.method == 'POST':
+        student.student_name = request.POST['student_name_capture']
+        student.email = request.POST['email_capture']
+        student.phone = request.POST['phone_capture']
+        student.address = request.POST['address_capture']
+        student.birthday = datetime.strptime(request.POST['birthday_capture'], '%d/%m/%Y').date()
+        student.PathImageFolder = request.POST['PathImageFolder_capture']
+        student.save()
+        messages.success(request, 'Thay đổi thông tin thành công.')
+        return redirect('admin_student_management')
+    return render(request, 'admin/modal-popup/popup_capture_student.html', context)
 
 
 @admin_required
 def admin_student_delete(request, id_student):
     StudentInfo.objects.filter(id_student=id_student).delete()
-    return redirect('admin_student_management')
 
+    # Directory to check for existence and delete
+    folder_path = f"./main/Dataset/FaceData/processed/{id_student}"
+
+    # Check if the directory exists
+    if os.path.exists(folder_path) and os.path.isdir(folder_path):
+        # Remove the directory and its contents recursively
+        import shutil
+        shutil.rmtree(folder_path)
+        print(f"Folder '{folder_path}' and its contents deleted.")
+    else:
+        print(f"Folder '{folder_path}' does not exist.")
+
+    return redirect('admin_student_management')
 
 @admin_required
 def admin_student_get_info(request, id_student):
