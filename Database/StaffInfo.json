@@ -1,75 +1,281 @@
 [
-	{
-		"id_staff": "111",
-		"staff_name": "Giảng viên 1",
-		"email": "gv1@gmail.com",
-		"phone": "111",
-		"address": "111",
-		"birthday": "2000-01-02",
-		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
-	},
-	{
-		"id_staff": "222",
-		"staff_name": "Giảng viên 2",
-		"email": "gv2@gmail.com",
-		"phone": "222",
-		"address": "222",
-		"birthday": "2000-01-01",
-		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
-	},
-	{
-		"id_staff": "333",
-		"staff_name": "Nhân viên 3",
-		"email": "nv3@gmail.com",
-		"phone": "333",
-		"address": "333",
-		"birthday": "1990-01-01",
-		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
-	},
-	{
-		"id_staff": "444",
-		"staff_name": "Nhân viên 4",
-		"email": "nv4@gmail.com",
-		"phone": "444",
-		"address": "444",
-		"birthday": "1990-01-01",
-		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
-	},
-	{
-		"id_staff": "admin",
-		"staff_name": "admin",
-		"email": "admin@gmail.com",
-		"phone": "555",
-		"address": "555",
-		"birthday": "1999-01-01",
-		"password": "pbkdf2_sha256$600000$wM6h0bb5KVH63AcsrM3XWW$0A6WezDorkE+rY1jOwzXe1w0D89H7SeaB3Cno9yevak="
-	},
-	{
-		"id_staff": "1111",
-		"staff_name": "Giảng viên 1",
-		"email": "gv11@gmail.com",
-		"phone": "111",
-		"address": "111",
-		"birthday": "2000-01-02",
-		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
-	},
-	{
-		"id_staff": "2222",
-		"staff_name": "Giảng viên 2",
-		"email": "gv22@gmail.com",
-		"phone": "222",
-		"address": "222",
-		"birthday": "2000-01-01",
-		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
-	},
-	{
-		"id_staff": "3333",
-		"staff_name": "Nhân viên 3",
-		"email": "nv33@gmail.com",
-		"phone": "333",
-		"address": "333",
-		"birthday": "1990-01-01",
-		"password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
-	}
-
+  {
+    "id_staff": 2489601811,
+    "staff_name": "Đỗ Thị I",
+    "email": "lecturer18@hutech.edu.vn",
+    "phone": "0706068263",
+    "address": "Đồng Nai",
+    "birthday": "1984-10-13",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2556948194,
+    "staff_name": "Đặng Thị G",
+    "email": "lecturer9@hutech.edu.vn",
+    "phone": "0706068272",
+    "address": "Khánh Hòa",
+    "birthday": "1999-09-01",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2949769422,
+    "staff_name": "Lê Văn C",
+    "email": "lecturer18@hutech.edu.vn",
+    "phone": "0706068270",
+    "address": "Bình Dương",
+    "birthday": "1984-05-05",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2516956384,
+    "staff_name": "Trần Thị B",
+    "email": "lecturer17@hutech.edu.vn",
+    "phone": "0706068263",
+    "address": "Hải Phòng",
+    "birthday": "1999-04-17",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2917627742,
+    "staff_name": "Đỗ Thị I",
+    "email": "lecturer5@hutech.edu.vn",
+    "phone": "0706068265",
+    "address": "Hải Phòng",
+    "birthday": "1992-01-03",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2013497810,
+    "staff_name": "Phạm Minh D",
+    "email": "lecturer14@hutech.edu.vn",
+    "phone": "0706068264",
+    "address": "Khánh Hòa",
+    "birthday": "1984-02-04",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2158643935,
+    "staff_name": "Đỗ Thị I",
+    "email": "lecturer13@hutech.edu.vn",
+    "phone": "0706068263",
+    "address": "Bình Dương",
+    "birthday": "1995-09-14",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2378035512,
+    "staff_name": "Bùi Văn J",
+    "email": "lecturer10@hutech.edu.vn",
+    "phone": "0706068277",
+    "address": "Hồ Chí Minh",
+    "birthday": "1993-10-27",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2651766739,
+    "staff_name": "Hoàng Thị E",
+    "email": "lecturer4@hutech.edu.vn",
+    "phone": "0706068277",
+    "address": "Cần Thơ",
+    "birthday": "1995-08-29",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2836954544,
+    "staff_name": "Phạm Minh D",
+    "email": "lecturer7@hutech.edu.vn",
+    "phone": "0706068266",
+    "address": "Cần Thơ",
+    "birthday": "1997-06-17",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2908942576,
+    "staff_name": "Lê Văn C",
+    "email": "lecturer10@hutech.edu.vn",
+    "phone": "0706068264",
+    "address": "Hồ Chí Minh",
+    "birthday": "1989-09-21",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2918594346,
+    "staff_name": "Đặng Thị G",
+    "email": "lecturer13@hutech.edu.vn",
+    "phone": "0706068265",
+    "address": "Hải Phòng",
+    "birthday": "1988-08-20",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2351521532,
+    "staff_name": "Huỳnh Văn F",
+    "email": "lecturer2@hutech.edu.vn",
+    "phone": "0706068267",
+    "address": "Cần Thơ",
+    "birthday": "1991-03-13",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2258464745,
+    "staff_name": "Hoàng Thị E",
+    "email": "lecturer15@hutech.edu.vn",
+    "phone": "0706068275",
+    "address": "Hà Nội",
+    "birthday": "1997-04-24",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2924610653,
+    "staff_name": "Lê Văn C",
+    "email": "lecturer9@hutech.edu.vn",
+    "phone": "0706068264",
+    "address": "Bình Dương",
+    "birthday": "1995-04-26",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2357175379,
+    "staff_name": "Huỳnh Văn F",
+    "email": "lecturer15@hutech.edu.vn",
+    "phone": "0706068266",
+    "address": "Đà Nẵng",
+    "birthday": "1992-01-27",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2851022109,
+    "staff_name": "Bùi Văn J",
+    "email": "lecturer1@hutech.edu.vn",
+    "phone": "0706068262",
+    "address": "Lâm Đồng",
+    "birthday": "1999-07-28",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2322385418,
+    "staff_name": "Đỗ Thị I",
+    "email": "lecturer12@hutech.edu.vn",
+    "phone": "0706068269",
+    "address": "Khánh Hòa",
+    "birthday": "1992-08-11",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2446003221,
+    "staff_name": "Bùi Văn J",
+    "email": "lecturer11@hutech.edu.vn",
+    "phone": "0706068272",
+    "address": "Hà Nội",
+    "birthday": "1980-08-29",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 2734714914,
+    "staff_name": "Nguyễn Văn A",
+    "email": "lecturer2@hutech.edu.vn",
+    "phone": "0706068276",
+    "address": "Bình Dương",
+    "birthday": "1985-01-17",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 1726973900,
+    "staff_name": "Huỳnh Văn F",
+    "email": "staff20@hutech.edu.vn",
+    "phone": "0706068274",
+    "address": "Cần Thơ",
+    "birthday": "1999-05-06",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 1590670504,
+    "staff_name": "Trần Thị B",
+    "email": "staff1@hutech.edu.vn",
+    "phone": "0706068266",
+    "address": "Hà Nội",
+    "birthday": "1998-08-17",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 1371783591,
+    "staff_name": "Nguyễn Văn A",
+    "email": "staff8@hutech.edu.vn",
+    "phone": "0706068272",
+    "address": "Khánh Hòa",
+    "birthday": "1985-02-11",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 1250767097,
+    "staff_name": "Đỗ Thị I",
+    "email": "staff20@hutech.edu.vn",
+    "phone": "0706068270",
+    "address": "Cần Thơ",
+    "birthday": "1996-05-07",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 1421837284,
+    "staff_name": "Đặng Thị G",
+    "email": "staff8@hutech.edu.vn",
+    "phone": "0706068260",
+    "address": "Lâm Đồng",
+    "birthday": "1982-04-10",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 1406532601,
+    "staff_name": "Huỳnh Văn F",
+    "email": "staff20@hutech.edu.vn",
+    "phone": "0706068270",
+    "address": "Bình Dương",
+    "birthday": "1988-03-30",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 1304868666,
+    "staff_name": "Huỳnh Văn F",
+    "email": "staff4@hutech.edu.vn",
+    "phone": "0706068265",
+    "address": "Lâm Đồng",
+    "birthday": "1983-06-18",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 1079440959,
+    "staff_name": "Trần Thị B",
+    "email": "staff16@hutech.edu.vn",
+    "phone": "0706068259",
+    "address": "Hải Phòng",
+    "birthday": "1985-03-17",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 1309012404,
+    "staff_name": "Võ Văn H",
+    "email": "staff8@hutech.edu.vn",
+    "phone": "0706068277",
+    "address": "Khánh Hòa",
+    "birthday": "1995-06-03",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": 1450539609,
+    "staff_name": "Đỗ Thị I",
+    "email": "staff4@hutech.edu.vn",
+    "phone": "0706068266",
+    "address": "Đà Nẵng",
+    "birthday": "1992-11-26",
+    "password": "pbkdf2_sha256$600000$Nta2N5O5ePVWG2UByOAB0m$Dkfmk1IzFFcAl3FxVY1wON6zM/52xMk/VMocovIZmkQ="
+  },
+  {
+    "id_staff": "admin",
+    "staff_name": "Phạm Minh Hiếu",
+    "email": "admin@hutech.edu.vn",
+    "phone": "0706068259",
+    "address": "Hồ Chí Minh",
+    "birthday": "2002-11-11",
+    "password": "pbkdf2_sha256$600000$wM6h0bb5KVH63AcsrM3XWW$0A6WezDorkE+rY1jOwzXe1w0D89H7SeaB3Cno9yevak="
+  }
 ]
