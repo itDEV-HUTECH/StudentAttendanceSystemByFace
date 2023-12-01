@@ -131,7 +131,6 @@
     <script>
         function confirmDeleteStudentInClass(studentId, classroomId) {
             let deleteUrl = "{% url 'admin_list_student_in_class_delete' id_student=1 id_classroom=2 %}".replace('1', studentId).replace('2', classroomId);
-            ;
             $('#confirmDeleteButton').attr('href', deleteUrl);
             $('#confirmDeleteModal').modal('show');
             $('#studentIdToDelete').text(studentId);
