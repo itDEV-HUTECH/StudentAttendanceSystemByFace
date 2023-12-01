@@ -11,36 +11,21 @@
     <div class="card">
         <div class="card-body">
             <h3 class="card-title mb-3">Danh sách sinh viên</h3>
-            <a href="" class="btn btn-success mdi mdi-account-plus text-white"
-               id="addStudentClass">Thêm sinh viên
-            </a>
             {% for student in students_in_class %}
                 {% if forloop.first %}
                     <a href="#" class="btn btn-success mdi mdi-account-plus text-white" id="deleteAllStudent"
-                       onclick="confirmDeleteAllStudentInClass({{ student.id_classroom.id_classroom }})">Xóa tất cả sinh
-                        viên</a>
+                       onclick="confirmDeleteAllStudentInClass({{ student.id_classroom.id_classroom }})">Xóa tất cả sinh viên
+                    </a>
                 {% endif %}
             {% endfor %}
-            <form id="addStudentIntoClassroomForm" method="POST" action="{% url 'add_student_into_classroom' %}">
-                {% csrf_token %}
-                <div class=" col-6 mb-3 form-group row d-flex justify-content-center">
-                    <label for="id_classroom" class="col-sm-3 control-label col-form-label">Nhập ID lớp học:</label>
-                    <div class="col-sm-9">
-                        <div class="input-group">
-                            <input type="text" id="id_classroom" name="id_classroom">
-                        </div>
-                    </div>
-                    <label for="file_path" class="col-sm-3 control-label col-form-label">Chọn file:</label>
-                    <div class="col-sm-9">
-                        <div class="input-group">
-                            <input type="file" id="file_path" name="file_path">
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" onclick="addStudents()"
-                        class="col-2 btn btn-success mdi mdi-account-plus text-white">Thêm sinh viên
-                </button>
-            </form>
+            <a href="{% url 'admin_list_student_in_class_add' classroom_id=classroom_id %}"
+               class="btn btn-success mdi mdi-account-plus text-white"
+               id="addStudentInClass" >Thêm sinh viên
+            </a>
+            <a  href="{% url 'admin_list_student_in_class_add_list' classroom_id=classroom_id %}"
+                id="addListStudentInClass"
+                class="btn btn-success mdi mdi-account-plus text-white">Thêm danh sách sinh viên
+            </a>
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -70,9 +55,6 @@
                         <td class="text-center">
                             <a href="#" class="btn btn-danger btn-sm mdi mdi-delete" id="deleteStudent"
                                onclick="confirmDeleteStudentInClass({{ student.id_student.id_student }},{{ student.id_classroom.id_classroom }})">Xóa</a>
-
-                            <a href="#" class="btn btn-primary btn-sm mdi mdi-account-edit"
-                               onclick="editStudent({{ student.id_student }})">Sửa</a>
                         </td>
                     </tr>
 
@@ -124,10 +106,13 @@
 
     {% include 'admin/modal-popup/popup_delete_student_in_class.html' %}
     {% include 'admin/modal-popup/popup_delete_all_student_in_class.html' %}
+    {% include 'admin/modal-popup/popup_add_student_in_class.html' %}
+    {% include 'admin/modal-popup/popup_add_list_students_in_class.html' %}
 {% endblock %}
 
 {% block js %}
     <script src="{% static '' %}assets/js/manage-student.js"></script>
+    <script src="{% static '' %}assets/js/manage-students-in-class.js"></script>
     <script>
         function confirmDeleteStudentInClass(studentId, classroomId) {
             let deleteUrl = "{% url 'admin_list_student_in_class_delete' id_student=1 id_classroom=2 %}".replace('1', studentId).replace('2', classroomId);
@@ -141,6 +126,7 @@
             $('#confirmDeleteAllButton').attr('href', deleteUrl);
             $('#confirmDeleteAllModal').modal('show');
         }
+
     </script>
     <script>
         function addStudents() {
