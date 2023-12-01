@@ -64,18 +64,6 @@ def error_403_view(request):
     return render(request, 'error/error-403.html')
 
 
-def error_404_view(request):
-    return render(request, 'error/error-404.html')
-
-
-def error_405_view(request):
-    return render(request, 'error/error-405.html')
-
-
-def error_500_view(request):
-    return render(request, 'error/error-500.html')
-
-
 def hash_password(request):
     if request.method == 'POST':
         password = request.POST['password']
