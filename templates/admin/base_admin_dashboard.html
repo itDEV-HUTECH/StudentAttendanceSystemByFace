@@ -117,18 +117,6 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{% url 'admin_profile' %}" class="sidebar-link">
-                                    <i class="mdi mdi-account-edit"></i>
-                                    <span class="hide-menu"> Nhân viên </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="{% url 'admin_change_password' %}" class="sidebar-link">
-                                    <i class="mdi mdi-account-edit"></i>
-                                    <span class="hide-menu"> Admin </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
                                 <a href="{% url 'admin_schedule_management' %}" class="sidebar-link">
                                     <i class="mdi mdi-account-edit"></i>
                                     <span class="hide-menu"> Thời khóa biểu </span>
@@ -170,9 +158,7 @@
 <script src="{% static '' %}dist/js/waves.js"></script>
 <script src="{% static '' %}dist/js/sidebarmenu.js"></script>
 <script src="{% static '' %}dist/js/custom.min.js"></script>
-<script src="{% static '' %}assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
 <script src="{% static '' %}assets/extra-libs/multicheck/jquery.multicheck.js"></script>
-<script src="{% static '' %}assets/extra-libs/DataTables/datatables.min.js"></script>
 <script src="{% static '' %}assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script>
     jQuery("#birthday, #begin_date, #end_date").datepicker({

@@ -11,23 +11,26 @@
     <div class="card">
         <div class="card-body">
             <h3 class="card-title mb-3">Danh sách sinh viên</h3>
-            <a href="#" class="btn btn-success mdi mdi-account-plus text-white"
-               id="addStudent">Thêm sinh viên
-            </a>
-            <button type="button" class="btn btn-danger mdi mdi-account-plus text-white" id="train-button">Train
-            </button>
+            <div class="d-flex justify-content-between mb-3">
+                <div class="text-nowrap">
+                    <a href="#" class="btn btn-success mdi mdi-account-plus text-white" id="addStudent">
+                        Thêm sinh viên
+                    </a>
+                    <button type="button" class="btn btn-danger mdi mdi-account-plus text-white" id="train-button">
+                        Train
+                    </button>
+                </div>
+                <div class="input-group-addon">
+                    <input type="text" class="form-control" placeholder="Tìm kiếm...">
+                </div>
+            </div>
             <div id="result"></div>
         </div>
+
         <div class="table-responsive">
             <table class="table">
                 <thead class="text-nowrap">
                 <tr>
-                    <th>
-                        <label class="customcheckbox mb-3">
-                            <input type="checkbox" id="mainCheckbox"/>
-                            <span class="checkmark"></span>
-                        </label>
-                    </th>
                     <th class="text-center" scope="col">MSSV</th>
                     <th scope="col">Họ và tên</th>
                     <th scope="col">Email</th>
@@ -41,12 +44,6 @@
                 <tbody class="customtable text-nowrap">
                 {% for student in list_students %}
                     <tr>
-                        <th>
-                            <label class="customcheckbox">
-                                <input type="checkbox" class="listCheckbox"/>
-                                <span class="checkmark"></span>
-                            </label>
-                        </th>
                         <td class="text-center">{{ student.id_student }}</td>
                         <td>{{ student.student_name }}</td>
                         <td>{{ student.email }}</td>

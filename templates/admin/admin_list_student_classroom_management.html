@@ -3,8 +3,6 @@
 {% load static %}
 
 {% block css %}
-    <link href="{% static '' %}assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="{% static '' %}assets/extra-libs/multicheck/multicheck.css"/>
 {% endblock %}
 
 {% block content %}
@@ -14,17 +12,18 @@
             {% for student in students_in_class %}
                 {% if forloop.first %}
                     <a href="#" class="btn btn-success mdi mdi-account-plus text-white" id="deleteAllStudent"
-                       onclick="confirmDeleteAllStudentInClass({{ student.id_classroom.id_classroom }})">Xóa tất cả sinh viên
+                       onclick="confirmDeleteAllStudentInClass({{ student.id_classroom.id_classroom }})">
+                        Xóa tất cả sinh viên
                     </a>
                 {% endif %}
             {% endfor %}
             <a href="{% url 'admin_list_student_in_class_add' classroom_id=classroom_id %}"
                class="btn btn-success mdi mdi-account-plus text-white"
-               id="addStudentInClass" >Thêm sinh viên
+               id="addStudentInClass">Thêm sinh viên
             </a>
-            <a  href="{% url 'admin_list_student_in_class_add_list' classroom_id=classroom_id %}"
-                id="addListStudentInClass"
-                class="btn btn-success mdi mdi-account-plus text-white">Thêm danh sách sinh viên
+            <a href="{% url 'admin_list_student_in_class_add_list' classroom_id=classroom_id %}"
+               id="addListStudentInClass"
+               class="btn btn-success mdi mdi-account-plus text-white">Thêm danh sách sinh viên
             </a>
         </div>
         <div class="table-responsive">
