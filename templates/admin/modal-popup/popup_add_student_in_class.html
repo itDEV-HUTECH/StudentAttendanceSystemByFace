@@ -1,0 +1,28 @@
+<div id="addNewStudentInClassModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm sinh viên vào lớp học</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addNewStudentInClassForm" method="POST" action="{% url 'admin_list_student_in_class_add' classroom_id=classroom_id %}">
+                    {% csrf_token %}
+                    <div class="mb-3 form-group row d-flex justify-content-center">
+                        <label for="id_student" class="col-sm-3 control-label col-form-label">Tên lớp học</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="id_student" id="id_student"
+                                       placeholder="Nhập mã số sinh viên" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-success text-white">Thêm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
