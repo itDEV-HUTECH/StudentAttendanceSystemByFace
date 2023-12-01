@@ -453,9 +453,9 @@ def admin_list_student_in_classroom_view(request, classroom_id):
 
 
 @admin_required
-def admin_list_student_in_class_add_list(request,classroom_id):
+def admin_list_student_in_class_add_list(request, classroom_id):
     if request.method == 'POST':
-        file_path = request.POST.get('file_path')
+        file_path = request.FILES['file_path']
         try:
             classroom = Classroom.objects.get(id_classroom=classroom_id)
         except Classroom.DoesNotExist:
