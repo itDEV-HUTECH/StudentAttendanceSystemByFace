@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password, make_password
 from django.core.paginator import Paginator
-from django.db.models import Count , Q
+from django.db.models import Count, Q
 from django.db import transaction
 from django.http import JsonResponse
 from django.http import StreamingHttpResponse
@@ -59,7 +59,6 @@ class AddBlog(SuccessMessageMixin, CreateView, ListView):
     form_class = BlogForm
     model = BlogPost
     template_name = "admin/admin_notification_management.html"
-    success_message = "Added Successfully"
     context_object_name = 'blog_posts'
 
     def get_success_url(self):
@@ -176,7 +175,6 @@ def admin_student_add(request):
         phone = request.POST['phone']
         address = request.POST['address']
         birthday = datetime.strptime(request.POST['birthday'], '%d/%m/%Y').date()
-        print(request.POST['student_name_edit'])
 
         PathImageFolder = request.POST['PathImageFolder']
         password = make_password(request.POST['id_student'])
@@ -436,7 +434,7 @@ def admin_list_classroom_student_view(request):
     ).annotate(student_count=Count('studentclassdetails__id_student'))
     paginator = Paginator(list_classrooms, classroom_per_page)
     page = paginator.get_page(page_number)
-    context = {'list_classrooms': page,'search_query': search_query}
+    context = {'list_classrooms': page, 'search_query': search_query}
     return render(request, 'admin/admin_list_classroom_student_management.html', context)
 
 
@@ -448,7 +446,7 @@ def admin_list_student_in_classroom_view(request, classroom_id):
     page_number = request.GET.get('page')
     paginator = Paginator(students_in_class, student_per_page)
     page = paginator.get_page(page_number)
-    context = {'students_in_class': page, 'classroom_id': classroom_id,}
+    context = {'students_in_class': page, 'classroom_id': classroom_id, }
     return render(request, 'admin/admin_list_student_classroom_management.html', context)
 
 
@@ -481,18 +479,19 @@ def admin_list_student_in_class_add_list(request, classroom_id):
 
 
 @admin_required
-def admin_list_student_in_class_add(request,classroom_id):
+def admin_list_student_in_class_add(request, classroom_id):
     if request.method == 'POST':
         id_student = request.POST.get('id_student')
         if StudentClassDetails.objects.filter(id_classroom_id=classroom_id, id_student_id=id_student).exists():
             messages.warning(request, 'Sinh viên đã tồn tại trong lớp học.')
         else:
             student_in_class = StudentClassDetails(id_classroom_id=classroom_id,
-                                               id_student_id=id_student)
+                                                   id_student_id=id_student)
             student_in_class.save()
             messages.success(request, 'Thêm sinh viên vào lớp học thành công.')
         return redirect('admin_list_student_in_classroom', classroom_id)
     return render(request, 'admin/modal-popup/popup_add_student_in_class.html')
+
 
 @admin_required
 def admin_list_student_in_class_delete(request, id_student, id_classroom):
