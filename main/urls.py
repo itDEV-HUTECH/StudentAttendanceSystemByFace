@@ -28,7 +28,8 @@ urlpatterns = [
     path('admin/student-management/delete/<int:id_student>', admin_views.admin_student_delete,
          name='admin_student_delete'),
     path('admin/student-management/edit/<int:id_student>', admin_views.admin_student_edit, name='admin_student_edit'),
-    path('admin/student-management/student_capture/<int:id_student>', admin_views.admin_student_capture, name='admin_student_capture'),
+    path('admin/student-management/student_capture/<int:id_student>', admin_views.admin_student_capture,
+         name='admin_student_capture'),
 
     path('admin/student-management/get-info/<int:id_student>', admin_views.admin_student_get_info,
          name='admin_student_get_info'),
@@ -61,13 +62,16 @@ urlpatterns = [
          name='admin_list_classroom_student'),
     path('admin/list-student-in-class-management/<int:classroom_id>', admin_views.admin_list_student_in_classroom_view,
          name='admin_list_student_in_classroom'),
-    path('admin/list-student-in-class-management/add-list/<int:classroom_id>', admin_views.admin_list_student_in_class_add_list,
+    path('admin/list-student-in-class-management/add-list/<int:classroom_id>',
+         admin_views.admin_list_student_in_class_add_list,
          name='admin_list_student_in_class_add_list'),
     path('admin/list-student-in-class-management/add/<int:classroom_id>', admin_views.admin_list_student_in_class_add,
          name='admin_list_student_in_class_add'),
-    path('admin/list-student-in-class-management/delete/<int:id_classroom>/<int:id_student>', admin_views.admin_list_student_in_class_delete,
+    path('admin/list-student-in-class-management/delete/<int:id_classroom>/<int:id_student>',
+         admin_views.admin_list_student_in_class_delete,
          name='admin_list_student_in_class_delete'),
-    path('admin/list-student-in-class-management/delete-all/<int:id_classroom>', admin_views.admin_list_student_in_class_delete_all,
+    path('admin/list-student-in-class-management/delete-all/<int:id_classroom>',
+         admin_views.admin_list_student_in_class_delete_all,
          name='admin_list_student_in_class_delete_all'),
 
     # Lecturer
@@ -110,9 +114,6 @@ urlpatterns = [
 
     # Error
     path('error/403', views.error_403_view, name='error_403'),
-    path('error/404', views.error_404_view, name='error_404'),
-    path('error/405', views.error_404_view, name='error_405'),
-    path('error/500', views.error_500_view, name='error_500'),
 
     path('hashpassword', views.hash_password, name='hash_password'),
 ]
