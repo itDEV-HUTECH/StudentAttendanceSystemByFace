@@ -1,4 +1,4 @@
-<div id="captureStudentModal" class="modal fade" role="dialog">
+<div id="captureStudentModal" tabindex="-1" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,19 +9,25 @@
                 <form method="POST" class="captureStudentForm" id="captureStudentForm" action="">
                     {% csrf_token %}
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="id_student_capture" class="col-sm-2 control-label col-form-label">Mã sinh viên</label>
+                        <label for="id_student_capture" class="col-sm-2 control-label col-form-label">
+                            Mã sinh viên
+                        </label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="number" class="form-control" name="id_student_capture" id="id_student_capture" required readonly>
+                                <input type="number" class="form-control" name="id_student_capture"
+                                       id="id_student_capture" required readonly>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3 form-group row d-flex justify-content-center">
-                        <label for="student_name_capture" class="col-sm-2 control-label col-form-label">Tên sinh viên</label>
+                        <label for="student_name_capture" class="col-sm-2 control-label col-form-label">
+                            Tên sinh viên
+                        </label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="student_name_capture" id="student_name_capture" required readonly>
+                                <input type="text" class="form-control" name="student_name_capture"
+                                       id="student_name_capture" required readonly>
                             </div>
                         </div>
                     </div>
@@ -30,7 +36,8 @@
                         <label for="email_capture" class="col-sm-2 control-label col-form-label">Email</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="email_capture" id="email_capture" required readonly>
+                                <input type="text" class="form-control" name="email_capture" id="email_capture" required
+                                       readonly>
                             </div>
                         </div>
                     </div>
@@ -39,7 +46,8 @@
                         <label for="phone_capture" class="col-sm-2 control-label col-form-label">Số điện thoại</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="phone_capture" id="phone_capture" required readonly>
+                                <input type="text" class="form-control" name="phone_capture" id="phone_capture" required
+                                       readonly>
                             </div>
                         </div>
                     </div>
@@ -48,7 +56,8 @@
                         <label for="address_capture" class="col-sm-2 control-label col-form-label">Địa chỉ</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="address_capture" id="address_capture" required readonly>
+                                <input type="text" class="form-control" name="address_capture" id="address_capture"
+                                       required readonly>
                             </div>
                         </div>
                     </div>
@@ -71,7 +80,8 @@
                                class="col-sm-2 control-label col-form-label">PathImageFolder</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="PathImageFolder_capture" id="PathImageFolder_capture"
+                                <input type="text" class="form-control" name="PathImageFolder_capture"
+                                       id="PathImageFolder_capture"
                                        required readonly>
                             </div>
                         </div>
