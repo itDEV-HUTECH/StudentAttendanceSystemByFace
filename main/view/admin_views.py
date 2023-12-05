@@ -454,10 +454,7 @@ def admin_list_student_in_classroom_view(request, classroom_id):
 def admin_list_student_in_class_add_list(request, classroom_id):
     if request.method == 'POST':
         file_path = request.FILES['file_path']
-        try:
-            classroom = Classroom.objects.get(id_classroom=classroom_id)
-        except Classroom.DoesNotExist:
-            return render(request, 'error/error_template.html', {'error_message': 'Lớp học không tồn tại.'})
+        classroom = Classroom.objects.get(id_classroom=classroom_id)
 
         workbook = openpyxl.load_workbook(file_path)
         sheet = workbook.active
@@ -465,12 +462,7 @@ def admin_list_student_in_class_add_list(request, classroom_id):
 
         with transaction.atomic():
             for id_student in list_id_student:
-                try:
-                    student = StudentInfo.objects.get(id_student=id_student)
-                except StudentInfo.DoesNotExist:
-                    student = StudentInfo(id_student=id_student)
-                    student.save()
-
+                student = StudentInfo.objects.get(id_student=id_student)
                 if not StudentClassDetails.objects.filter(id_classroom=classroom, id_student=student).exists():
                     student_class_detail = StudentClassDetails(id_classroom=classroom, id_student=student)
                     student_class_detail.save()
