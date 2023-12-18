@@ -249,7 +249,6 @@ def generate_frames(model_dir, device_id):
     cv2.destroyAllWindows()
 
 
-
 @gzip.gzip_page
 def live_video_feed2(request, classroom_id):
     print(classroom_id)
@@ -282,7 +281,7 @@ def lecturer_mark_attendance_by_face(request, classroom_id):
 @lecturer_required
 def lecturer_history_list_classroom_view(request):
     id_lecturer = request.session.get('id_staff')
-    classroom_per_page = 5
+    classroom_per_page = 10
     page_number = request.GET.get('page')
 
     classrooms = Classroom.objects.filter(
@@ -302,7 +301,7 @@ def lecturer_attendance_history_view(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
     students_attendance = Attendance.objects.filter(id_classroom=classroom).order_by('id_student')
 
-    student_per_page = 5
+    student_per_page = 10
     page_number = request.GET.get('page')
     pagniator = Paginator(students_attendance, student_per_page)
     page = pagniator.get_page(page_number)
@@ -318,7 +317,7 @@ def lecturer_attendance_history_view(request, classroom_id):
 @lecturer_required
 def lecturer_list_classroom_view(request):
     id_lecturer = request.session.get('id_staff')
-    classroom_per_page = 5
+    classroom_per_page = 10
     page_number = request.GET.get('page')
 
     classrooms = Classroom.objects.filter(
@@ -337,7 +336,7 @@ def lecturer_list_classroom_view(request):
 def lecturer_calculate_attendance_points_view(request, classroom_id):
     classroom = Classroom.objects.get(pk=classroom_id)
     students_in_class = StudentClassDetails.objects.filter(id_classroom=classroom)
-    student_per_page = 5
+    student_per_page = 10
     page_number = request.GET.get('page')
 
     student_attendance_counts = []
