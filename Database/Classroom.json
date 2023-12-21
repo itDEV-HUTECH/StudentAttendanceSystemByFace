@@ -1,102 +1,392 @@
 [
-	{
-		"id_classroom" : 1,
-		"name" : "Ngôn ngữ phát triển ứng dụng mới\t",
-		"begin_date" : "2023-11-13",
-		"end_date" : "2024-01-14",
-		"day_of_week_begin" : 1,
-		"begin_time" : "07:30:00.000000",
-		"end_time" : "11:30:00.000000",
-		"id_lecturer_id" : "111"
-	},
-	{
-		"id_classroom" : 2,
-		"name" : "Lập trình trên thiết bị di động\t",
-		"begin_date" : "2023-12-11",
-		"end_date" : "2023-12-31",
-		"day_of_week_begin" : 2,
-		"begin_time" : "12:30:00.000000",
-		"end_time" : "16:30:00.000000",
-		"id_lecturer_id" : "111"
-	},
-	{
-		"id_classroom" : 3,
-		"name" : "Quản lý dự án công nghệ thông tin\t",
-		"begin_date" : "2023-08-21",
-		"end_date" : "2023-10-22",
-		"day_of_week_begin" : 3,
-		"begin_time" : "07:30:00.000000",
-		"end_time" : "11:30:00.000000",
-		"id_lecturer_id" : "111"
-	},
-	{
-		"id_classroom" : 4,
-		"name" : "Lập trình mạng máy tính\t",
-		"begin_date" : "2023-09-25",
-		"end_date" : "2023-10-15",
-		"day_of_week_begin" : 4,
-		"begin_time" : "12:30:00.000000",
-		"end_time" : "16:30:00.000000",
-		"id_lecturer_id" : "111"
-	},
-	{
-		"id_classroom" : 5,
-		"name" : "Ngôn ngữ phát triển ứng dụng mới\t",
-		"begin_date" : "2023-11-13",
-		"end_date" : "2024-01-14",
-		"day_of_week_begin" : 1,
-		"begin_time" : "07:30:00.000000",
-		"end_time" : "11:30:00.000000",
-		"id_lecturer_id" : "222"
-	},
-	{
-		"id_classroom" : 6,
-		"name" : "Lập trình trên thiết bị di động\t",
-		"begin_date" : "2023-12-11",
-		"end_date" : "2023-12-31",
-		"day_of_week_begin" : 2,
-		"begin_time" : "12:30:00.000000",
-		"end_time" : "16:30:00.000000",
-		"id_lecturer_id" : "222"
-	},
-	{
-		"id_classroom" : 7,
-		"name" : "Quản lý dự án công nghệ thông tin\t",
-		"begin_date" : "2023-08-21",
-		"end_date" : "2023-10-22",
-		"day_of_week_begin" : 3,
-		"begin_time" : "07:30:00.000000",
-		"end_time" : "11:30:00.000000",
-		"id_lecturer_id" : "222"
-	},
-	{
-		"id_classroom" : 8,
-		"name" : "Lập trình mạng máy tính\t",
-		"begin_date" : "2023-09-25",
-		"end_date" : "2023-10-15",
-		"day_of_week_begin" : 4,
-		"begin_time" : "12:30:00.000000",
-		"end_time" : "16:30:00.000000",
-		"id_lecturer_id" : "222"
-	},
-	{
-		"id_classroom" : 9,
-		"name" : "Test cho gv1",
-		"begin_date" : "2023-08-21",
-		"end_date" : "2023-10-22",
-		"day_of_week_begin" : 2,
-		"begin_time" : "12:30:00.000000",
-		"end_time" : "16:30:00.000000",
-		"id_lecturer_id" : "111"
-	},
-	{
-		"id_classroom" : 10,
-		"name" : "Test cho gv2",
-		"begin_date" : "2023-08-21",
-		"end_date" : "2023-10-22",
-		"day_of_week_begin" : 2,
-		"begin_time" : "12:30:00.000000",
-		"end_time" : "16:30:00.000000",
-		"id_lecturer_id" : "222"
-	}
+  {
+    "id_classroom": 1,
+    "name": "Xác xuất thống kê",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 1,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2949769422"
+  },
+  {
+    "id_classroom": 2,
+    "name": "Toán rời rạc",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 2,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2949769422"
+  },
+  {
+    "id_classroom": 3,
+    "name": "Ngôn ngữ lập trình C",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 3,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2949769422"
+  },
+  {
+    "id_classroom": 4,
+    "name": "Kỹ thuật lập trình",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 4,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2949769422"
+  },
+  {
+    "id_classroom": 5,
+    "name": "Lập trình hướng đối tượng",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 5,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2949769422"
+  },
+  {
+    "id_classroom": 6,
+    "name": "Cơ sở dữ liệu và quản trị cơ sở dữ liệu",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 6,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2949769422"
+  },
+  {
+    "id_classroom": 7,
+    "name": "Cấu trúc dữ liệu và giải thuật",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 7,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2949769422"
+  },
+  {
+    "id_classroom": 8,
+    "name": "Cơ sở dữ liệu nâng cao",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 1,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2013497810"
+  },
+  {
+    "id_classroom": 9,
+    "name": "Lập trình ứng dụng với Java",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 2,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2013497810"
+  },
+  {
+    "id_classroom": 10,
+    "name": "Kiến trúc và hệ điều hành máy tính",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 3,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2013497810"
+  },
+  {
+    "id_classroom": 11,
+    "name": "Bảo mật thông tin",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 4,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2013497810"
+  },
+  {
+    "id_classroom": 12,
+    "name": "Công nghệ phần mềm",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 5,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2013497810"
+  },
+  {
+    "id_classroom": 13,
+    "name": "Lập trình mạng máy tính",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 6,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2013497810"
+  },
+  {
+    "id_classroom": 14,
+    "name": "Lập trình trên môi trường Windows",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 7,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2013497810"
+  },
+  {
+    "id_classroom": 15,
+    "name": "Lập trình trên thiết bị di động",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 1,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2158643935"
+  },
+  {
+    "id_classroom": 16,
+    "name": "Lập trình Web",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 2,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2158643935"
+  },
+  {
+    "id_classroom": 17,
+    "name": "Mạng máy tính",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 3,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2158643935"
+  },
+  {
+    "id_classroom": 18,
+    "name": "Phân tích thiết kế hệ thống",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 4,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2158643935"
+  },
+  {
+    "id_classroom": 19,
+    "name": "Quản lý dự án công nghệ thông tin ",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 5,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2158643935"
+  },
+  {
+    "id_classroom": 20,
+    "name": "Trí tuệ nhân tạo",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 6,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2158643935"
+  },
+  {
+    "id_classroom": 21,
+    "name": "Thực hành an toàn máy chủ Windows",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 7,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2158643935"
+  },
+  {
+    "id_classroom": 22,
+    "name": "Thực hành bảo mật thông tin",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 1,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2258464745"
+  },
+  {
+    "id_classroom": 23,
+    "name": "Thực hành cấu trúc dữ liệu và giải thuật",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 2,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2258464745"
+  },
+  {
+    "id_classroom": 24,
+    "name": "Thực hành cơ sở dữ liệu",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 3,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2258464745"
+  },
+  {
+    "id_classroom": 25,
+    "name": "Thực hành hệ điều hành",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 4,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2258464745"
+  },
+  {
+    "id_classroom": 26,
+    "name": "Thực hành kiến trúc máy tính",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 5,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2258464745"
+  },
+  {
+    "id_classroom": 27,
+    "name": "Thực hành ngôn ngữ lập trình C",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 6,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2258464745"
+  },
+  {
+    "id_classroom": 28,
+    "name": "Thực hành kỹ thuật lập trình",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 7,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2258464745"
+  },
+  {
+    "id_classroom": 29,
+    "name": "Thực hành lập trình hướng đối tượng",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 1,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2322385418"
+  },
+  {
+    "id_classroom": 30,
+    "name": "Thực hành lập trình mạng máy tính",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 2,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2322385418"
+  },
+  {
+    "id_classroom": 31,
+    "name": "Thực hành lập trình trên môi trường Windows",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 3,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2322385418"
+  },
+  {
+    "id_classroom": 32,
+    "name": "Thực hành lập trình Web",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 4,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2322385418"
+  },
+  {
+    "id_classroom": 33,
+    "name": "Thực hành lý thuyết đồ thị",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 5,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2322385418"
+  },
+  {
+    "id_classroom": 34,
+    "name": "Thực hành mạng máy tính",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 6,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2322385418"
+  },
+  {
+    "id_classroom": 35,
+    "name": "Thực hành phân tích thiết kế hệ thống",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 7,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2322385418"
+  },
+  {
+    "id_classroom": 36,
+    "name": "Thực hành phân tích thiết kế theo hướng đối tượng",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 1,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2351521532"
+  },
+  {
+    "id_classroom": 37,
+    "name": "Thực hành lập trình ứng dụng với Java",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 2,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2351521532"
+  },
+  {
+    "id_classroom": 38,
+    "name": "Thực hành quản trị cơ sở dữ liệu",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 3,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2351521532"
+  },
+  {
+    "id_classroom": 39,
+    "name": "Đồ án cơ sở ngành Công nghệ thông tin",
+    "begin_date": "2023-08-21",
+    "end_date": "2023-12-31",
+    "day_of_week_begin": 4,
+    "begin_time": "07:30:00.000000",
+    "end_time": "11:30:00.000000",
+    "id_lecturer_id": "2351521532"
+  }
 ]
